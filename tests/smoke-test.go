@@ -57,7 +57,7 @@ func _smokeCase2() {
 		Document: sdk.F[string](""),
 		Slug: sdk.F[string](""),
 		Title: sdk.F[string](""),
-		Version: sdk.F[string](""),
+		Version: sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
@@ -118,7 +118,7 @@ func _smokeCase8() {
 func _smokeCase9() {
 	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
 		Document: sdk.F[string](""),
-		Version: sdk.F[string](""),
+		Version: sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
@@ -129,7 +129,7 @@ func _smokeCase9() {
 func _smokeCase10() {
 	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroup{
-		AccessGroupSlug: sdk.F[string](""),
+		AccessGroupSlug: sdk.F[string]("xxx"),
 	},
 	})
 	if err != nil {
@@ -141,7 +141,7 @@ func _smokeCase10() {
 func _smokeCase11() {
 	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroup{
-		AccessGroupSlug: sdk.F[string](""),
+		AccessGroupSlug: sdk.F[string]("xxx"),
 	},
 	})
 	if err != nil {
@@ -163,7 +163,7 @@ func _smokeCase13() {
 		Document: sdk.F[string](""),
 		Slug: sdk.F[string](""),
 		Title: sdk.F[string](""),
-		Version: sdk.F[string](""),
+		Version: sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
@@ -206,7 +206,7 @@ func _smokeCase17() {
 func _smokeCase18() {
 	schema, err := client.Schemas.NewVersion(context.Background(), "namespace", "slug", sdk.SchemaNewVersionParams{
 		Document: sdk.F[string](""),
-		Version: sdk.F[string](""),
+		Version: sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
@@ -216,7 +216,7 @@ func _smokeCase18() {
 
 func _smokeCase19() {
 	schema, err := client.Schemas.NewAccessGroup(context.Background(), "namespace", "slug", sdk.SchemaNewAccessGroupParams{
-		AccessGroupSlug: sdk.F[string](""),
+		AccessGroupSlug: sdk.F[string]("xxx"),
 	})
 	if err != nil {
 		panic(err)
@@ -226,7 +226,7 @@ func _smokeCase19() {
 
 func _smokeCase20() {
 	schema, err := client.Schemas.DeleteAccessGroup(context.Background(), "namespace", "slug", sdk.SchemaDeleteAccessGroupParams{
-		AccessGroupSlug: sdk.F[string](""),
+		AccessGroupSlug: sdk.F[string]("xxx"),
 	})
 	if err != nil {
 		panic(err)
@@ -352,7 +352,7 @@ func _smokeCase30() {
 
 func _smokeCase31() {
 	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
-		AccessGroupSlug: sdk.F[string](""),
+		AccessGroupSlug: sdk.F[string]("xxx"),
 	})
 	if err != nil {
 		panic(err)
@@ -362,7 +362,7 @@ func _smokeCase31() {
 
 func _smokeCase32() {
 	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
-		AccessGroupSlug: sdk.F[string](""),
+		AccessGroupSlug: sdk.F[string]("xxx"),
 	})
 	if err != nil {
 		panic(err)

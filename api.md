@@ -121,7 +121,7 @@ registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace
 	Document: sdk.F[string](""),
 	Slug: sdk.F[string](""),
 	Title: sdk.F[string](""),
-	Version: sdk.F[string](""),
+	Version: sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
@@ -232,7 +232,7 @@ Create a new API document version.
 ```go
 registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
 	Document: sdk.F[string](""),
-	Version: sdk.F[string](""),
+	Version: sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
@@ -251,7 +251,7 @@ Add an access group to an API document.
 ```go
 registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroup{
-	AccessGroupSlug: sdk.F[string](""),
+	AccessGroupSlug: sdk.F[string]("xxx"),
 },
 })
 if err != nil {
@@ -271,7 +271,7 @@ Remove an access group from an API document.
 ```go
 registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroup{
-	AccessGroupSlug: sdk.F[string](""),
+	AccessGroupSlug: sdk.F[string]("xxx"),
 },
 })
 if err != nil {
@@ -312,7 +312,7 @@ schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaN
 	Document: sdk.F[string](""),
 	Slug: sdk.F[string](""),
 	Title: sdk.F[string](""),
-	Version: sdk.F[string](""),
+	Version: sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
@@ -388,7 +388,7 @@ Create a schema version.
 ```go
 schema, err := client.Schemas.NewVersion(context.Background(), "namespace", "slug", sdk.SchemaNewVersionParams{
 	Document: sdk.F[string](""),
-	Version: sdk.F[string](""),
+	Version: sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
@@ -406,7 +406,7 @@ Add an access group to a schema.
 
 ```go
 schema, err := client.Schemas.NewAccessGroup(context.Background(), "namespace", "slug", sdk.SchemaNewAccessGroupParams{
-	AccessGroupSlug: sdk.F[string](""),
+	AccessGroupSlug: sdk.F[string]("xxx"),
 })
 if err != nil {
 	panic(err)
@@ -424,7 +424,7 @@ Remove an access group from a schema.
 
 ```go
 schema, err := client.Schemas.DeleteAccessGroup(context.Background(), "namespace", "slug", sdk.SchemaDeleteAccessGroupParams{
-	AccessGroupSlug: sdk.F[string](""),
+	AccessGroupSlug: sdk.F[string]("xxx"),
 })
 if err != nil {
 	panic(err)
@@ -636,7 +636,7 @@ Grant an access group to a rule.
 
 ```go
 rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
-	AccessGroupSlug: sdk.F[string](""),
+	AccessGroupSlug: sdk.F[string]("xxx"),
 })
 if err != nil {
 	panic(err)
@@ -654,7 +654,7 @@ Remove an access group from a rule.
 
 ```go
 rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
-	AccessGroupSlug: sdk.F[string](""),
+	AccessGroupSlug: sdk.F[string]("xxx"),
 })
 if err != nil {
 	panic(err)

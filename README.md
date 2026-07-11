@@ -226,11 +226,3 @@ Generated clients support request timeouts and retry temporary failures such as 
 - Go 1.22 or newer
 
 Powered by Scalar.
-
-
-## Contributions
-
-This SDK is generated programmatically. Manual edits to generated files will be
-overwritten on the next build.
-
-### SDK created by [Scalar](https://www.scalar.com/?utm_source=scalar-typescript-sdk-go&utm_campaign=sdk)

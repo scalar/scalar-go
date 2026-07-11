@@ -208,7 +208,7 @@ func (r *RuleService) GetRulesetDocument(ctx context.Context, namespace string, 
 // Example:
 //
 //     rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
-//     	AccessGroupSlug: sdk.F[string](""),
+//     	AccessGroupSlug: sdk.F[string]("xxx"),
 //     })
 //     if err != nil {
 //     	panic(err)
@@ -244,7 +244,7 @@ func (r *RuleService) NewRulesetAccessGroup(ctx context.Context, namespace strin
 // Example:
 //
 //     rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
-//     	AccessGroupSlug: sdk.F[string](""),
+//     	AccessGroupSlug: sdk.F[string]("xxx"),
 //     })
 //     if err != nil {
 //     	panic(err)

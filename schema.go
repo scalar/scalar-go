@@ -76,7 +76,7 @@ func (r *SchemaService) List(ctx context.Context, namespace string, opts ...opti
 //     	Document: sdk.F[string](""),
 //     	Slug: sdk.F[string](""),
 //     	Title: sdk.F[string](""),
-//     	Version: sdk.F[string](""),
+//     	Version: sdk.F[string]("x"),
 //     })
 //     if err != nil {
 //     	panic(err)
@@ -253,7 +253,7 @@ func (r *SchemaService) DeleteVersion(ctx context.Context, namespace string, slu
 //
 //     schema, err := client.Schemas.NewVersion(context.Background(), "namespace", "slug", sdk.SchemaNewVersionParams{
 //     	Document: sdk.F[string](""),
-//     	Version: sdk.F[string](""),
+//     	Version: sdk.F[string]("x"),
 //     })
 //     if err != nil {
 //     	panic(err)
@@ -289,7 +289,7 @@ func (r *SchemaService) NewVersion(ctx context.Context, namespace string, slug s
 // Example:
 //
 //     schema, err := client.Schemas.NewAccessGroup(context.Background(), "namespace", "slug", sdk.SchemaNewAccessGroupParams{
-//     	AccessGroupSlug: sdk.F[string](""),
+//     	AccessGroupSlug: sdk.F[string]("xxx"),
 //     })
 //     if err != nil {
 //     	panic(err)
@@ -325,7 +325,7 @@ func (r *SchemaService) NewAccessGroup(ctx context.Context, namespace string, sl
 // Example:
 //
 //     schema, err := client.Schemas.DeleteAccessGroup(context.Background(), "namespace", "slug", sdk.SchemaDeleteAccessGroupParams{
-//     	AccessGroupSlug: sdk.F[string](""),
+//     	AccessGroupSlug: sdk.F[string]("xxx"),
 //     })
 //     if err != nil {
 //     	panic(err)

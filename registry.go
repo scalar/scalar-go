@@ -99,7 +99,7 @@ func (r *RegistryService) ListAPIDocuments(ctx context.Context, namespace string
 //     	Document: sdk.F[string](""),
 //     	Slug: sdk.F[string](""),
 //     	Title: sdk.F[string](""),
-//     	Version: sdk.F[string](""),
+//     	Version: sdk.F[string]("x"),
 //     })
 //     if err != nil {
 //     	panic(err)
@@ -355,7 +355,7 @@ func (r *RegistryService) ListAPIDocumentVersionMetadata(ctx context.Context, na
 //
 //     registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
 //     	Document: sdk.F[string](""),
-//     	Version: sdk.F[string](""),
+//     	Version: sdk.F[string]("x"),
 //     })
 //     if err != nil {
 //     	panic(err)
@@ -392,7 +392,7 @@ func (r *RegistryService) NewAPIDocumentVersion(ctx context.Context, namespace s
 //
 //     registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 //     	AccessGroup: sdk.AccessGroup{
-//     	AccessGroupSlug: sdk.F[string](""),
+//     	AccessGroupSlug: sdk.F[string]("xxx"),
 //     },
 //     })
 //     if err != nil {
@@ -430,7 +430,7 @@ func (r *RegistryService) NewAPIDocumentAccessGroup(ctx context.Context, namespa
 //
 //     registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 //     	AccessGroup: sdk.AccessGroup{
-//     	AccessGroupSlug: sdk.F[string](""),
+//     	AccessGroupSlug: sdk.F[string]("xxx"),
 //     },
 //     })
 //     if err != nil {
