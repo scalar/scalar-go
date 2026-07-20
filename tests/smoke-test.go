@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	sdk "scalar-go"
-	"scalar-go/option"
+	sdk "github.com/scalar/scalar-go"
+	"github.com/scalar/scalar-go/option"
 )
 
 // Smoke test: calls every generated operation once to confirm the SDK can reach each endpoint.

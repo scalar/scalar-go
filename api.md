@@ -69,7 +69,7 @@ import (
 	"context"
 	"fmt"
 
-	sdk "scalar-go"
+	sdk "github.com/scalar/scalar-go"
 )
 
 client := sdk.NewClient()

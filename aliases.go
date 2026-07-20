@@ -3,7 +3,7 @@
 package scalargo
 
 import (
-	"scalar-go/internal/apierror"
+	"github.com/scalar/scalar-go/internal/apierror"
 )
 
 type Error = apierror.Error

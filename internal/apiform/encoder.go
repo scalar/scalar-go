@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"scalar-go/internal/param"
+	"github.com/scalar/scalar-go/internal/param"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

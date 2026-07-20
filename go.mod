@@ -1,4 +1,4 @@
-module scalar-go
+module github.com/scalar/scalar-go
 
 go 1.22
 

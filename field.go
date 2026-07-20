@@ -1,7 +1,7 @@
 package scalargo
 
 import (
-	"scalar-go/internal/param"
+	"github.com/scalar/scalar-go/internal/param"
 	"io"
 )
 

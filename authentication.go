@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"slices"
 
-	"scalar-go/internal/apijson"
-	"scalar-go/internal/param"
-	"scalar-go/internal/requestconfig"
-	"scalar-go/option"
+	"github.com/scalar/scalar-go/internal/apijson"
+	"github.com/scalar/scalar-go/internal/param"
+	"github.com/scalar/scalar-go/internal/requestconfig"
+	"github.com/scalar/scalar-go/option"
 )
 
 // AuthenticationService contains methods and other services that help with interacting

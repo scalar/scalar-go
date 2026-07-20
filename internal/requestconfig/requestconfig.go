@@ -18,11 +18,11 @@ import (
 	"strings"
 	"time"
 
-	"scalar-go/internal"
-	"scalar-go/internal/apierror"
-	"scalar-go/internal/apiform"
-	"scalar-go/internal/apiquery"
-	"scalar-go/internal/param"
+	"github.com/scalar/scalar-go/internal"
+	"github.com/scalar/scalar-go/internal/apierror"
+	"github.com/scalar/scalar-go/internal/apiform"
+	"github.com/scalar/scalar-go/internal/apiquery"
+	"github.com/scalar/scalar-go/internal/param"
 )
 
 func getDefaultHeaders() map[string]string {

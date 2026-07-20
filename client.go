@@ -9,8 +9,8 @@ import (
 	"slices"
 	"strings"
 
-	"scalar-go/internal/requestconfig"
-	"scalar-go/option"
+	"github.com/scalar/scalar-go/internal/requestconfig"
+	"github.com/scalar/scalar-go/option"
 )
 
 // Client creates a struct with services and top level methods that help with
