@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"scalar-go/internal/apijson"
+	"github.com/scalar/scalar-go/internal/apijson"
 )
 
 // Error represents an error that originates from the API, i.e. when a request is

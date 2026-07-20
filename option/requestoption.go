@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"scalar-go/internal/requestconfig"
+	"github.com/scalar/scalar-go/internal/requestconfig"
 	"github.com/tidwall/sjson"
 )
 

@@ -91,7 +91,7 @@ const authedScalar = new Scalar({
 ## Installation
 
 ```sh
-go get scalar-go
+go get github.com/scalar/scalar-go
 ```
 
 <br />
@@ -106,8 +106,8 @@ import (
 	"fmt"
 	"os"
 
-	sdk "scalar-go"
-	"scalar-go/option"
+	sdk "github.com/scalar/scalar-go"
+	"github.com/scalar/scalar-go/option"
 )
 
 func main() {
@@ -157,7 +157,7 @@ if err != nil {
 	panic(err)
 }
 
-// imports: sdk "scalar-go", "errors", "fmt"
+// imports: sdk "github.com/scalar/scalar-go", "errors", "fmt"
 ```
 
 Documented error statuses: `400`, `401`, `403`, `404`, `422`, `500`.
@@ -175,7 +175,7 @@ client := sdk.NewClient(
 	option.WithRequestTimeout(60*time.Second),
 )
 
-// imports: sdk "scalar-go", "scalar-go/option", "time"
+// imports: sdk "github.com/scalar/scalar-go", "github.com/scalar/scalar-go/option", "time"
 ```
 
 | Option | Type | Default | Description |
