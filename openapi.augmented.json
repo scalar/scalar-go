@@ -16,11 +16,11 @@
       },
       {
         "lang": "Python",
-        "description": "```sh\npip install scalarApi\n```"
+        "description": "```sh\npip install scalar-sdk\n```"
       },
       {
         "lang": "Go",
-        "description": "```sh\ngo get scalar-api\n```"
+        "description": "```sh\ngo get scalar-go\n```"
       }
     ]
   },
