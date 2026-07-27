@@ -505,7 +505,7 @@ type ManagedDocVersion struct {
 	Tags []string `json:"tags" api:"required"`
 	Tools []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
 	YamlSha string `json:"yamlSha"`
-	JSONSha string `json:"jsonSha"`
+	JsonSha string `json:"jsonSha"`
 	VersionSha string `json:"versionSha"`
 	JSON managedDocVersionJSON `json:"-"`
 }
@@ -520,7 +520,7 @@ type managedDocVersionJSON struct {
 	Tags apijson.Field
 	Tools apijson.Field
 	YamlSha apijson.Field
-	JSONSha apijson.Field
+	JsonSha apijson.Field
 	VersionSha apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -558,7 +558,7 @@ type RegistryListAPIDocumentVersionMetadataResponse struct {
 	Tags []string `json:"tags" api:"required"`
 	Tools []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
 	YamlSha string `json:"yamlSha"`
-	JSONSha string `json:"jsonSha"`
+	JsonSha string `json:"jsonSha"`
 	VersionSha string `json:"versionSha"`
 	JSON registryListAPIDocumentVersionMetadataResponseJSON `json:"-"`
 }
@@ -573,7 +573,7 @@ type registryListAPIDocumentVersionMetadataResponseJSON struct {
 	Tags apijson.Field
 	Tools apijson.Field
 	YamlSha apijson.Field
-	JSONSha apijson.Field
+	JsonSha apijson.Field
 	VersionSha apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -611,7 +611,7 @@ type RegistryNewAPIDocumentVersionResponse struct {
 	Tags []string `json:"tags" api:"required"`
 	Tools []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
 	YamlSha string `json:"yamlSha"`
-	JSONSha string `json:"jsonSha"`
+	JsonSha string `json:"jsonSha"`
 	VersionSha string `json:"versionSha"`
 	JSON registryNewAPIDocumentVersionResponseJSON `json:"-"`
 }
@@ -626,7 +626,7 @@ type registryNewAPIDocumentVersionResponseJSON struct {
 	Tags apijson.Field
 	Tools apijson.Field
 	YamlSha apijson.Field
-	JSONSha apijson.Field
+	JsonSha apijson.Field
 	VersionSha apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -720,7 +720,7 @@ type RegistryNewAPIDocumentResponse struct {
 	UID string `json:"uid" api:"required"`
 	VersionUID string `json:"versionUid" api:"required"`
 	Title string `json:"title" api:"required"`
-	JSONSha string `json:"jsonSha" api:"required"`
+	JsonSha string `json:"jsonSha" api:"required"`
 	YamlSha string `json:"yamlSha" api:"required"`
 	VersionSha string `json:"versionSha" api:"required"`
 	JSON registryNewAPIDocumentResponseJSON `json:"-"`
@@ -731,7 +731,7 @@ type registryNewAPIDocumentResponseJSON struct {
 	UID apijson.Field
 	VersionUID apijson.Field
 	Title apijson.Field
-	JSONSha apijson.Field
+	JsonSha apijson.Field
 	YamlSha apijson.Field
 	VersionSha apijson.Field
 	raw         string
@@ -747,7 +747,7 @@ func (r registryNewAPIDocumentResponseJSON) RawJSON() string {
 }
 
 type RegistryUpdateAPIDocumentVersionResponse struct {
-	JSONSha string `json:"jsonSha" api:"required"`
+	JsonSha string `json:"jsonSha" api:"required"`
 	YamlSha string `json:"yamlSha" api:"required"`
 	VersionSha string `json:"versionSha" api:"required"`
 	JSON registryUpdateAPIDocumentVersionResponseJSON `json:"-"`
@@ -755,7 +755,7 @@ type RegistryUpdateAPIDocumentVersionResponse struct {
 
 // registryUpdateAPIDocumentVersionResponseJSON contains the JSON metadata for the struct [RegistryUpdateAPIDocumentVersionResponse]
 type registryUpdateAPIDocumentVersionResponseJSON struct {
-	JSONSha apijson.Field
+	JsonSha apijson.Field
 	YamlSha apijson.Field
 	VersionSha apijson.Field
 	raw         string
