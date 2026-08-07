@@ -34,20 +34,23 @@ func NewRuleService(opts ...option.RequestOption) (r *RuleService) {
 // List all rulesets in a namespace.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]Rule: Default Response
+//
+//	*[]Rule: Default Response
 //
 // Example:
 //
-//     rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(rule)
+//	rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(rule)
 func (r *RuleService) ListRulesets(ctx context.Context, namespace string, opts ...option.RequestOption) (res *[]Rule, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -62,25 +65,28 @@ func (r *RuleService) ListRulesets(ctx context.Context, namespace string, opts .
 // Create a rule in a namespace.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     body: RuleNewRulesetParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	body: RuleNewRulesetParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *RuleNewRulesetResponse: Default Response
+//
+//	*RuleNewRulesetResponse: Default Response
 //
 // Example:
 //
-//     rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
-//     	Document: sdk.F[string](""),
-//     	Slug: sdk.F[string](""),
-//     	Title: sdk.F[string](""),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(rule)
+//	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
+//		Document: sdk.F[string](""),
+//		Slug:     sdk.F[string](""),
+//		Title:    sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(rule)
 func (r *RuleService) NewRuleset(ctx context.Context, namespace string, body RuleNewRulesetParams, opts ...option.RequestOption) (res *RuleNewRulesetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -95,22 +101,25 @@ func (r *RuleService) NewRuleset(ctx context.Context, namespace string, body Rul
 // Update rule metadata by slug.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: RuleUpdateRulesetParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: RuleUpdateRulesetParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{})
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(rule)
+//	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(rule)
 func (r *RuleService) UpdateRuleset(ctx context.Context, namespace string, slug string, body RuleUpdateRulesetParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -129,21 +138,24 @@ func (r *RuleService) UpdateRuleset(ctx context.Context, namespace string, slug 
 // Delete a rule by slug.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(rule)
+//	rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(rule)
 func (r *RuleService) DeleteRuleset(ctx context.Context, namespace string, slug string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -162,21 +174,24 @@ func (r *RuleService) DeleteRuleset(ctx context.Context, namespace string, slug 
 // Get a rule document by slug.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *string: Default Response
+//
+//	*string: Default Response
 //
 // Example:
 //
-//     rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(rule)
+//	rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(rule)
 func (r *RuleService) GetRulesetDocument(ctx context.Context, namespace string, slug string, opts ...option.RequestOption) (res *string, err error) {
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
@@ -196,26 +211,29 @@ func (r *RuleService) GetRulesetDocument(ctx context.Context, namespace string, 
 // Grant an access group to a rule.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: RuleNewRulesetAccessGroupParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: RuleNewRulesetAccessGroupParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
-//     	AccessGroup: sdk.AccessGroupParam{
-//     	AccessGroupSlug: sdk.F[string]("xxx"),
-//     },
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(rule)
+//	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
+//		AccessGroup: sdk.AccessGroupParam{
+//			AccessGroupSlug: sdk.F[string]("xxx"),
+//		},
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(rule)
 func (r *RuleService) NewRulesetAccessGroup(ctx context.Context, namespace string, slug string, body RuleNewRulesetAccessGroupParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -234,26 +252,29 @@ func (r *RuleService) NewRulesetAccessGroup(ctx context.Context, namespace strin
 // Remove an access group from a rule.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: RuleDeleteRulesetAccessGroupParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: RuleDeleteRulesetAccessGroupParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
-//     	AccessGroup: sdk.AccessGroupParam{
-//     	AccessGroupSlug: sdk.F[string]("xxx"),
-//     },
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(rule)
+//	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
+//		AccessGroup: sdk.AccessGroupParam{
+//			AccessGroupSlug: sdk.F[string]("xxx"),
+//		},
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(rule)
 func (r *RuleService) DeleteRulesetAccessGroup(ctx context.Context, namespace string, slug string, body RuleDeleteRulesetAccessGroupParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -270,23 +291,23 @@ func (r *RuleService) DeleteRulesetAccessGroup(ctx context.Context, namespace st
 }
 
 type Rule struct {
-	UID string `json:"uid" api:"required"`
-	Title string `json:"title" api:"required"`
-	Description string `json:"description" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	Namespace string `json:"namespace" api:"required"`
-	IsPrivate bool `json:"isPrivate" api:"required"`
-	JSON ruleJSON `json:"-"`
+	UID         string   `json:"uid" api:"required"`
+	Title       string   `json:"title" api:"required"`
+	Description string   `json:"description" api:"required"`
+	Slug        string   `json:"slug" api:"required"`
+	Namespace   string   `json:"namespace" api:"required"`
+	IsPrivate   bool     `json:"isPrivate" api:"required"`
+	JSON        ruleJSON `json:"-"`
 }
 
 // ruleJSON contains the JSON metadata for the struct [Rule]
 type ruleJSON struct {
-	UID apijson.Field
-	Title apijson.Field
+	UID         apijson.Field
+	Title       apijson.Field
 	Description apijson.Field
-	Slug apijson.Field
-	Namespace apijson.Field
-	IsPrivate apijson.Field
+	Slug        apijson.Field
+	Namespace   apijson.Field
+	IsPrivate   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -300,13 +321,13 @@ func (r ruleJSON) RawJSON() string {
 }
 
 type RuleNewRulesetResponse struct {
-	UID string `json:"uid" api:"required"`
+	UID  string                     `json:"uid" api:"required"`
 	JSON ruleNewRulesetResponseJSON `json:"-"`
 }
 
 // ruleNewRulesetResponseJSON contains the JSON metadata for the struct [RuleNewRulesetResponse]
 type ruleNewRulesetResponseJSON struct {
-	UID apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -320,11 +341,11 @@ func (r ruleNewRulesetResponseJSON) RawJSON() string {
 }
 
 type RuleNewRulesetParams struct {
-	Document param.Field[string] `json:"document" api:"required"`
-	Slug param.Field[string] `json:"slug" api:"required"`
-	Title param.Field[string] `json:"title" api:"required"`
+	Document    param.Field[string] `json:"document" api:"required"`
+	Slug        param.Field[string] `json:"slug" api:"required"`
+	Title       param.Field[string] `json:"title" api:"required"`
 	Description param.Field[string] `json:"description"`
-	IsPrivate param.Field[bool] `json:"isPrivate"`
+	IsPrivate   param.Field[bool]   `json:"isPrivate"`
 }
 
 func (r RuleNewRulesetParams) MarshalJSON() (data []byte, err error) {
@@ -333,10 +354,10 @@ func (r RuleNewRulesetParams) MarshalJSON() (data []byte, err error) {
 
 type RuleUpdateRulesetParams struct {
 	Description param.Field[string] `json:"description"`
-	IsPrivate param.Field[bool] `json:"isPrivate"`
-	Namespace param.Field[string] `json:"namespace"`
-	Slug param.Field[string] `json:"slug"`
-	Title param.Field[string] `json:"title"`
+	IsPrivate   param.Field[bool]   `json:"isPrivate"`
+	Namespace   param.Field[string] `json:"namespace"`
+	Slug        param.Field[string] `json:"slug"`
+	Title       param.Field[string] `json:"title"`
 }
 
 func (r RuleUpdateRulesetParams) MarshalJSON() (data []byte, err error) {

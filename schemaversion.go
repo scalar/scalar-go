@@ -34,22 +34,25 @@ func NewSchemaVersionService(opts ...option.RequestOption) (r *SchemaVersionServ
 // Get a specific schema version document.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     semver: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	semver: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *string: Default Response
+//
+//	*string: Default Response
 //
 // Example:
 //
-//     version, err := client.Schemas.Version.GetSchema(context.Background(), "namespace", "slug", "semver")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(version)
+//	version, err := client.Schemas.Version.GetSchema(context.Background(), "namespace", "slug", "semver")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(version)
 func (r *SchemaVersionService) GetSchema(ctx context.Context, namespace string, slug string, semver string, opts ...option.RequestOption) (res *string, err error) {
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
@@ -73,22 +76,25 @@ func (r *SchemaVersionService) GetSchema(ctx context.Context, namespace string, 
 // Delete a schema version.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     semver: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	semver: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     version, err := client.Schemas.Version.DeleteSchema(context.Background(), "namespace", "slug", "semver")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(version)
+//	version, err := client.Schemas.Version.DeleteSchema(context.Background(), "namespace", "slug", "semver")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(version)
 func (r *SchemaVersionService) DeleteSchema(ctx context.Context, namespace string, slug string, semver string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -111,25 +117,28 @@ func (r *SchemaVersionService) DeleteSchema(ctx context.Context, namespace strin
 // Create a schema version.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: SchemaVersionNewSchemaParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: SchemaVersionNewSchemaParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *SchemaVersionNewSchemaResponse: Default Response
+//
+//	*SchemaVersionNewSchemaResponse: Default Response
 //
 // Example:
 //
-//     version, err := client.Schemas.Version.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaVersionNewSchemaParams{
-//     	Document: sdk.F[string](""),
-//     	Version: sdk.F[string]("x"),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(version)
+//	version, err := client.Schemas.Version.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaVersionNewSchemaParams{
+//		Document: sdk.F[string](""),
+//		Version:  sdk.F[string]("x"),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(version)
 func (r *SchemaVersionService) NewSchema(ctx context.Context, namespace string, slug string, body SchemaVersionNewSchemaParams, opts ...option.RequestOption) (res *SchemaVersionNewSchemaResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -146,13 +155,13 @@ func (r *SchemaVersionService) NewSchema(ctx context.Context, namespace string, 
 }
 
 type SchemaVersionNewSchemaResponse struct {
-	UID string `json:"uid" api:"required"`
+	UID  string                             `json:"uid" api:"required"`
 	JSON schemaVersionNewSchemaResponseJSON `json:"-"`
 }
 
 // schemaVersionNewSchemaResponseJSON contains the JSON metadata for the struct [SchemaVersionNewSchemaResponse]
 type schemaVersionNewSchemaResponseJSON struct {
-	UID apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -167,7 +176,7 @@ func (r schemaVersionNewSchemaResponseJSON) RawJSON() string {
 
 type SchemaVersionNewSchemaParams struct {
 	Document param.Field[string] `json:"document" api:"required"`
-	Version param.Field[string] `json:"version" api:"required"`
+	Version  param.Field[string] `json:"version" api:"required"`
 }
 
 func (r SchemaVersionNewSchemaParams) MarshalJSON() (data []byte, err error) {

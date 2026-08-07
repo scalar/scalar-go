@@ -34,19 +34,22 @@ func NewThemeService(opts ...option.RequestOption) (r *ThemeService) {
 // List all team themes.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]Theme: Default Response
+//
+//	*[]Theme: Default Response
 //
 // Example:
 //
-//     theme, err := client.Themes.List(context.Background())
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(theme)
+//	theme, err := client.Themes.List(context.Background())
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(theme)
 func (r *ThemeService) List(ctx context.Context, opts ...option.RequestOption) (res *[]Theme, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/themes"
@@ -57,24 +60,27 @@ func (r *ThemeService) List(ctx context.Context, opts ...option.RequestOption) (
 // Create a team theme.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     body: ThemeNewParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	body: ThemeNewParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *ThemeNewResponse: Default Response
+//
+//	*ThemeNewResponse: Default Response
 //
 // Example:
 //
-//     theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
-//     	Document: sdk.F[string](""),
-//     	Name: sdk.F[string](""),
-//     	Slug: sdk.F[string](""),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(theme)
+//	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
+//		Document: sdk.F[string](""),
+//		Name:     sdk.F[string](""),
+//		Slug:     sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(theme)
 func (r *ThemeService) New(ctx context.Context, body ThemeNewParams, opts ...option.RequestOption) (res *ThemeNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/themes"
@@ -85,21 +91,24 @@ func (r *ThemeService) New(ctx context.Context, body ThemeNewParams, opts ...opt
 // Update theme metadata.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     body: ThemeUpdateParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	body: ThemeUpdateParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(theme)
+//	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(theme)
 func (r *ThemeService) Update(ctx context.Context, slug string, body ThemeUpdateParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if slug == "" {
@@ -114,23 +123,26 @@ func (r *ThemeService) Update(ctx context.Context, slug string, body ThemeUpdate
 // Replace the theme document.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     body: ThemeReplaceDocumentParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	body: ThemeReplaceDocumentParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
-//     	Document: sdk.F[string](""),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(theme)
+//	theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
+//		Document: sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(theme)
 func (r *ThemeService) ReplaceDocument(ctx context.Context, slug string, body ThemeReplaceDocumentParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if slug == "" {
@@ -145,20 +157,23 @@ func (r *ThemeService) ReplaceDocument(ctx context.Context, slug string, body Th
 // Delete a theme by slug.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     theme, err := client.Themes.Delete(context.Background(), "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(theme)
+//	theme, err := client.Themes.Delete(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(theme)
 func (r *ThemeService) Delete(ctx context.Context, slug string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if slug == "" {
@@ -173,20 +188,23 @@ func (r *ThemeService) Delete(ctx context.Context, slug string, opts ...option.R
 // Get the theme document by slug.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *string: Default Response
+//
+//	*string: Default Response
 //
 // Example:
 //
-//     theme, err := client.Themes.Get(context.Background(), "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(theme)
+//	theme, err := client.Themes.Get(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(theme)
 func (r *ThemeService) Get(ctx context.Context, slug string, opts ...option.RequestOption) (res *string, err error) {
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
@@ -200,19 +218,19 @@ func (r *ThemeService) Get(ctx context.Context, slug string, opts ...option.Requ
 }
 
 type Theme struct {
-	UID string `json:"uid" api:"required"`
-	Name string `json:"name" api:"required"`
-	Description string `json:"description" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	JSON themeJSON `json:"-"`
+	UID         string    `json:"uid" api:"required"`
+	Name        string    `json:"name" api:"required"`
+	Description string    `json:"description" api:"required"`
+	Slug        string    `json:"slug" api:"required"`
+	JSON        themeJSON `json:"-"`
 }
 
 // themeJSON contains the JSON metadata for the struct [Theme]
 type themeJSON struct {
-	UID apijson.Field
-	Name apijson.Field
+	UID         apijson.Field
+	Name        apijson.Field
 	Description apijson.Field
-	Slug apijson.Field
+	Slug        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -226,13 +244,13 @@ func (r themeJSON) RawJSON() string {
 }
 
 type ThemeNewResponse struct {
-	UID string `json:"uid" api:"required"`
+	UID  string               `json:"uid" api:"required"`
 	JSON themeNewResponseJSON `json:"-"`
 }
 
 // themeNewResponseJSON contains the JSON metadata for the struct [ThemeNewResponse]
 type themeNewResponseJSON struct {
-	UID apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -246,9 +264,9 @@ func (r themeNewResponseJSON) RawJSON() string {
 }
 
 type ThemeNewParams struct {
-	Document param.Field[string] `json:"document" api:"required"`
-	Name param.Field[string] `json:"name" api:"required"`
-	Slug param.Field[string] `json:"slug" api:"required"`
+	Document    param.Field[string] `json:"document" api:"required"`
+	Name        param.Field[string] `json:"name" api:"required"`
+	Slug        param.Field[string] `json:"slug" api:"required"`
 	Description param.Field[string] `json:"description"`
 }
 
@@ -258,7 +276,7 @@ func (r ThemeNewParams) MarshalJSON() (data []byte, err error) {
 
 type ThemeUpdateParams struct {
 	Description param.Field[string] `json:"description"`
-	Name param.Field[string] `json:"name"`
+	Name        param.Field[string] `json:"name"`
 }
 
 func (r ThemeUpdateParams) MarshalJSON() (data []byte, err error) {

@@ -33,26 +33,29 @@ func NewSchemaAccessGroupService(opts ...option.RequestOption) (r *SchemaAccessG
 // Add an access group to a schema.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: SchemaAccessGroupNewSchemaParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: SchemaAccessGroupNewSchemaParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     accessGroup, err := client.Schemas.AccessGroup.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewSchemaParams{
-//     	AccessGroup: sdk.AccessGroupParam{
-//     	AccessGroupSlug: sdk.F[string]("xxx"),
-//     },
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(accessGroup)
+//	accessGroup, err := client.Schemas.AccessGroup.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewSchemaParams{
+//		AccessGroup: sdk.AccessGroupParam{
+//			AccessGroupSlug: sdk.F[string]("xxx"),
+//		},
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(accessGroup)
 func (r *SchemaAccessGroupService) NewSchema(ctx context.Context, namespace string, slug string, body SchemaAccessGroupNewSchemaParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -71,26 +74,29 @@ func (r *SchemaAccessGroupService) NewSchema(ctx context.Context, namespace stri
 // Remove an access group from a schema.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: SchemaAccessGroupDeleteSchemaParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: SchemaAccessGroupDeleteSchemaParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     accessGroup, err := client.Schemas.AccessGroup.DeleteSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteSchemaParams{
-//     	AccessGroup: sdk.AccessGroupParam{
-//     	AccessGroupSlug: sdk.F[string]("xxx"),
-//     },
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(accessGroup)
+//	accessGroup, err := client.Schemas.AccessGroup.DeleteSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteSchemaParams{
+//		AccessGroup: sdk.AccessGroupParam{
+//			AccessGroupSlug: sdk.F[string]("xxx"),
+//		},
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(accessGroup)
 func (r *SchemaAccessGroupService) DeleteSchema(ctx context.Context, namespace string, slug string, body SchemaAccessGroupDeleteSchemaParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
