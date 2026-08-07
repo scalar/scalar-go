@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -83,7 +84,7 @@ func (r *RegistryService) ListAPIDocuments(ctx context.Context, namespace string
 		err = errors.New("missing required namespace parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s", namespace)
+	path := fmt.Sprintf("v1/apis/%s", url.PathEscape(namespace))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -120,7 +121,7 @@ func (r *RegistryService) NewAPIDocument(ctx context.Context, namespace string, 
 		err = errors.New("missing required namespace parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s", namespace)
+	path := fmt.Sprintf("v1/apis/%s", url.PathEscape(namespace))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }
@@ -157,7 +158,7 @@ func (r *RegistryService) UpdateAPIDocument(ctx context.Context, namespace strin
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s", namespace, slug)
+	path := fmt.Sprintf("v1/apis/%s/%s", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return res, err
 }
@@ -193,7 +194,7 @@ func (r *RegistryService) DeleteAPIDocument(ctx context.Context, namespace strin
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s", namespace, slug)
+	path := fmt.Sprintf("v1/apis/%s/%s", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return res, err
 }
@@ -235,7 +236,7 @@ func (r *RegistryService) GetAPIDocumentVersion(ctx context.Context, namespace s
 		err = errors.New("missing required semver parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s/version/%s", namespace, slug, semver)
+	path := fmt.Sprintf("v1/apis/%s/%s/version/%s", url.PathEscape(namespace), url.PathEscape(slug), url.PathEscape(semver))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -279,7 +280,7 @@ func (r *RegistryService) UpdateAPIDocumentVersion(ctx context.Context, namespac
 		err = errors.New("missing required semver parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s/version/%s", namespace, slug, semver)
+	path := fmt.Sprintf("v1/apis/%s/%s/version/%s", url.PathEscape(namespace), url.PathEscape(slug), url.PathEscape(semver))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return res, err
 }
@@ -320,7 +321,7 @@ func (r *RegistryService) DeleteAPIDocumentVersion(ctx context.Context, namespac
 		err = errors.New("missing required semver parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s/version/%s", namespace, slug, semver)
+	path := fmt.Sprintf("v1/apis/%s/%s/version/%s", url.PathEscape(namespace), url.PathEscape(slug), url.PathEscape(semver))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return res, err
 }
@@ -361,7 +362,7 @@ func (r *RegistryService) ListAPIDocumentVersionMetadata(ctx context.Context, na
 		err = errors.New("missing required semver parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s/version/%s/metadata", namespace, slug, semver)
+	path := fmt.Sprintf("v1/apis/%s/%s/version/%s/metadata", url.PathEscape(namespace), url.PathEscape(slug), url.PathEscape(semver))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -401,7 +402,7 @@ func (r *RegistryService) NewAPIDocumentVersion(ctx context.Context, namespace s
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s/version", namespace, slug)
+	path := fmt.Sprintf("v1/apis/%s/%s/version", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }
@@ -442,7 +443,7 @@ func (r *RegistryService) NewAPIDocumentAccessGroup(ctx context.Context, namespa
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s/access-group", namespace, slug)
+	path := fmt.Sprintf("v1/apis/%s/%s/access-group", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }
@@ -483,7 +484,7 @@ func (r *RegistryService) DeleteAPIDocumentAccessGroup(ctx context.Context, name
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/apis/%s/%s/access-group", namespace, slug)
+	path := fmt.Sprintf("v1/apis/%s/%s/access-group", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return res, err
 }

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -61,7 +62,7 @@ func (r *SchemaService) List(ctx context.Context, namespace string, opts ...opti
 		err = errors.New("missing required namespace parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s", namespace)
+	path := fmt.Sprintf("v1/schemas/%s", url.PathEscape(namespace))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -98,7 +99,7 @@ func (r *SchemaService) New(ctx context.Context, namespace string, body SchemaNe
 		err = errors.New("missing required namespace parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s", namespace)
+	path := fmt.Sprintf("v1/schemas/%s", url.PathEscape(namespace))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }
@@ -135,7 +136,7 @@ func (r *SchemaService) Update(ctx context.Context, namespace string, slug strin
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s/%s", namespace, slug)
+	path := fmt.Sprintf("v1/schemas/%s/%s", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return res, err
 }
@@ -171,7 +172,7 @@ func (r *SchemaService) Delete(ctx context.Context, namespace string, slug strin
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s/%s", namespace, slug)
+	path := fmt.Sprintf("v1/schemas/%s/%s", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return res, err
 }
