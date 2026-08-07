@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -57,7 +58,7 @@ func (r *LoginPortalService) Get(ctx context.Context, slug string, opts ...optio
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/login-portals/%s", slug)
+	path := fmt.Sprintf("v1/login-portals/%s", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -89,7 +90,7 @@ func (r *LoginPortalService) Update(ctx context.Context, slug string, body Login
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/login-portals/%s", slug)
+	path := fmt.Sprintf("v1/login-portals/%s", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return res, err
 }
@@ -120,7 +121,7 @@ func (r *LoginPortalService) Delete(ctx context.Context, slug string, opts ...op
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/login-portals/%s", slug)
+	path := fmt.Sprintf("v1/login-portals/%s", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return res, err
 }

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -115,7 +116,7 @@ func (r *ThemeService) Update(ctx context.Context, slug string, body ThemeUpdate
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/themes/%s", slug)
+	path := fmt.Sprintf("v1/themes/%s", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return res, err
 }
@@ -149,7 +150,7 @@ func (r *ThemeService) ReplaceDocument(ctx context.Context, slug string, body Th
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/themes/%s", slug)
+	path := fmt.Sprintf("v1/themes/%s", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return res, err
 }
@@ -180,7 +181,7 @@ func (r *ThemeService) Delete(ctx context.Context, slug string, opts ...option.R
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/themes/%s", slug)
+	path := fmt.Sprintf("v1/themes/%s", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return res, err
 }
@@ -212,7 +213,7 @@ func (r *ThemeService) Get(ctx context.Context, slug string, opts ...option.Requ
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/themes/%s", slug)
+	path := fmt.Sprintf("v1/themes/%s", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }

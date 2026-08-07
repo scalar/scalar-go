@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -68,7 +69,7 @@ func (r *SchemaVersionService) GetSchema(ctx context.Context, namespace string, 
 		err = errors.New("missing required semver parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s/%s/version/%s", namespace, slug, semver)
+	path := fmt.Sprintf("v1/schemas/%s/%s/version/%s", url.PathEscape(namespace), url.PathEscape(slug), url.PathEscape(semver))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -109,7 +110,7 @@ func (r *SchemaVersionService) DeleteSchema(ctx context.Context, namespace strin
 		err = errors.New("missing required semver parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s/%s/version/%s", namespace, slug, semver)
+	path := fmt.Sprintf("v1/schemas/%s/%s/version/%s", url.PathEscape(namespace), url.PathEscape(slug), url.PathEscape(semver))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return res, err
 }
@@ -149,7 +150,7 @@ func (r *SchemaVersionService) NewSchema(ctx context.Context, namespace string, 
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s/%s/version", namespace, slug)
+	path := fmt.Sprintf("v1/schemas/%s/%s/version", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }

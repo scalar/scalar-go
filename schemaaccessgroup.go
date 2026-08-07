@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -66,7 +67,7 @@ func (r *SchemaAccessGroupService) NewSchema(ctx context.Context, namespace stri
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s/%s/access-group", namespace, slug)
+	path := fmt.Sprintf("v1/schemas/%s/%s/access-group", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }
@@ -107,7 +108,7 @@ func (r *SchemaAccessGroupService) DeleteSchema(ctx context.Context, namespace s
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/schemas/%s/%s/access-group", namespace, slug)
+	path := fmt.Sprintf("v1/schemas/%s/%s/access-group", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return res, err
 }
