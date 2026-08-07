@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4](https://github.com/scalar/scalar-go/compare/v0.3.3...v0.3.4) (2026-08-07)
+
+
+### Chores
+
+* **api:** regenerate SDK ([f09ba38](https://github.com/scalar/scalar-go/commit/f09ba389a1a522a98d3edf630d77053ef4886c54))
+
 ## [0.3.3](https://github.com/scalar/scalar-go/compare/v0.3.2...v0.3.3) (2026-08-07)
 
 
