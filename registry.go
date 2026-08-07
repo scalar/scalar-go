@@ -34,19 +34,22 @@ func NewRegistryService(opts ...option.RequestOption) (r *RegistryService) {
 // List all API documents across every namespace the caller can access.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]APIDocument: Default Response
+//
+//	*[]APIDocument: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.ListAllAPIDocuments(context.Background())
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.ListAllAPIDocuments(context.Background())
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) ListAllAPIDocuments(ctx context.Context, opts ...option.RequestOption) (res *[]APIDocument, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/apis"
@@ -57,20 +60,23 @@ func (r *RegistryService) ListAllAPIDocuments(ctx context.Context, opts ...optio
 // List API documents in a namespace.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]APIDocument: Default Response
+//
+//	*[]APIDocument: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.ListAPIDocuments(context.Background(), "namespace")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.ListAPIDocuments(context.Background(), "namespace")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) ListAPIDocuments(ctx context.Context, namespace string, opts ...option.RequestOption) (res *[]APIDocument, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -85,26 +91,29 @@ func (r *RegistryService) ListAPIDocuments(ctx context.Context, namespace string
 // Create an API document.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     body: RegistryNewAPIDocumentParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	body: RegistryNewAPIDocumentParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *RegistryNewAPIDocumentResponse: Default Response
+//
+//	*RegistryNewAPIDocumentResponse: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
-//     	Document: sdk.F[string](""),
-//     	Slug: sdk.F[string](""),
-//     	Title: sdk.F[string](""),
-//     	Version: sdk.F[string]("x"),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
+//		Document: sdk.F[string](""),
+//		Slug:     sdk.F[string](""),
+//		Title:    sdk.F[string](""),
+//		Version:  sdk.F[string]("x"),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) NewAPIDocument(ctx context.Context, namespace string, body RegistryNewAPIDocumentParams, opts ...option.RequestOption) (res *RegistryNewAPIDocumentResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -119,22 +128,25 @@ func (r *RegistryService) NewAPIDocument(ctx context.Context, namespace string, 
 // Update metadata for an API document.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: RegistryUpdateAPIDocumentParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: RegistryUpdateAPIDocumentParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) UpdateAPIDocument(ctx context.Context, namespace string, slug string, body RegistryUpdateAPIDocumentParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -153,21 +165,24 @@ func (r *RegistryService) UpdateAPIDocument(ctx context.Context, namespace strin
 // Delete an API document and all versions.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) DeleteAPIDocument(ctx context.Context, namespace string, slug string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -186,22 +201,25 @@ func (r *RegistryService) DeleteAPIDocument(ctx context.Context, namespace strin
 // Get a specific API document version.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     semver: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	semver: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *string: Default Response
+//
+//	*string: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) GetAPIDocumentVersion(ctx context.Context, namespace string, slug string, semver string, opts ...option.RequestOption) (res *string, err error) {
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
@@ -225,25 +243,28 @@ func (r *RegistryService) GetAPIDocumentVersion(ctx context.Context, namespace s
 // Update the registry file content for an API document version.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     semver: Path parameter.
-//     body: RegistryUpdateAPIDocumentVersionParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	semver: Path parameter.
+//	body: RegistryUpdateAPIDocumentVersionParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *RegistryUpdateAPIDocumentVersionResponse: Default Response
+//
+//	*RegistryUpdateAPIDocumentVersionResponse: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
-//     	Document: sdk.F[string](""),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
+//		Document: sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) UpdateAPIDocumentVersion(ctx context.Context, namespace string, slug string, semver string, body RegistryUpdateAPIDocumentVersionParams, opts ...option.RequestOption) (res *RegistryUpdateAPIDocumentVersionResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -266,22 +287,25 @@ func (r *RegistryService) UpdateAPIDocumentVersion(ctx context.Context, namespac
 // Delete a specific API document version.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     semver: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	semver: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) DeleteAPIDocumentVersion(ctx context.Context, namespace string, slug string, semver string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -304,22 +328,25 @@ func (r *RegistryService) DeleteAPIDocumentVersion(ctx context.Context, namespac
 // Get metadata (uid, content shas, version sha, tags) for a specific API document version.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     semver: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	semver: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *RegistryListAPIDocumentVersionMetadataResponse: Default Response
+//
+//	*RegistryListAPIDocumentVersionMetadataResponse: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) ListAPIDocumentVersionMetadata(ctx context.Context, namespace string, slug string, semver string, opts ...option.RequestOption) (res *RegistryListAPIDocumentVersionMetadataResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -342,25 +369,28 @@ func (r *RegistryService) ListAPIDocumentVersionMetadata(ctx context.Context, na
 // Create a new API document version.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: RegistryNewAPIDocumentVersionParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: RegistryNewAPIDocumentVersionParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *RegistryNewAPIDocumentVersionResponse: Default Response
+//
+//	*RegistryNewAPIDocumentVersionResponse: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
-//     	Document: sdk.F[string](""),
-//     	Version: sdk.F[string]("x"),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
+//		Document: sdk.F[string](""),
+//		Version:  sdk.F[string]("x"),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) NewAPIDocumentVersion(ctx context.Context, namespace string, slug string, body RegistryNewAPIDocumentVersionParams, opts ...option.RequestOption) (res *RegistryNewAPIDocumentVersionResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -379,26 +409,29 @@ func (r *RegistryService) NewAPIDocumentVersion(ctx context.Context, namespace s
 // Add an access group to an API document.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: RegistryNewAPIDocumentAccessGroupParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: RegistryNewAPIDocumentAccessGroupParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
-//     	AccessGroup: sdk.AccessGroupParam{
-//     	AccessGroupSlug: sdk.F[string]("xxx"),
-//     },
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
+//		AccessGroup: sdk.AccessGroupParam{
+//			AccessGroupSlug: sdk.F[string]("xxx"),
+//		},
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) NewAPIDocumentAccessGroup(ctx context.Context, namespace string, slug string, body RegistryNewAPIDocumentAccessGroupParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -417,26 +450,29 @@ func (r *RegistryService) NewAPIDocumentAccessGroup(ctx context.Context, namespa
 // Remove an access group from an API document.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: RegistryDeleteAPIDocumentAccessGroupParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: RegistryDeleteAPIDocumentAccessGroupParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
-//     	AccessGroup: sdk.AccessGroupParam{
-//     	AccessGroupSlug: sdk.F[string]("xxx"),
-//     },
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(registry)
+//	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
+//		AccessGroup: sdk.AccessGroupParam{
+//			AccessGroupSlug: sdk.F[string]("xxx"),
+//		},
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(registry)
 func (r *RegistryService) DeleteAPIDocumentAccessGroup(ctx context.Context, namespace string, slug string, body RegistryDeleteAPIDocumentAccessGroupParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -461,29 +497,29 @@ func (r AccessGroupParam) MarshalJSON() (data []byte, err error) {
 }
 
 type APIDocument struct {
-	UID string `json:"uid" api:"required"`
-	Version string `json:"version" api:"required"`
-	Title string `json:"title" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	Description string `json:"description" api:"required"`
-	Namespace string `json:"namespace" api:"required"`
-	IsPrivate bool `json:"isPrivate" api:"required"`
-	Tags interface{} `json:"tags" api:"required"`
-	Versions []ManagedDocVersion `json:"versions" api:"required"`
-	JSON apiDocumentJSON `json:"-"`
+	UID         string              `json:"uid" api:"required"`
+	Version     string              `json:"version" api:"required"`
+	Title       string              `json:"title" api:"required"`
+	Slug        string              `json:"slug" api:"required"`
+	Description string              `json:"description" api:"required"`
+	Namespace   string              `json:"namespace" api:"required"`
+	IsPrivate   bool                `json:"isPrivate" api:"required"`
+	Tags        interface{}         `json:"tags" api:"required"`
+	Versions    []ManagedDocVersion `json:"versions" api:"required"`
+	JSON        apiDocumentJSON     `json:"-"`
 }
 
 // apiDocumentJSON contains the JSON metadata for the struct [APIDocument]
 type apiDocumentJSON struct {
-	UID apijson.Field
-	Version apijson.Field
-	Title apijson.Field
-	Slug apijson.Field
+	UID         apijson.Field
+	Version     apijson.Field
+	Title       apijson.Field
+	Slug        apijson.Field
 	Description apijson.Field
-	Namespace apijson.Field
-	IsPrivate apijson.Field
-	Tags apijson.Field
-	Versions apijson.Field
+	Namespace   apijson.Field
+	IsPrivate   apijson.Field
+	Tags        apijson.Field
+	Versions    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -497,31 +533,31 @@ func (r apiDocumentJSON) RawJSON() string {
 }
 
 type ManagedDocVersion struct {
-	UID string `json:"uid" api:"required"`
-	CreatedAt float64 `json:"createdAt" api:"required"`
-	Version string `json:"version" api:"required"`
-	Upgraded bool `json:"upgraded" api:"required"`
-	EmbedStatus ManagedDocVersionEmbedStatus `json:"embedStatus" api:"required,nullable"`
-	Tags []string `json:"tags" api:"required"`
-	Tools []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
-	YamlSha string `json:"yamlSha"`
-	JsonSha string `json:"jsonSha"`
-	VersionSha string `json:"versionSha"`
-	JSON managedDocVersionJSON `json:"-"`
+	UID         string                                               `json:"uid" api:"required"`
+	CreatedAt   float64                                              `json:"createdAt" api:"required"`
+	Version     string                                               `json:"version" api:"required"`
+	Upgraded    bool                                                 `json:"upgraded" api:"required"`
+	EmbedStatus ManagedDocVersionEmbedStatus                         `json:"embedStatus" api:"required,nullable"`
+	Tags        []string                                             `json:"tags" api:"required"`
+	Tools       []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
+	YamlSha     string                                               `json:"yamlSha"`
+	JsonSha     string                                               `json:"jsonSha"`
+	VersionSha  string                                               `json:"versionSha"`
+	JSON        managedDocVersionJSON                                `json:"-"`
 }
 
 // managedDocVersionJSON contains the JSON metadata for the struct [ManagedDocVersion]
 type managedDocVersionJSON struct {
-	UID apijson.Field
-	CreatedAt apijson.Field
-	Version apijson.Field
-	Upgraded apijson.Field
+	UID         apijson.Field
+	CreatedAt   apijson.Field
+	Version     apijson.Field
+	Upgraded    apijson.Field
 	EmbedStatus apijson.Field
-	Tags apijson.Field
-	Tools apijson.Field
-	YamlSha apijson.Field
-	JsonSha apijson.Field
-	VersionSha apijson.Field
+	Tags        apijson.Field
+	Tools       apijson.Field
+	YamlSha     apijson.Field
+	JsonSha     apijson.Field
+	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -538,7 +574,7 @@ type ManagedDocVersionEmbedStatus string
 
 const (
 	ManagedDocVersionEmbedStatusComplete ManagedDocVersionEmbedStatus = "complete"
-	ManagedDocVersionEmbedStatusFailed ManagedDocVersionEmbedStatus = "failed"
+	ManagedDocVersionEmbedStatusFailed   ManagedDocVersionEmbedStatus = "failed"
 )
 
 func (r ManagedDocVersionEmbedStatus) IsKnown() bool {
@@ -550,31 +586,31 @@ func (r ManagedDocVersionEmbedStatus) IsKnown() bool {
 }
 
 type RegistryListAPIDocumentVersionMetadataResponse struct {
-	UID string `json:"uid" api:"required"`
-	CreatedAt float64 `json:"createdAt" api:"required"`
-	Version string `json:"version" api:"required"`
-	Upgraded bool `json:"upgraded" api:"required"`
+	UID         string                                                    `json:"uid" api:"required"`
+	CreatedAt   float64                                                   `json:"createdAt" api:"required"`
+	Version     string                                                    `json:"version" api:"required"`
+	Upgraded    bool                                                      `json:"upgraded" api:"required"`
 	EmbedStatus RegistryListAPIDocumentVersionMetadataResponseEmbedStatus `json:"embedStatus" api:"required,nullable"`
-	Tags []string `json:"tags" api:"required"`
-	Tools []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
-	YamlSha string `json:"yamlSha"`
-	JsonSha string `json:"jsonSha"`
-	VersionSha string `json:"versionSha"`
-	JSON registryListAPIDocumentVersionMetadataResponseJSON `json:"-"`
+	Tags        []string                                                  `json:"tags" api:"required"`
+	Tools       []RegistryListAPIDocumentVersionMetadataResponseTool      `json:"tools"`
+	YamlSha     string                                                    `json:"yamlSha"`
+	JsonSha     string                                                    `json:"jsonSha"`
+	VersionSha  string                                                    `json:"versionSha"`
+	JSON        registryListAPIDocumentVersionMetadataResponseJSON        `json:"-"`
 }
 
 // registryListAPIDocumentVersionMetadataResponseJSON contains the JSON metadata for the struct [RegistryListAPIDocumentVersionMetadataResponse]
 type registryListAPIDocumentVersionMetadataResponseJSON struct {
-	UID apijson.Field
-	CreatedAt apijson.Field
-	Version apijson.Field
-	Upgraded apijson.Field
+	UID         apijson.Field
+	CreatedAt   apijson.Field
+	Version     apijson.Field
+	Upgraded    apijson.Field
 	EmbedStatus apijson.Field
-	Tags apijson.Field
-	Tools apijson.Field
-	YamlSha apijson.Field
-	JsonSha apijson.Field
-	VersionSha apijson.Field
+	Tags        apijson.Field
+	Tools       apijson.Field
+	YamlSha     apijson.Field
+	JsonSha     apijson.Field
+	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -591,7 +627,7 @@ type RegistryListAPIDocumentVersionMetadataResponseEmbedStatus string
 
 const (
 	RegistryListAPIDocumentVersionMetadataResponseEmbedStatusComplete RegistryListAPIDocumentVersionMetadataResponseEmbedStatus = "complete"
-	RegistryListAPIDocumentVersionMetadataResponseEmbedStatusFailed RegistryListAPIDocumentVersionMetadataResponseEmbedStatus = "failed"
+	RegistryListAPIDocumentVersionMetadataResponseEmbedStatusFailed   RegistryListAPIDocumentVersionMetadataResponseEmbedStatus = "failed"
 )
 
 func (r RegistryListAPIDocumentVersionMetadataResponseEmbedStatus) IsKnown() bool {
@@ -603,31 +639,31 @@ func (r RegistryListAPIDocumentVersionMetadataResponseEmbedStatus) IsKnown() boo
 }
 
 type RegistryNewAPIDocumentVersionResponse struct {
-	UID string `json:"uid" api:"required"`
-	CreatedAt float64 `json:"createdAt" api:"required"`
-	Version string `json:"version" api:"required"`
-	Upgraded bool `json:"upgraded" api:"required"`
-	EmbedStatus RegistryNewAPIDocumentVersionResponseEmbedStatus `json:"embedStatus" api:"required,nullable"`
-	Tags []string `json:"tags" api:"required"`
-	Tools []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
-	YamlSha string `json:"yamlSha"`
-	JsonSha string `json:"jsonSha"`
-	VersionSha string `json:"versionSha"`
-	JSON registryNewAPIDocumentVersionResponseJSON `json:"-"`
+	UID         string                                               `json:"uid" api:"required"`
+	CreatedAt   float64                                              `json:"createdAt" api:"required"`
+	Version     string                                               `json:"version" api:"required"`
+	Upgraded    bool                                                 `json:"upgraded" api:"required"`
+	EmbedStatus RegistryNewAPIDocumentVersionResponseEmbedStatus     `json:"embedStatus" api:"required,nullable"`
+	Tags        []string                                             `json:"tags" api:"required"`
+	Tools       []RegistryListAPIDocumentVersionMetadataResponseTool `json:"tools"`
+	YamlSha     string                                               `json:"yamlSha"`
+	JsonSha     string                                               `json:"jsonSha"`
+	VersionSha  string                                               `json:"versionSha"`
+	JSON        registryNewAPIDocumentVersionResponseJSON            `json:"-"`
 }
 
 // registryNewAPIDocumentVersionResponseJSON contains the JSON metadata for the struct [RegistryNewAPIDocumentVersionResponse]
 type registryNewAPIDocumentVersionResponseJSON struct {
-	UID apijson.Field
-	CreatedAt apijson.Field
-	Version apijson.Field
-	Upgraded apijson.Field
+	UID         apijson.Field
+	CreatedAt   apijson.Field
+	Version     apijson.Field
+	Upgraded    apijson.Field
 	EmbedStatus apijson.Field
-	Tags apijson.Field
-	Tools apijson.Field
-	YamlSha apijson.Field
-	JsonSha apijson.Field
-	VersionSha apijson.Field
+	Tags        apijson.Field
+	Tools       apijson.Field
+	YamlSha     apijson.Field
+	JsonSha     apijson.Field
+	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -644,7 +680,7 @@ type RegistryNewAPIDocumentVersionResponseEmbedStatus string
 
 const (
 	RegistryNewAPIDocumentVersionResponseEmbedStatusComplete RegistryNewAPIDocumentVersionResponseEmbedStatus = "complete"
-	RegistryNewAPIDocumentVersionResponseEmbedStatusFailed RegistryNewAPIDocumentVersionResponseEmbedStatus = "failed"
+	RegistryNewAPIDocumentVersionResponseEmbedStatusFailed   RegistryNewAPIDocumentVersionResponseEmbedStatus = "failed"
 )
 
 func (r RegistryNewAPIDocumentVersionResponseEmbedStatus) IsKnown() bool {
@@ -656,13 +692,13 @@ func (r RegistryNewAPIDocumentVersionResponseEmbedStatus) IsKnown() bool {
 }
 
 type RegistryNewAPIDocumentParams struct {
-	Document param.Field[string] `json:"document" api:"required"`
-	Slug param.Field[string] `json:"slug" api:"required"`
-	Title param.Field[string] `json:"title" api:"required"`
-	Version param.Field[string] `json:"version" api:"required"`
+	Document    param.Field[string] `json:"document" api:"required"`
+	Slug        param.Field[string] `json:"slug" api:"required"`
+	Title       param.Field[string] `json:"title" api:"required"`
+	Version     param.Field[string] `json:"version" api:"required"`
 	Description param.Field[string] `json:"description"`
-	IsPrivate param.Field[bool] `json:"isPrivate"`
-	Ruleset param.Field[string] `json:"ruleset"`
+	IsPrivate   param.Field[bool]   `json:"isPrivate"`
+	Ruleset     param.Field[string] `json:"ruleset"`
 }
 
 func (r RegistryNewAPIDocumentParams) MarshalJSON() (data []byte, err error) {
@@ -671,9 +707,9 @@ func (r RegistryNewAPIDocumentParams) MarshalJSON() (data []byte, err error) {
 
 type RegistryUpdateAPIDocumentParams struct {
 	Description param.Field[string] `json:"description"`
-	IsPrivate param.Field[bool] `json:"isPrivate"`
-	Ruleset param.Field[string] `json:"ruleset"`
-	Title param.Field[string] `json:"title"`
+	IsPrivate   param.Field[bool]   `json:"isPrivate"`
+	Ruleset     param.Field[string] `json:"ruleset"`
+	Title       param.Field[string] `json:"title"`
 }
 
 func (r RegistryUpdateAPIDocumentParams) MarshalJSON() (data []byte, err error) {
@@ -681,7 +717,7 @@ func (r RegistryUpdateAPIDocumentParams) MarshalJSON() (data []byte, err error) 
 }
 
 type RegistryUpdateAPIDocumentVersionParams struct {
-	Document param.Field[string] `json:"document" api:"required"`
+	Document            param.Field[string] `json:"document" api:"required"`
 	LastKnownVersionSha param.Field[string] `json:"lastKnownVersionSha"`
 }
 
@@ -690,9 +726,9 @@ func (r RegistryUpdateAPIDocumentVersionParams) MarshalJSON() (data []byte, err 
 }
 
 type RegistryNewAPIDocumentVersionParams struct {
-	Document param.Field[string] `json:"document" api:"required"`
-	Version param.Field[string] `json:"version" api:"required"`
-	Force param.Field[bool] `json:"force"`
+	Document            param.Field[string] `json:"document" api:"required"`
+	Version             param.Field[string] `json:"version" api:"required"`
+	Force               param.Field[bool]   `json:"force"`
 	LastKnownVersionSha param.Field[string] `json:"lastKnownVersionSha"`
 }
 
@@ -717,23 +753,23 @@ func (r RegistryDeleteAPIDocumentAccessGroupParams) MarshalJSON() (data []byte, 
 }
 
 type RegistryNewAPIDocumentResponse struct {
-	UID string `json:"uid" api:"required"`
-	VersionUID string `json:"versionUid" api:"required"`
-	Title string `json:"title" api:"required"`
-	JsonSha string `json:"jsonSha" api:"required"`
-	YamlSha string `json:"yamlSha" api:"required"`
-	VersionSha string `json:"versionSha" api:"required"`
-	JSON registryNewAPIDocumentResponseJSON `json:"-"`
+	UID        string                             `json:"uid" api:"required"`
+	VersionUID string                             `json:"versionUid" api:"required"`
+	Title      string                             `json:"title" api:"required"`
+	JsonSha    string                             `json:"jsonSha" api:"required"`
+	YamlSha    string                             `json:"yamlSha" api:"required"`
+	VersionSha string                             `json:"versionSha" api:"required"`
+	JSON       registryNewAPIDocumentResponseJSON `json:"-"`
 }
 
 // registryNewAPIDocumentResponseJSON contains the JSON metadata for the struct [RegistryNewAPIDocumentResponse]
 type registryNewAPIDocumentResponseJSON struct {
-	UID apijson.Field
-	VersionUID apijson.Field
-	Title apijson.Field
-	JsonSha apijson.Field
-	YamlSha apijson.Field
-	VersionSha apijson.Field
+	UID         apijson.Field
+	VersionUID  apijson.Field
+	Title       apijson.Field
+	JsonSha     apijson.Field
+	YamlSha     apijson.Field
+	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -747,17 +783,17 @@ func (r registryNewAPIDocumentResponseJSON) RawJSON() string {
 }
 
 type RegistryUpdateAPIDocumentVersionResponse struct {
-	JsonSha string `json:"jsonSha" api:"required"`
-	YamlSha string `json:"yamlSha" api:"required"`
-	VersionSha string `json:"versionSha" api:"required"`
-	JSON registryUpdateAPIDocumentVersionResponseJSON `json:"-"`
+	JsonSha    string                                       `json:"jsonSha" api:"required"`
+	YamlSha    string                                       `json:"yamlSha" api:"required"`
+	VersionSha string                                       `json:"versionSha" api:"required"`
+	JSON       registryUpdateAPIDocumentVersionResponseJSON `json:"-"`
 }
 
 // registryUpdateAPIDocumentVersionResponseJSON contains the JSON metadata for the struct [RegistryUpdateAPIDocumentVersionResponse]
 type registryUpdateAPIDocumentVersionResponseJSON struct {
-	JsonSha apijson.Field
-	YamlSha apijson.Field
-	VersionSha apijson.Field
+	JsonSha     apijson.Field
+	YamlSha     apijson.Field
+	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -771,19 +807,19 @@ func (r registryUpdateAPIDocumentVersionResponseJSON) RawJSON() string {
 }
 
 type RegistryListAPIDocumentVersionMetadataResponseTool struct {
-	Path string `json:"path" api:"required"`
-	Method RegistryListAPIDocumentVersionMetadataResponseToolsMethod `json:"method" api:"required"`
+	Path         string                                                           `json:"path" api:"required"`
+	Method       RegistryListAPIDocumentVersionMetadataResponseToolsMethod        `json:"method" api:"required"`
 	EnabledTools []RegistryListAPIDocumentVersionMetadataResponseToolsEnabledTool `json:"enabledTools" api:"required"`
-	JSON registryListAPIDocumentVersionMetadataResponseToolJSON `json:"-"`
+	JSON         registryListAPIDocumentVersionMetadataResponseToolJSON           `json:"-"`
 }
 
 // registryListAPIDocumentVersionMetadataResponseToolJSON contains the JSON metadata for the struct [RegistryListAPIDocumentVersionMetadataResponseTool]
 type registryListAPIDocumentVersionMetadataResponseToolJSON struct {
-	Path apijson.Field
-	Method apijson.Field
+	Path         apijson.Field
+	Method       apijson.Field
 	EnabledTools apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	raw          string
+	ExtraFields  map[string]apijson.Field
 }
 
 func (r *RegistryListAPIDocumentVersionMetadataResponseTool) UnmarshalJSON(data []byte) (err error) {
@@ -797,14 +833,14 @@ func (r registryListAPIDocumentVersionMetadataResponseToolJSON) RawJSON() string
 type RegistryListAPIDocumentVersionMetadataResponseToolsMethod string
 
 const (
-	RegistryListAPIDocumentVersionMetadataResponseToolsMethodDelete RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "delete"
-	RegistryListAPIDocumentVersionMetadataResponseToolsMethodGet RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "get"
-	RegistryListAPIDocumentVersionMetadataResponseToolsMethodHead RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "head"
+	RegistryListAPIDocumentVersionMetadataResponseToolsMethodDelete  RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "delete"
+	RegistryListAPIDocumentVersionMetadataResponseToolsMethodGet     RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "get"
+	RegistryListAPIDocumentVersionMetadataResponseToolsMethodHead    RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "head"
 	RegistryListAPIDocumentVersionMetadataResponseToolsMethodOptions RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "options"
-	RegistryListAPIDocumentVersionMetadataResponseToolsMethodPatch RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "patch"
-	RegistryListAPIDocumentVersionMetadataResponseToolsMethodPost RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "post"
-	RegistryListAPIDocumentVersionMetadataResponseToolsMethodPut RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "put"
-	RegistryListAPIDocumentVersionMetadataResponseToolsMethodTrace RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "trace"
+	RegistryListAPIDocumentVersionMetadataResponseToolsMethodPatch   RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "patch"
+	RegistryListAPIDocumentVersionMetadataResponseToolsMethodPost    RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "post"
+	RegistryListAPIDocumentVersionMetadataResponseToolsMethodPut     RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "put"
+	RegistryListAPIDocumentVersionMetadataResponseToolsMethodTrace   RegistryListAPIDocumentVersionMetadataResponseToolsMethod = "trace"
 )
 
 func (r RegistryListAPIDocumentVersionMetadataResponseToolsMethod) IsKnown() bool {
@@ -818,7 +854,7 @@ func (r RegistryListAPIDocumentVersionMetadataResponseToolsMethod) IsKnown() boo
 type RegistryListAPIDocumentVersionMetadataResponseToolsEnabledTool string
 
 const (
-	RegistryListAPIDocumentVersionMetadataResponseToolsEnabledToolExecuteRequest RegistryListAPIDocumentVersionMetadataResponseToolsEnabledTool = "execute-request"
+	RegistryListAPIDocumentVersionMetadataResponseToolsEnabledToolExecuteRequest     RegistryListAPIDocumentVersionMetadataResponseToolsEnabledTool = "execute-request"
 	RegistryListAPIDocumentVersionMetadataResponseToolsEnabledToolGetMiniOpenapiSpec RegistryListAPIDocumentVersionMetadataResponseToolsEnabledTool = "get-mini-openapi-spec"
 )
 

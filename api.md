@@ -90,6 +90,7 @@ registry, err := client.Registry.ListAllAPIDocuments(context.Background())
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -106,6 +107,7 @@ registry, err := client.Registry.ListAPIDocuments(context.Background(), "namespa
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -121,13 +123,14 @@ Create an API document.
 ```go
 registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
 	Document: sdk.F[string](""),
-	Slug: sdk.F[string](""),
-	Title: sdk.F[string](""),
-	Version: sdk.F[string]("x"),
+	Slug:     sdk.F[string](""),
+	Title:    sdk.F[string](""),
+	Version:  sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -144,6 +147,7 @@ registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namesp
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -156,6 +160,7 @@ registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namesp
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -172,6 +177,7 @@ registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "na
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -191,6 +197,7 @@ registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), 
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -203,6 +210,7 @@ registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), 
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -219,6 +227,7 @@ registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Backgrou
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -234,11 +243,12 @@ Create a new API document version.
 ```go
 registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
 	Document: sdk.F[string](""),
-	Version: sdk.F[string]("x"),
+	Version:  sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -253,12 +263,13 @@ Add an access group to an API document.
 ```go
 registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-	AccessGroupSlug: sdk.F[string]("xxx"),
-},
+		AccessGroupSlug: sdk.F[string]("xxx"),
+	},
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -273,12 +284,13 @@ Remove an access group from an API document.
 ```go
 registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-	AccessGroupSlug: sdk.F[string]("xxx"),
-},
+		AccessGroupSlug: sdk.F[string]("xxx"),
+	},
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(registry)
 ```
 
@@ -297,6 +309,7 @@ schema, err := client.Schemas.List(context.Background(), "namespace")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(schema)
 ```
 
@@ -312,13 +325,14 @@ Create a schema in a namespace.
 ```go
 schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
 	Document: sdk.F[string](""),
-	Slug: sdk.F[string](""),
-	Title: sdk.F[string](""),
-	Version: sdk.F[string]("x"),
+	Slug:     sdk.F[string](""),
+	Title:    sdk.F[string](""),
+	Version:  sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(schema)
 ```
 
@@ -335,6 +349,7 @@ schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", 
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(schema)
 ```
 
@@ -347,6 +362,7 @@ schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(schema)
 ```
 
@@ -365,6 +381,7 @@ version, err := client.Schemas.Version.GetSchema(context.Background(), "namespac
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(version)
 ```
 
@@ -377,6 +394,7 @@ version, err := client.Schemas.Version.DeleteSchema(context.Background(), "names
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(version)
 ```
 
@@ -392,11 +410,12 @@ Create a schema version.
 ```go
 version, err := client.Schemas.Version.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaVersionNewSchemaParams{
 	Document: sdk.F[string](""),
-	Version: sdk.F[string]("x"),
+	Version:  sdk.F[string]("x"),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(version)
 ```
 
@@ -413,12 +432,13 @@ Add an access group to a schema.
 ```go
 accessGroup, err := client.Schemas.AccessGroup.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewSchemaParams{
 	AccessGroup: sdk.AccessGroupParam{
-	AccessGroupSlug: sdk.F[string]("xxx"),
-},
+		AccessGroupSlug: sdk.F[string]("xxx"),
+	},
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(accessGroup)
 ```
 
@@ -433,12 +453,13 @@ Remove an access group from a schema.
 ```go
 accessGroup, err := client.Schemas.AccessGroup.DeleteSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteSchemaParams{
 	AccessGroup: sdk.AccessGroupParam{
-	AccessGroupSlug: sdk.F[string]("xxx"),
-},
+		AccessGroupSlug: sdk.F[string]("xxx"),
+	},
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(accessGroup)
 ```
 
@@ -457,6 +478,7 @@ loginPortal, err := client.LoginPortals.Get(context.Background(), "slug")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(loginPortal)
 ```
 
@@ -473,6 +495,7 @@ loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(loginPortal)
 ```
 
@@ -485,6 +508,7 @@ loginPortal, err := client.LoginPortals.Delete(context.Background(), "slug")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(loginPortal)
 ```
 
@@ -500,40 +524,41 @@ Create a login portal for the current team.
 ```go
 loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPortalNewParams{
 	Email: sdk.F[sdk.LoginPortalEmailParam](sdk.LoginPortalEmailParam{
-		Logo: sdk.F[string](""),
-		LogoSize: sdk.F[string]("100"),
-		ButtonText: sdk.F[string]("Login"),
-		Message: sdk.F[string]("Click to access private documentation hosted by scalar.com"),
-		Title: sdk.F[string]("Private Docs"),
-		MainColor: sdk.F[string]("#2a2f45"),
-		MainBackground: sdk.F[string]("#f6f6f6"),
-		CardColor: sdk.F[string]("2a2f45"),
-		CardBackground: sdk.F[string]("#fff"),
-		ButtonColor: sdk.F[string]("#fff"),
+		Logo:             sdk.F[string](""),
+		LogoSize:         sdk.F[string]("100"),
+		ButtonText:       sdk.F[string]("Login"),
+		Message:          sdk.F[string]("Click to access private documentation hosted by scalar.com"),
+		Title:            sdk.F[string]("Private Docs"),
+		MainColor:        sdk.F[string]("#2a2f45"),
+		MainBackground:   sdk.F[string]("#f6f6f6"),
+		CardColor:        sdk.F[string]("2a2f45"),
+		CardBackground:   sdk.F[string]("#fff"),
+		ButtonColor:      sdk.F[string]("#fff"),
 		ButtonBackground: sdk.F[string]("#0f0f0f"),
 	}),
 	Page: sdk.F[sdk.LoginPortalPageParam](sdk.LoginPortalPageParam{
-		Title: sdk.F[string]("Scalar Private Docs"),
-		Description: sdk.F[string]("Login to access your documentation"),
-		Head: sdk.F[string](""),
-		Script: sdk.F[string](""),
-		Theme: sdk.F[string](""),
-		CompanyName: sdk.F[string](""),
-		Logo: sdk.F[string](""),
-		LogoURL: sdk.F[string](""),
-		Favicon: sdk.F[string](""),
-		TermsLink: sdk.F[string](""),
-		PrivacyLink: sdk.F[string](""),
-		FormTitle: sdk.F[string]("Scalar Private Docs"),
+		Title:           sdk.F[string]("Scalar Private Docs"),
+		Description:     sdk.F[string]("Login to access your documentation"),
+		Head:            sdk.F[string](""),
+		Script:          sdk.F[string](""),
+		Theme:           sdk.F[string](""),
+		CompanyName:     sdk.F[string](""),
+		Logo:            sdk.F[string](""),
+		LogoURL:         sdk.F[string](""),
+		Favicon:         sdk.F[string](""),
+		TermsLink:       sdk.F[string](""),
+		PrivacyLink:     sdk.F[string](""),
+		FormTitle:       sdk.F[string]("Scalar Private Docs"),
 		FormDescription: sdk.F[string]("Login to access your documentation"),
-		FormImage: sdk.F[string](""),
+		FormImage:       sdk.F[string](""),
 	}),
-	Slug: sdk.F[string](""),
+	Slug:  sdk.F[string](""),
 	Title: sdk.F[string](""),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(loginPortal)
 ```
 
@@ -550,6 +575,7 @@ loginPortal, err := client.LoginPortals.List(context.Background())
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(loginPortal)
 ```
 
@@ -568,6 +594,7 @@ rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(rule)
 ```
 
@@ -583,12 +610,13 @@ Create a rule in a namespace.
 ```go
 rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
 	Document: sdk.F[string](""),
-	Slug: sdk.F[string](""),
-	Title: sdk.F[string](""),
+	Slug:     sdk.F[string](""),
+	Title:    sdk.F[string](""),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(rule)
 ```
 
@@ -605,6 +633,7 @@ rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(rule)
 ```
 
@@ -617,6 +646,7 @@ rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(rule)
 ```
 
@@ -633,6 +663,7 @@ rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", 
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(rule)
 ```
 
@@ -647,12 +678,13 @@ Grant an access group to a rule.
 ```go
 rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-	AccessGroupSlug: sdk.F[string]("xxx"),
-},
+		AccessGroupSlug: sdk.F[string]("xxx"),
+	},
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(rule)
 ```
 
@@ -667,12 +699,13 @@ Remove an access group from a rule.
 ```go
 rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-	AccessGroupSlug: sdk.F[string]("xxx"),
-},
+		AccessGroupSlug: sdk.F[string]("xxx"),
+	},
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(rule)
 ```
 
@@ -691,6 +724,7 @@ theme, err := client.Themes.List(context.Background())
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(theme)
 ```
 
@@ -706,12 +740,13 @@ Create a team theme.
 ```go
 theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
 	Document: sdk.F[string](""),
-	Name: sdk.F[string](""),
-	Slug: sdk.F[string](""),
+	Name:     sdk.F[string](""),
+	Slug:     sdk.F[string](""),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(theme)
 ```
 
@@ -728,6 +763,7 @@ theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdate
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(theme)
 ```
 
@@ -746,6 +782,7 @@ theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.Th
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(theme)
 ```
 
@@ -758,6 +795,7 @@ theme, err := client.Themes.Delete(context.Background(), "slug")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(theme)
 ```
 
@@ -774,6 +812,7 @@ theme, err := client.Themes.Get(context.Background(), "slug")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(theme)
 ```
 
@@ -792,6 +831,7 @@ team, err := client.Teams.List(context.Background())
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(team)
 ```
 
@@ -810,6 +850,7 @@ scalarDoc, err := client.ScalarDocs.ListGuides(context.Background())
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(scalarDoc)
 ```
 
@@ -825,13 +866,14 @@ Create a guide project.
 ```go
 scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
 	AllowedDomains: sdk.F[[]string]([]string{""}),
-	AllowedUsers: sdk.F[[]string]([]string{""}),
-	IsPrivate: sdk.F[bool](false),
-	Name: sdk.F[string](""),
+	AllowedUsers:   sdk.F[[]string]([]string{""}),
+	IsPrivate:      sdk.F[bool](false),
+	Name:           sdk.F[string](""),
 })
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(scalarDoc)
 ```
 
@@ -848,6 +890,7 @@ scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(scalarDoc)
 ```
 
@@ -866,6 +909,7 @@ namespace, err := client.Namespaces.List(context.Background())
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(namespace)
 ```
 
@@ -887,6 +931,7 @@ authentication, err := client.Authentication.ExchangePersonalToken(context.Backg
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(authentication)
 ```
 
@@ -903,5 +948,6 @@ authentication, err := client.Authentication.ListCurrentUser(context.Background(
 if err != nil {
 	panic(err)
 }
+
 fmt.Println(authentication)
 ```

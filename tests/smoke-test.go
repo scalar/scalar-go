@@ -41,6 +41,7 @@ func _smokeCase0() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -49,19 +50,21 @@ func _smokeCase1() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
 func _smokeCase2() {
 	registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
 		Document: sdk.F[string](""),
-		Slug: sdk.F[string](""),
-		Title: sdk.F[string](""),
-		Version: sdk.F[string]("x"),
+		Slug:     sdk.F[string](""),
+		Title:    sdk.F[string](""),
+		Version:  sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -70,6 +73,7 @@ func _smokeCase3() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -78,6 +82,7 @@ func _smokeCase4() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -86,6 +91,7 @@ func _smokeCase5() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -96,6 +102,7 @@ func _smokeCase6() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -104,6 +111,7 @@ func _smokeCase7() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -112,41 +120,45 @@ func _smokeCase8() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
 func _smokeCase9() {
 	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
 		Document: sdk.F[string](""),
-		Version: sdk.F[string]("x"),
+		Version:  sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
 func _smokeCase10() {
 	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
-	},
+			AccessGroupSlug: sdk.F[string]("xxx"),
+		},
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
 func _smokeCase11() {
 	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
-	},
+			AccessGroupSlug: sdk.F[string]("xxx"),
+		},
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(registry)
 }
 
@@ -155,19 +167,21 @@ func _smokeCase12() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(schema)
 }
 
 func _smokeCase13() {
 	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
 		Document: sdk.F[string](""),
-		Slug: sdk.F[string](""),
-		Title: sdk.F[string](""),
-		Version: sdk.F[string]("x"),
+		Slug:     sdk.F[string](""),
+		Title:    sdk.F[string](""),
+		Version:  sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(schema)
 }
 
@@ -176,6 +190,7 @@ func _smokeCase14() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(schema)
 }
 
@@ -184,6 +199,7 @@ func _smokeCase15() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(schema)
 }
 
@@ -192,6 +208,7 @@ func _smokeCase16() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(version)
 }
 
@@ -200,41 +217,45 @@ func _smokeCase17() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(version)
 }
 
 func _smokeCase18() {
 	version, err := client.Schemas.Version.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaVersionNewSchemaParams{
 		Document: sdk.F[string](""),
-		Version: sdk.F[string]("x"),
+		Version:  sdk.F[string]("x"),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(version)
 }
 
 func _smokeCase19() {
 	accessGroup, err := client.Schemas.AccessGroup.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewSchemaParams{
 		AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
-	},
+			AccessGroupSlug: sdk.F[string]("xxx"),
+		},
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(accessGroup)
 }
 
 func _smokeCase20() {
 	accessGroup, err := client.Schemas.AccessGroup.DeleteSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteSchemaParams{
 		AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
-	},
+			AccessGroupSlug: sdk.F[string]("xxx"),
+		},
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(accessGroup)
 }
 
@@ -243,6 +264,7 @@ func _smokeCase21() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(loginPortal)
 }
 
@@ -251,6 +273,7 @@ func _smokeCase22() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(loginPortal)
 }
 
@@ -259,46 +282,48 @@ func _smokeCase23() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(loginPortal)
 }
 
 func _smokeCase24() {
 	loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPortalNewParams{
 		Email: sdk.F[sdk.LoginPortalEmailParam](sdk.LoginPortalEmailParam{
-			Logo: sdk.F[string](""),
-			LogoSize: sdk.F[string]("100"),
-			ButtonText: sdk.F[string]("Login"),
-			Message: sdk.F[string]("Click to access private documentation hosted by scalar.com"),
-			Title: sdk.F[string]("Private Docs"),
-			MainColor: sdk.F[string]("#2a2f45"),
-			MainBackground: sdk.F[string]("#f6f6f6"),
-			CardColor: sdk.F[string]("2a2f45"),
-			CardBackground: sdk.F[string]("#fff"),
-			ButtonColor: sdk.F[string]("#fff"),
+			Logo:             sdk.F[string](""),
+			LogoSize:         sdk.F[string]("100"),
+			ButtonText:       sdk.F[string]("Login"),
+			Message:          sdk.F[string]("Click to access private documentation hosted by scalar.com"),
+			Title:            sdk.F[string]("Private Docs"),
+			MainColor:        sdk.F[string]("#2a2f45"),
+			MainBackground:   sdk.F[string]("#f6f6f6"),
+			CardColor:        sdk.F[string]("2a2f45"),
+			CardBackground:   sdk.F[string]("#fff"),
+			ButtonColor:      sdk.F[string]("#fff"),
 			ButtonBackground: sdk.F[string]("#0f0f0f"),
 		}),
 		Page: sdk.F[sdk.LoginPortalPageParam](sdk.LoginPortalPageParam{
-			Title: sdk.F[string]("Scalar Private Docs"),
-			Description: sdk.F[string]("Login to access your documentation"),
-			Head: sdk.F[string](""),
-			Script: sdk.F[string](""),
-			Theme: sdk.F[string](""),
-			CompanyName: sdk.F[string](""),
-			Logo: sdk.F[string](""),
-			LogoURL: sdk.F[string](""),
-			Favicon: sdk.F[string](""),
-			TermsLink: sdk.F[string](""),
-			PrivacyLink: sdk.F[string](""),
-			FormTitle: sdk.F[string]("Scalar Private Docs"),
+			Title:           sdk.F[string]("Scalar Private Docs"),
+			Description:     sdk.F[string]("Login to access your documentation"),
+			Head:            sdk.F[string](""),
+			Script:          sdk.F[string](""),
+			Theme:           sdk.F[string](""),
+			CompanyName:     sdk.F[string](""),
+			Logo:            sdk.F[string](""),
+			LogoURL:         sdk.F[string](""),
+			Favicon:         sdk.F[string](""),
+			TermsLink:       sdk.F[string](""),
+			PrivacyLink:     sdk.F[string](""),
+			FormTitle:       sdk.F[string]("Scalar Private Docs"),
 			FormDescription: sdk.F[string]("Login to access your documentation"),
-			FormImage: sdk.F[string](""),
+			FormImage:       sdk.F[string](""),
 		}),
-		Slug: sdk.F[string](""),
+		Slug:  sdk.F[string](""),
 		Title: sdk.F[string](""),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(loginPortal)
 }
 
@@ -307,6 +332,7 @@ func _smokeCase25() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(loginPortal)
 }
 
@@ -315,18 +341,20 @@ func _smokeCase26() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(rule)
 }
 
 func _smokeCase27() {
 	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
 		Document: sdk.F[string](""),
-		Slug: sdk.F[string](""),
-		Title: sdk.F[string](""),
+		Slug:     sdk.F[string](""),
+		Title:    sdk.F[string](""),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(rule)
 }
 
@@ -335,6 +363,7 @@ func _smokeCase28() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(rule)
 }
 
@@ -343,6 +372,7 @@ func _smokeCase29() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(rule)
 }
 
@@ -351,30 +381,33 @@ func _smokeCase30() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(rule)
 }
 
 func _smokeCase31() {
 	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
-	},
+			AccessGroupSlug: sdk.F[string]("xxx"),
+		},
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(rule)
 }
 
 func _smokeCase32() {
 	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
-	},
+			AccessGroupSlug: sdk.F[string]("xxx"),
+		},
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(rule)
 }
 
@@ -383,18 +416,20 @@ func _smokeCase33() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(theme)
 }
 
 func _smokeCase34() {
 	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
 		Document: sdk.F[string](""),
-		Name: sdk.F[string](""),
-		Slug: sdk.F[string](""),
+		Name:     sdk.F[string](""),
+		Slug:     sdk.F[string](""),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(theme)
 }
 
@@ -403,6 +438,7 @@ func _smokeCase35() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(theme)
 }
 
@@ -413,6 +449,7 @@ func _smokeCase36() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(theme)
 }
 
@@ -421,6 +458,7 @@ func _smokeCase37() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(theme)
 }
 
@@ -429,6 +467,7 @@ func _smokeCase38() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(theme)
 }
 
@@ -437,6 +476,7 @@ func _smokeCase39() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(team)
 }
 
@@ -445,19 +485,21 @@ func _smokeCase40() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(scalarDoc)
 }
 
 func _smokeCase41() {
 	scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
 		AllowedDomains: sdk.F[[]string]([]string{""}),
-		AllowedUsers: sdk.F[[]string]([]string{""}),
-		IsPrivate: sdk.F[bool](false),
-		Name: sdk.F[string](""),
+		AllowedUsers:   sdk.F[[]string]([]string{""}),
+		IsPrivate:      sdk.F[bool](false),
+		Name:           sdk.F[string](""),
 	})
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(scalarDoc)
 }
 
@@ -466,6 +508,7 @@ func _smokeCase42() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(scalarDoc)
 }
 
@@ -474,6 +517,7 @@ func _smokeCase43() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(namespace)
 }
 
@@ -484,6 +528,7 @@ func _smokeCase44() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(authentication)
 }
 
@@ -492,9 +537,9 @@ func _smokeCase45() {
 	if err != nil {
 		panic(err)
 	}
+
 	fmt.Println(authentication)
 }
-
 
 var cases = []smokeCase{
 	{
@@ -818,7 +863,6 @@ var cases = []smokeCase{
 		Path:      "/v1/auth/me",
 		Run:       _smokeCase45,
 	},
-
 }
 
 func selectedCases() []smokeCase {

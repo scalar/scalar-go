@@ -19,8 +19,8 @@ import (
 // with the API. You should not instantiate this service directly, and instead use
 // the [NewSchemaService] method instead.
 type SchemaService struct {
-	Options []option.RequestOption
-	Version *SchemaVersionService
+	Options     []option.RequestOption
+	Version     *SchemaVersionService
 	AccessGroup *SchemaAccessGroupService
 }
 
@@ -38,20 +38,23 @@ func NewSchemaService(opts ...option.RequestOption) (r *SchemaService) {
 // List schemas in a namespace.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]Schema: Default Response
+//
+//	*[]Schema: Default Response
 //
 // Example:
 //
-//     schema, err := client.Schemas.List(context.Background(), "namespace")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(schema)
+//	schema, err := client.Schemas.List(context.Background(), "namespace")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(schema)
 func (r *SchemaService) List(ctx context.Context, namespace string, opts ...option.RequestOption) (res *[]Schema, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -66,26 +69,29 @@ func (r *SchemaService) List(ctx context.Context, namespace string, opts ...opti
 // Create a schema in a namespace.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     body: SchemaNewParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	body: SchemaNewParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *SchemaNewResponse: Default Response
+//
+//	*SchemaNewResponse: Default Response
 //
 // Example:
 //
-//     schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
-//     	Document: sdk.F[string](""),
-//     	Slug: sdk.F[string](""),
-//     	Title: sdk.F[string](""),
-//     	Version: sdk.F[string]("x"),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(schema)
+//	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
+//		Document: sdk.F[string](""),
+//		Slug:     sdk.F[string](""),
+//		Title:    sdk.F[string](""),
+//		Version:  sdk.F[string]("x"),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(schema)
 func (r *SchemaService) New(ctx context.Context, namespace string, body SchemaNewParams, opts ...option.RequestOption) (res *SchemaNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -100,22 +106,25 @@ func (r *SchemaService) New(ctx context.Context, namespace string, body SchemaNe
 // Update schema metadata.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     body: SchemaUpdateParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	body: SchemaUpdateParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{})
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(schema)
+//	schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(schema)
 func (r *SchemaService) Update(ctx context.Context, namespace string, slug string, body SchemaUpdateParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -134,21 +143,24 @@ func (r *SchemaService) Update(ctx context.Context, namespace string, slug strin
 // Delete a schema and all related versions.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     namespace: Path parameter.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	namespace: Path parameter.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(schema)
+//	schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(schema)
 func (r *SchemaService) Delete(ctx context.Context, namespace string, slug string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
@@ -165,25 +177,25 @@ func (r *SchemaService) Delete(ctx context.Context, namespace string, slug strin
 }
 
 type Schema struct {
-	UID string `json:"uid" api:"required"`
-	Title string `json:"title" api:"required"`
-	Description string `json:"description" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	Namespace string `json:"namespace" api:"required"`
-	IsPrivate bool `json:"isPrivate" api:"required"`
-	Versions []SchemaVersion `json:"versions" api:"required"`
-	JSON schemaJSON `json:"-"`
+	UID         string          `json:"uid" api:"required"`
+	Title       string          `json:"title" api:"required"`
+	Description string          `json:"description" api:"required"`
+	Slug        string          `json:"slug" api:"required"`
+	Namespace   string          `json:"namespace" api:"required"`
+	IsPrivate   bool            `json:"isPrivate" api:"required"`
+	Versions    []SchemaVersion `json:"versions" api:"required"`
+	JSON        schemaJSON      `json:"-"`
 }
 
 // schemaJSON contains the JSON metadata for the struct [Schema]
 type schemaJSON struct {
-	UID apijson.Field
-	Title apijson.Field
+	UID         apijson.Field
+	Title       apijson.Field
 	Description apijson.Field
-	Slug apijson.Field
-	Namespace apijson.Field
-	IsPrivate apijson.Field
-	Versions apijson.Field
+	Slug        apijson.Field
+	Namespace   apijson.Field
+	IsPrivate   apijson.Field
+	Versions    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -197,13 +209,13 @@ func (r schemaJSON) RawJSON() string {
 }
 
 type SchemaNewResponse struct {
-	UID string `json:"uid" api:"required"`
+	UID  string                `json:"uid" api:"required"`
 	JSON schemaNewResponseJSON `json:"-"`
 }
 
 // schemaNewResponseJSON contains the JSON metadata for the struct [SchemaNewResponse]
 type schemaNewResponseJSON struct {
-	UID apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -217,12 +229,12 @@ func (r schemaNewResponseJSON) RawJSON() string {
 }
 
 type SchemaNewParams struct {
-	Document param.Field[string] `json:"document" api:"required"`
-	Slug param.Field[string] `json:"slug" api:"required"`
-	Title param.Field[string] `json:"title" api:"required"`
-	Version param.Field[string] `json:"version" api:"required"`
+	Document    param.Field[string] `json:"document" api:"required"`
+	Slug        param.Field[string] `json:"slug" api:"required"`
+	Title       param.Field[string] `json:"title" api:"required"`
+	Version     param.Field[string] `json:"version" api:"required"`
 	Description param.Field[string] `json:"description"`
-	IsPrivate param.Field[bool] `json:"isPrivate"`
+	IsPrivate   param.Field[bool]   `json:"isPrivate"`
 }
 
 func (r SchemaNewParams) MarshalJSON() (data []byte, err error) {
@@ -231,8 +243,8 @@ func (r SchemaNewParams) MarshalJSON() (data []byte, err error) {
 
 type SchemaUpdateParams struct {
 	Description param.Field[string] `json:"description"`
-	IsPrivate param.Field[bool] `json:"isPrivate"`
-	Title param.Field[string] `json:"title"`
+	IsPrivate   param.Field[bool]   `json:"isPrivate"`
+	Title       param.Field[string] `json:"title"`
 }
 
 func (r SchemaUpdateParams) MarshalJSON() (data []byte, err error) {
@@ -240,19 +252,19 @@ func (r SchemaUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 
 type SchemaVersion struct {
-	UID string `json:"uid" api:"required"`
-	CreatedAt int64 `json:"createdAt" api:"required"`
-	UpdatedAt int64 `json:"updatedAt" api:"required"`
-	Version string `json:"version" api:"required"`
-	JSON schemaVersionJSON `json:"-"`
+	UID       string            `json:"uid" api:"required"`
+	CreatedAt int64             `json:"createdAt" api:"required"`
+	UpdatedAt int64             `json:"updatedAt" api:"required"`
+	Version   string            `json:"version" api:"required"`
+	JSON      schemaVersionJSON `json:"-"`
 }
 
 // schemaVersionJSON contains the JSON metadata for the struct [SchemaVersion]
 type schemaVersionJSON struct {
-	UID apijson.Field
-	CreatedAt apijson.Field
-	UpdatedAt apijson.Field
-	Version apijson.Field
+	UID         apijson.Field
+	CreatedAt   apijson.Field
+	UpdatedAt   apijson.Field
+	Version     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

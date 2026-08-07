@@ -34,20 +34,23 @@ func NewLoginPortalService(opts ...option.RequestOption) (r *LoginPortalService)
 // Get a login portal by slug.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *LoginPortalGetResponse: Default Response
+//
+//	*LoginPortalGetResponse: Default Response
 //
 // Example:
 //
-//     loginPortal, err := client.LoginPortals.Get(context.Background(), "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(loginPortal)
+//	loginPortal, err := client.LoginPortals.Get(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(loginPortal)
 func (r *LoginPortalService) Get(ctx context.Context, slug string, opts ...option.RequestOption) (res *LoginPortalGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if slug == "" {
@@ -62,21 +65,24 @@ func (r *LoginPortalService) Get(ctx context.Context, slug string, opts ...optio
 // Update metadata for a login portal.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     body: LoginPortalUpdateParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	body: LoginPortalUpdateParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{})
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(loginPortal)
+//	loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(loginPortal)
 func (r *LoginPortalService) Update(ctx context.Context, slug string, body LoginPortalUpdateParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if slug == "" {
@@ -91,20 +97,23 @@ func (r *LoginPortalService) Update(ctx context.Context, slug string, body Login
 // Delete a login portal.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *map[string]interface{}: Default Response
+//
+//	*map[string]interface{}: Default Response
 //
 // Example:
 //
-//     loginPortal, err := client.LoginPortals.Delete(context.Background(), "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(loginPortal)
+//	loginPortal, err := client.LoginPortals.Delete(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(loginPortal)
 func (r *LoginPortalService) Delete(ctx context.Context, slug string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if slug == "" {
@@ -119,52 +128,55 @@ func (r *LoginPortalService) Delete(ctx context.Context, slug string, opts ...op
 // Create a login portal for the current team.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     body: LoginPortalNewParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	body: LoginPortalNewParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *LoginPortalNewResponse: Default Response
+//
+//	*LoginPortalNewResponse: Default Response
 //
 // Example:
 //
-//     loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPortalNewParams{
-//     	Email: sdk.F[sdk.LoginPortalEmailParam](sdk.LoginPortalEmailParam{
-//     		Logo: sdk.F[string](""),
-//     		LogoSize: sdk.F[string]("100"),
-//     		ButtonText: sdk.F[string]("Login"),
-//     		Message: sdk.F[string]("Click to access private documentation hosted by scalar.com"),
-//     		Title: sdk.F[string]("Private Docs"),
-//     		MainColor: sdk.F[string]("#2a2f45"),
-//     		MainBackground: sdk.F[string]("#f6f6f6"),
-//     		CardColor: sdk.F[string]("2a2f45"),
-//     		CardBackground: sdk.F[string]("#fff"),
-//     		ButtonColor: sdk.F[string]("#fff"),
-//     		ButtonBackground: sdk.F[string]("#0f0f0f"),
-//     	}),
-//     	Page: sdk.F[sdk.LoginPortalPageParam](sdk.LoginPortalPageParam{
-//     		Title: sdk.F[string]("Scalar Private Docs"),
-//     		Description: sdk.F[string]("Login to access your documentation"),
-//     		Head: sdk.F[string](""),
-//     		Script: sdk.F[string](""),
-//     		Theme: sdk.F[string](""),
-//     		CompanyName: sdk.F[string](""),
-//     		Logo: sdk.F[string](""),
-//     		LogoURL: sdk.F[string](""),
-//     		Favicon: sdk.F[string](""),
-//     		TermsLink: sdk.F[string](""),
-//     		PrivacyLink: sdk.F[string](""),
-//     		FormTitle: sdk.F[string]("Scalar Private Docs"),
-//     		FormDescription: sdk.F[string]("Login to access your documentation"),
-//     		FormImage: sdk.F[string](""),
-//     	}),
-//     	Slug: sdk.F[string](""),
-//     	Title: sdk.F[string](""),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(loginPortal)
+//	loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPortalNewParams{
+//		Email: sdk.F[sdk.LoginPortalEmailParam](sdk.LoginPortalEmailParam{
+//			Logo:             sdk.F[string](""),
+//			LogoSize:         sdk.F[string]("100"),
+//			ButtonText:       sdk.F[string]("Login"),
+//			Message:          sdk.F[string]("Click to access private documentation hosted by scalar.com"),
+//			Title:            sdk.F[string]("Private Docs"),
+//			MainColor:        sdk.F[string]("#2a2f45"),
+//			MainBackground:   sdk.F[string]("#f6f6f6"),
+//			CardColor:        sdk.F[string]("2a2f45"),
+//			CardBackground:   sdk.F[string]("#fff"),
+//			ButtonColor:      sdk.F[string]("#fff"),
+//			ButtonBackground: sdk.F[string]("#0f0f0f"),
+//		}),
+//		Page: sdk.F[sdk.LoginPortalPageParam](sdk.LoginPortalPageParam{
+//			Title:           sdk.F[string]("Scalar Private Docs"),
+//			Description:     sdk.F[string]("Login to access your documentation"),
+//			Head:            sdk.F[string](""),
+//			Script:          sdk.F[string](""),
+//			Theme:           sdk.F[string](""),
+//			CompanyName:     sdk.F[string](""),
+//			Logo:            sdk.F[string](""),
+//			LogoURL:         sdk.F[string](""),
+//			Favicon:         sdk.F[string](""),
+//			TermsLink:       sdk.F[string](""),
+//			PrivacyLink:     sdk.F[string](""),
+//			FormTitle:       sdk.F[string]("Scalar Private Docs"),
+//			FormDescription: sdk.F[string]("Login to access your documentation"),
+//			FormImage:       sdk.F[string](""),
+//		}),
+//		Slug:  sdk.F[string](""),
+//		Title: sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(loginPortal)
 func (r *LoginPortalService) New(ctx context.Context, body LoginPortalNewParams, opts ...option.RequestOption) (res *LoginPortalNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/login-portals"
@@ -175,19 +187,22 @@ func (r *LoginPortalService) New(ctx context.Context, body LoginPortalNewParams,
 // List all login portals for the current team.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]LoginPortal: Default Response
+//
+//	*[]LoginPortal: Default Response
 //
 // Example:
 //
-//     loginPortal, err := client.LoginPortals.List(context.Background())
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(loginPortal)
+//	loginPortal, err := client.LoginPortals.List(context.Background())
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(loginPortal)
 func (r *LoginPortalService) List(ctx context.Context, opts ...option.RequestOption) (res *[]LoginPortal, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/login-portals"
@@ -196,35 +211,35 @@ func (r *LoginPortalService) List(ctx context.Context, opts ...option.RequestOpt
 }
 
 type LoginPortalEmail struct {
-	Logo string `json:"logo" api:"required"`
-	LogoSize string `json:"logoSize" api:"required"`
-	ButtonText string `json:"buttonText" api:"required"`
-	Message string `json:"message" api:"required"`
-	Title string `json:"title" api:"required"`
-	MainColor string `json:"mainColor" api:"required"`
-	MainBackground string `json:"mainBackground" api:"required"`
-	CardColor string `json:"cardColor" api:"required"`
-	CardBackground string `json:"cardBackground" api:"required"`
-	ButtonColor string `json:"buttonColor" api:"required"`
-	ButtonBackground string `json:"buttonBackground" api:"required"`
-	JSON loginPortalEmailJSON `json:"-"`
+	Logo             string               `json:"logo" api:"required"`
+	LogoSize         string               `json:"logoSize" api:"required"`
+	ButtonText       string               `json:"buttonText" api:"required"`
+	Message          string               `json:"message" api:"required"`
+	Title            string               `json:"title" api:"required"`
+	MainColor        string               `json:"mainColor" api:"required"`
+	MainBackground   string               `json:"mainBackground" api:"required"`
+	CardColor        string               `json:"cardColor" api:"required"`
+	CardBackground   string               `json:"cardBackground" api:"required"`
+	ButtonColor      string               `json:"buttonColor" api:"required"`
+	ButtonBackground string               `json:"buttonBackground" api:"required"`
+	JSON             loginPortalEmailJSON `json:"-"`
 }
 
 // loginPortalEmailJSON contains the JSON metadata for the struct [LoginPortalEmail]
 type loginPortalEmailJSON struct {
-	Logo apijson.Field
-	LogoSize apijson.Field
-	ButtonText apijson.Field
-	Message apijson.Field
-	Title apijson.Field
-	MainColor apijson.Field
-	MainBackground apijson.Field
-	CardColor apijson.Field
-	CardBackground apijson.Field
-	ButtonColor apijson.Field
+	Logo             apijson.Field
+	LogoSize         apijson.Field
+	ButtonText       apijson.Field
+	Message          apijson.Field
+	Title            apijson.Field
+	MainColor        apijson.Field
+	MainBackground   apijson.Field
+	CardColor        apijson.Field
+	CardBackground   apijson.Field
+	ButtonColor      apijson.Field
 	ButtonBackground apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
 }
 
 func (r *LoginPortalEmail) UnmarshalJSON(data []byte) (err error) {
@@ -237,16 +252,16 @@ func (r loginPortalEmailJSON) RawJSON() string {
 
 type LoginPortalEmailParam struct {
 	ButtonBackground param.Field[string] `json:"buttonBackground" api:"required"`
-	ButtonColor param.Field[string] `json:"buttonColor" api:"required"`
-	ButtonText param.Field[string] `json:"buttonText" api:"required"`
-	CardBackground param.Field[string] `json:"cardBackground" api:"required"`
-	CardColor param.Field[string] `json:"cardColor" api:"required"`
-	Logo param.Field[string] `json:"logo" api:"required"`
-	LogoSize param.Field[string] `json:"logoSize" api:"required"`
-	MainBackground param.Field[string] `json:"mainBackground" api:"required"`
-	MainColor param.Field[string] `json:"mainColor" api:"required"`
-	Message param.Field[string] `json:"message" api:"required"`
-	Title param.Field[string] `json:"title" api:"required"`
+	ButtonColor      param.Field[string] `json:"buttonColor" api:"required"`
+	ButtonText       param.Field[string] `json:"buttonText" api:"required"`
+	CardBackground   param.Field[string] `json:"cardBackground" api:"required"`
+	CardColor        param.Field[string] `json:"cardColor" api:"required"`
+	Logo             param.Field[string] `json:"logo" api:"required"`
+	LogoSize         param.Field[string] `json:"logoSize" api:"required"`
+	MainBackground   param.Field[string] `json:"mainBackground" api:"required"`
+	MainColor        param.Field[string] `json:"mainColor" api:"required"`
+	Message          param.Field[string] `json:"message" api:"required"`
+	Title            param.Field[string] `json:"title" api:"required"`
 }
 
 func (r LoginPortalEmailParam) MarshalJSON() (data []byte, err error) {
@@ -254,41 +269,41 @@ func (r LoginPortalEmailParam) MarshalJSON() (data []byte, err error) {
 }
 
 type LoginPortalPage struct {
-	Title string `json:"title" api:"required"`
-	Description string `json:"description" api:"required"`
-	Head string `json:"head" api:"required"`
-	Script string `json:"script" api:"required"`
-	Theme string `json:"theme" api:"required"`
-	CompanyName string `json:"companyName" api:"required"`
-	Logo string `json:"logo" api:"required"`
-	LogoURL string `json:"logoURL" api:"required"`
-	Favicon string `json:"favicon" api:"required"`
-	TermsLink string `json:"termsLink" api:"required"`
-	PrivacyLink string `json:"privacyLink" api:"required"`
-	FormTitle string `json:"formTitle" api:"required"`
-	FormDescription string `json:"formDescription" api:"required"`
-	FormImage string `json:"formImage" api:"required"`
-	JSON loginPortalPageJSON `json:"-"`
+	Title           string              `json:"title" api:"required"`
+	Description     string              `json:"description" api:"required"`
+	Head            string              `json:"head" api:"required"`
+	Script          string              `json:"script" api:"required"`
+	Theme           string              `json:"theme" api:"required"`
+	CompanyName     string              `json:"companyName" api:"required"`
+	Logo            string              `json:"logo" api:"required"`
+	LogoURL         string              `json:"logoURL" api:"required"`
+	Favicon         string              `json:"favicon" api:"required"`
+	TermsLink       string              `json:"termsLink" api:"required"`
+	PrivacyLink     string              `json:"privacyLink" api:"required"`
+	FormTitle       string              `json:"formTitle" api:"required"`
+	FormDescription string              `json:"formDescription" api:"required"`
+	FormImage       string              `json:"formImage" api:"required"`
+	JSON            loginPortalPageJSON `json:"-"`
 }
 
 // loginPortalPageJSON contains the JSON metadata for the struct [LoginPortalPage]
 type loginPortalPageJSON struct {
-	Title apijson.Field
-	Description apijson.Field
-	Head apijson.Field
-	Script apijson.Field
-	Theme apijson.Field
-	CompanyName apijson.Field
-	Logo apijson.Field
-	LogoURL apijson.Field
-	Favicon apijson.Field
-	TermsLink apijson.Field
-	PrivacyLink apijson.Field
-	FormTitle apijson.Field
+	Title           apijson.Field
+	Description     apijson.Field
+	Head            apijson.Field
+	Script          apijson.Field
+	Theme           apijson.Field
+	CompanyName     apijson.Field
+	Logo            apijson.Field
+	LogoURL         apijson.Field
+	Favicon         apijson.Field
+	TermsLink       apijson.Field
+	PrivacyLink     apijson.Field
+	FormTitle       apijson.Field
 	FormDescription apijson.Field
-	FormImage apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	FormImage       apijson.Field
+	raw             string
+	ExtraFields     map[string]apijson.Field
 }
 
 func (r *LoginPortalPage) UnmarshalJSON(data []byte) (err error) {
@@ -300,20 +315,20 @@ func (r loginPortalPageJSON) RawJSON() string {
 }
 
 type LoginPortalPageParam struct {
-	CompanyName param.Field[string] `json:"companyName" api:"required"`
-	Description param.Field[string] `json:"description" api:"required"`
-	Favicon param.Field[string] `json:"favicon" api:"required"`
+	CompanyName     param.Field[string] `json:"companyName" api:"required"`
+	Description     param.Field[string] `json:"description" api:"required"`
+	Favicon         param.Field[string] `json:"favicon" api:"required"`
 	FormDescription param.Field[string] `json:"formDescription" api:"required"`
-	FormImage param.Field[string] `json:"formImage" api:"required"`
-	FormTitle param.Field[string] `json:"formTitle" api:"required"`
-	Head param.Field[string] `json:"head" api:"required"`
-	Logo param.Field[string] `json:"logo" api:"required"`
-	LogoURL param.Field[string] `json:"logoURL" api:"required"`
-	PrivacyLink param.Field[string] `json:"privacyLink" api:"required"`
-	Script param.Field[string] `json:"script" api:"required"`
-	TermsLink param.Field[string] `json:"termsLink" api:"required"`
-	Theme param.Field[string] `json:"theme" api:"required"`
-	Title param.Field[string] `json:"title" api:"required"`
+	FormImage       param.Field[string] `json:"formImage" api:"required"`
+	FormTitle       param.Field[string] `json:"formTitle" api:"required"`
+	Head            param.Field[string] `json:"head" api:"required"`
+	Logo            param.Field[string] `json:"logo" api:"required"`
+	LogoURL         param.Field[string] `json:"logoURL" api:"required"`
+	PrivacyLink     param.Field[string] `json:"privacyLink" api:"required"`
+	Script          param.Field[string] `json:"script" api:"required"`
+	TermsLink       param.Field[string] `json:"termsLink" api:"required"`
+	Theme           param.Field[string] `json:"theme" api:"required"`
+	Title           param.Field[string] `json:"title" api:"required"`
 }
 
 func (r LoginPortalPageParam) MarshalJSON() (data []byte, err error) {
@@ -321,17 +336,17 @@ func (r LoginPortalPageParam) MarshalJSON() (data []byte, err error) {
 }
 
 type LoginPortal struct {
-	UID string `json:"uid" api:"required"`
-	Title string `json:"title" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	JSON loginPortalJSON `json:"-"`
+	UID   string          `json:"uid" api:"required"`
+	Title string          `json:"title" api:"required"`
+	Slug  string          `json:"slug" api:"required"`
+	JSON  loginPortalJSON `json:"-"`
 }
 
 // loginPortalJSON contains the JSON metadata for the struct [LoginPortal]
 type loginPortalJSON struct {
-	UID apijson.Field
-	Title apijson.Field
-	Slug apijson.Field
+	UID         apijson.Field
+	Title       apijson.Field
+	Slug        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -345,13 +360,13 @@ func (r loginPortalJSON) RawJSON() string {
 }
 
 type LoginPortalNewResponse struct {
-	UID string `json:"uid" api:"required"`
+	UID  string                     `json:"uid" api:"required"`
 	JSON loginPortalNewResponseJSON `json:"-"`
 }
 
 // loginPortalNewResponseJSON contains the JSON metadata for the struct [LoginPortalNewResponse]
 type loginPortalNewResponseJSON struct {
-	UID apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -374,9 +389,9 @@ func (r LoginPortalUpdateParams) MarshalJSON() (data []byte, err error) {
 
 type LoginPortalNewParams struct {
 	Email param.Field[LoginPortalEmailParam] `json:"email" api:"required"`
-	Page param.Field[LoginPortalPageParam] `json:"page" api:"required"`
-	Slug param.Field[string] `json:"slug" api:"required"`
-	Title param.Field[string] `json:"title" api:"required"`
+	Page  param.Field[LoginPortalPageParam]  `json:"page" api:"required"`
+	Slug  param.Field[string]                `json:"slug" api:"required"`
+	Title param.Field[string]                `json:"title" api:"required"`
 }
 
 func (r LoginPortalNewParams) MarshalJSON() (data []byte, err error) {
@@ -384,21 +399,21 @@ func (r LoginPortalNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type LoginPortalGetResponse struct {
-	UID string `json:"uid" api:"required"`
-	Title string `json:"title" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	Email LoginPortalEmail `json:"email" api:"required"`
-	Page LoginPortalPage `json:"page" api:"required"`
-	JSON loginPortalGetResponseJSON `json:"-"`
+	UID   string                     `json:"uid" api:"required"`
+	Title string                     `json:"title" api:"required"`
+	Slug  string                     `json:"slug" api:"required"`
+	Email LoginPortalEmail           `json:"email" api:"required"`
+	Page  LoginPortalPage            `json:"page" api:"required"`
+	JSON  loginPortalGetResponseJSON `json:"-"`
 }
 
 // loginPortalGetResponseJSON contains the JSON metadata for the struct [LoginPortalGetResponse]
 type loginPortalGetResponseJSON struct {
-	UID apijson.Field
-	Title apijson.Field
-	Slug apijson.Field
-	Email apijson.Field
-	Page apijson.Field
+	UID         apijson.Field
+	Title       apijson.Field
+	Slug        apijson.Field
+	Email       apijson.Field
+	Page        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

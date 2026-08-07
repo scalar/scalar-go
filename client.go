@@ -17,15 +17,15 @@ import (
 // interacting with the Scalar API API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options []option.RequestOption
-	Registry *RegistryService
-	Schemas *SchemaService
-	LoginPortals *LoginPortalService
-	Rules *RuleService
-	Themes *ThemeService
-	Teams *TeamService
-	ScalarDocs *ScalarDocService
-	Namespaces *NamespaceService
+	Options        []option.RequestOption
+	Registry       *RegistryService
+	Schemas        *SchemaService
+	LoginPortals   *LoginPortalService
+	Rules          *RuleService
+	Themes         *ThemeService
+	Teams          *TeamService
+	ScalarDocs     *ScalarDocService
+	Namespaces     *NamespaceService
 	Authentication *AuthenticationService
 }
 
@@ -71,7 +71,6 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 
 	return
 }
-
 
 // Execute makes a request with the given context, method, URL, request params,
 // response, and request options.
