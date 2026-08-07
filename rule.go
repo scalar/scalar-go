@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -57,7 +58,7 @@ func (r *RuleService) ListRulesets(ctx context.Context, namespace string, opts .
 		err = errors.New("missing required namespace parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/rulesets/%s", namespace)
+	path := fmt.Sprintf("v1/rulesets/%s", url.PathEscape(namespace))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -93,7 +94,7 @@ func (r *RuleService) NewRuleset(ctx context.Context, namespace string, body Rul
 		err = errors.New("missing required namespace parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/rulesets/%s", namespace)
+	path := fmt.Sprintf("v1/rulesets/%s", url.PathEscape(namespace))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }
@@ -130,7 +131,7 @@ func (r *RuleService) UpdateRuleset(ctx context.Context, namespace string, slug 
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/rulesets/%s/%s", namespace, slug)
+	path := fmt.Sprintf("v1/rulesets/%s/%s", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return res, err
 }
@@ -166,7 +167,7 @@ func (r *RuleService) DeleteRuleset(ctx context.Context, namespace string, slug 
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/rulesets/%s/%s", namespace, slug)
+	path := fmt.Sprintf("v1/rulesets/%s/%s", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return res, err
 }
@@ -203,7 +204,7 @@ func (r *RuleService) GetRulesetDocument(ctx context.Context, namespace string, 
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/rulesets/%s/%s", namespace, slug)
+	path := fmt.Sprintf("v1/rulesets/%s/%s", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
@@ -244,7 +245,7 @@ func (r *RuleService) NewRulesetAccessGroup(ctx context.Context, namespace strin
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/rulesets/%s/%s/access-group", namespace, slug)
+	path := fmt.Sprintf("v1/rulesets/%s/%s/access-group", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return res, err
 }
@@ -285,7 +286,7 @@ func (r *RuleService) DeleteRulesetAccessGroup(ctx context.Context, namespace st
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/rulesets/%s/%s/access-group", namespace, slug)
+	path := fmt.Sprintf("v1/rulesets/%s/%s/access-group", url.PathEscape(namespace), url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return res, err
 }

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -115,7 +116,7 @@ func (r *ScalarDocService) PublishGuide(ctx context.Context, slug string, opts .
 		err = errors.New("missing required slug parameter")
 		return nil, err
 	}
-	path := fmt.Sprintf("v1/guides/%s/publish", slug)
+	path := fmt.Sprintf("v1/guides/%s/publish", url.PathEscape(slug))
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return res, err
 }
