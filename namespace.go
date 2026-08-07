@@ -30,19 +30,22 @@ func NewNamespaceService(opts ...option.RequestOption) (r *NamespaceService) {
 // Get all namespaces for the current team
 //
 // Parameters:
-//     ctx: Context for the request.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]string: Default Response
+//
+//	*[]string: Default Response
 //
 // Example:
 //
-//     namespace, err := client.Namespaces.List(context.Background())
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(namespace)
+//	namespace, err := client.Namespaces.List(context.Background())
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(namespace)
 func (r *NamespaceService) List(ctx context.Context, opts ...option.RequestOption) (res *[]string, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/namespaces"

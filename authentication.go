@@ -32,22 +32,25 @@ func NewAuthenticationService(opts ...option.RequestOption) (r *AuthenticationSe
 // Exchange an API key for an access token.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     body: AuthenticationExchangePersonalTokenParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	body: AuthenticationExchangePersonalTokenParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *AuthenticationExchangePersonalTokenResponse: Default Response
+//
+//	*AuthenticationExchangePersonalTokenResponse: Default Response
 //
 // Example:
 //
-//     authentication, err := client.Authentication.ExchangePersonalToken(context.Background(), sdk.AuthenticationExchangePersonalTokenParams{
-//     	PersonalToken: sdk.F[string](""),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(authentication)
+//	authentication, err := client.Authentication.ExchangePersonalToken(context.Background(), sdk.AuthenticationExchangePersonalTokenParams{
+//		PersonalToken: sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(authentication)
 func (r *AuthenticationService) ExchangePersonalToken(ctx context.Context, body AuthenticationExchangePersonalTokenParams, opts ...option.RequestOption) (res *AuthenticationExchangePersonalTokenResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/auth/exchange"
@@ -58,19 +61,22 @@ func (r *AuthenticationService) ExchangePersonalToken(ctx context.Context, body 
 // Get the authenticated user, including their available teams and theme.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *AuthenticationListCurrentUserResponse: Default Response
+//
+//	*AuthenticationListCurrentUserResponse: Default Response
 //
 // Example:
 //
-//     authentication, err := client.Authentication.ListCurrentUser(context.Background())
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(authentication)
+//	authentication, err := client.Authentication.ListCurrentUser(context.Background())
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(authentication)
 func (r *AuthenticationService) ListCurrentUser(ctx context.Context, opts ...option.RequestOption) (res *AuthenticationListCurrentUserResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/auth/me"
@@ -79,29 +85,29 @@ func (r *AuthenticationService) ListCurrentUser(ctx context.Context, opts ...opt
 }
 
 type AuthenticationListCurrentUserResponse struct {
-	UID string `json:"uid" api:"required"`
-	CreatedAt int64 `json:"createdAt" api:"required"`
-	UpdatedAt int64 `json:"updatedAt" api:"required"`
-	Email string `json:"email" api:"required" format:"email"`
-	ActiveTeamID string `json:"activeTeamId" api:"required,nullable"`
-	HasGithub bool `json:"hasGithub" api:"required"`
-	Teams []AuthenticationListCurrentUserResponseTeam `json:"teams" api:"required"`
-	Theme string `json:"theme"`
-	JSON authenticationListCurrentUserResponseJSON `json:"-"`
+	UID          string                                      `json:"uid" api:"required"`
+	CreatedAt    int64                                       `json:"createdAt" api:"required"`
+	UpdatedAt    int64                                       `json:"updatedAt" api:"required"`
+	Email        string                                      `json:"email" api:"required" format:"email"`
+	ActiveTeamID string                                      `json:"activeTeamId" api:"required,nullable"`
+	HasGithub    bool                                        `json:"hasGithub" api:"required"`
+	Teams        []AuthenticationListCurrentUserResponseTeam `json:"teams" api:"required"`
+	Theme        string                                      `json:"theme"`
+	JSON         authenticationListCurrentUserResponseJSON   `json:"-"`
 }
 
 // authenticationListCurrentUserResponseJSON contains the JSON metadata for the struct [AuthenticationListCurrentUserResponse]
 type authenticationListCurrentUserResponseJSON struct {
-	UID apijson.Field
-	CreatedAt apijson.Field
-	UpdatedAt apijson.Field
-	Email apijson.Field
+	UID          apijson.Field
+	CreatedAt    apijson.Field
+	UpdatedAt    apijson.Field
+	Email        apijson.Field
 	ActiveTeamID apijson.Field
-	HasGithub apijson.Field
-	Teams apijson.Field
-	Theme apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	HasGithub    apijson.Field
+	Teams        apijson.Field
+	Theme        apijson.Field
+	raw          string
+	ExtraFields  map[string]apijson.Field
 }
 
 func (r *AuthenticationListCurrentUserResponse) UnmarshalJSON(data []byte) (err error) {
@@ -121,8 +127,8 @@ func (r AuthenticationExchangePersonalTokenParams) MarshalJSON() (data []byte, e
 }
 
 type AuthenticationExchangePersonalTokenResponse struct {
-	AccessToken string `json:"accessToken" api:"required"`
-	JSON authenticationExchangePersonalTokenResponseJSON `json:"-"`
+	AccessToken string                                          `json:"accessToken" api:"required"`
+	JSON        authenticationExchangePersonalTokenResponseJSON `json:"-"`
 }
 
 // authenticationExchangePersonalTokenResponseJSON contains the JSON metadata for the struct [AuthenticationExchangePersonalTokenResponse]
@@ -141,17 +147,17 @@ func (r authenticationExchangePersonalTokenResponseJSON) RawJSON() string {
 }
 
 type AuthenticationListCurrentUserResponseTeam struct {
-	UID string `json:"uid" api:"required"`
-	Name string `json:"name" api:"required"`
-	ImageURI string `json:"imageUri"`
-	JSON authenticationListCurrentUserResponseTeamJSON `json:"-"`
+	UID      string                                        `json:"uid" api:"required"`
+	Name     string                                        `json:"name" api:"required"`
+	ImageURI string                                        `json:"imageUri"`
+	JSON     authenticationListCurrentUserResponseTeamJSON `json:"-"`
 }
 
 // authenticationListCurrentUserResponseTeamJSON contains the JSON metadata for the struct [AuthenticationListCurrentUserResponseTeam]
 type authenticationListCurrentUserResponseTeamJSON struct {
-	UID apijson.Field
-	Name apijson.Field
-	ImageURI apijson.Field
+	UID         apijson.Field
+	Name        apijson.Field
+	ImageURI    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

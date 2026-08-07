@@ -34,19 +34,22 @@ func NewScalarDocService(opts ...option.RequestOption) (r *ScalarDocService) {
 // List all guide projects.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]GithubProject: Default Response
+//
+//	*[]GithubProject: Default Response
 //
 // Example:
 //
-//     scalarDoc, err := client.ScalarDocs.ListGuides(context.Background())
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(scalarDoc)
+//	scalarDoc, err := client.ScalarDocs.ListGuides(context.Background())
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
 func (r *ScalarDocService) ListGuides(ctx context.Context, opts ...option.RequestOption) (res *[]GithubProject, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/guides"
@@ -57,25 +60,28 @@ func (r *ScalarDocService) ListGuides(ctx context.Context, opts ...option.Reques
 // Create a guide project.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     body: ScalarDocNewGuideParams request parameters.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	body: ScalarDocNewGuideParams request parameters.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *ScalarDocNewGuideResponse: Default Response
+//
+//	*ScalarDocNewGuideResponse: Default Response
 //
 // Example:
 //
-//     scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
-//     	AllowedDomains: sdk.F[[]string]([]string{""}),
-//     	AllowedUsers: sdk.F[[]string]([]string{""}),
-//     	IsPrivate: sdk.F[bool](false),
-//     	Name: sdk.F[string](""),
-//     })
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(scalarDoc)
+//	scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
+//		AllowedDomains: sdk.F[[]string]([]string{""}),
+//		AllowedUsers:   sdk.F[[]string]([]string{""}),
+//		IsPrivate:      sdk.F[bool](false),
+//		Name:           sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
 func (r *ScalarDocService) NewGuide(ctx context.Context, body ScalarDocNewGuideParams, opts ...option.RequestOption) (res *ScalarDocNewGuideResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/guides"
@@ -86,20 +92,23 @@ func (r *ScalarDocService) NewGuide(ctx context.Context, body ScalarDocNewGuideP
 // Start a new publish process.
 //
 // Parameters:
-//     ctx: Context for the request.
-//     slug: Path parameter.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *ScalarDocPublishGuideResponse: Default Response
+//
+//	*ScalarDocPublishGuideResponse: Default Response
 //
 // Example:
 //
-//     scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(scalarDoc)
+//	scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
 func (r *ScalarDocService) PublishGuide(ctx context.Context, slug string, opts ...option.RequestOption) (res *ScalarDocPublishGuideResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if slug == "" {
@@ -112,47 +121,47 @@ func (r *ScalarDocService) PublishGuide(ctx context.Context, slug string, opts .
 }
 
 type GithubProject struct {
-	UID string `json:"uid" api:"required"`
-	CreatedAt int64 `json:"createdAt" api:"required"`
-	UpdatedAt int64 `json:"updatedAt" api:"required"`
-	Name string `json:"name" api:"required"`
+	UID              string                        `json:"uid" api:"required"`
+	CreatedAt        int64                         `json:"createdAt" api:"required"`
+	UpdatedAt        int64                         `json:"updatedAt" api:"required"`
+	Name             string                        `json:"name" api:"required"`
 	ActiveDeployment GithubProjectActiveDeployment `json:"activeDeployment" api:"required,nullable"`
-	LastPublished int64 `json:"lastPublished" api:"required,nullable"`
-	LastPublishedUID string `json:"lastPublishedUid" api:"required,nullable"`
-	LoginPortalUID string `json:"loginPortalUid" api:"required"`
-	ActiveThemeID string `json:"activeThemeId" api:"required"`
-	IsPrivate bool `json:"isPrivate" api:"required"`
-	AgentEnabled bool `json:"agentEnabled" api:"required"`
-	AccessGroups interface{} `json:"accessGroups" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	PublishStatus string `json:"publishStatus" api:"required"`
-	PublishMessage string `json:"publishMessage" api:"required"`
-	TypesenseID float64 `json:"typesenseId"`
-	Repository GithubProjectRepository `json:"repository" api:"nullable"`
-	JSON githubProjectJSON `json:"-"`
+	LastPublished    int64                         `json:"lastPublished" api:"required,nullable"`
+	LastPublishedUID string                        `json:"lastPublishedUid" api:"required,nullable"`
+	LoginPortalUID   string                        `json:"loginPortalUid" api:"required"`
+	ActiveThemeID    string                        `json:"activeThemeId" api:"required"`
+	IsPrivate        bool                          `json:"isPrivate" api:"required"`
+	AgentEnabled     bool                          `json:"agentEnabled" api:"required"`
+	AccessGroups     interface{}                   `json:"accessGroups" api:"required"`
+	Slug             string                        `json:"slug" api:"required"`
+	PublishStatus    string                        `json:"publishStatus" api:"required"`
+	PublishMessage   string                        `json:"publishMessage" api:"required"`
+	TypesenseID      float64                       `json:"typesenseId"`
+	Repository       GithubProjectRepository       `json:"repository" api:"nullable"`
+	JSON             githubProjectJSON             `json:"-"`
 }
 
 // githubProjectJSON contains the JSON metadata for the struct [GithubProject]
 type githubProjectJSON struct {
-	UID apijson.Field
-	CreatedAt apijson.Field
-	UpdatedAt apijson.Field
-	Name apijson.Field
+	UID              apijson.Field
+	CreatedAt        apijson.Field
+	UpdatedAt        apijson.Field
+	Name             apijson.Field
 	ActiveDeployment apijson.Field
-	LastPublished apijson.Field
+	LastPublished    apijson.Field
 	LastPublishedUID apijson.Field
-	LoginPortalUID apijson.Field
-	ActiveThemeID apijson.Field
-	IsPrivate apijson.Field
-	AgentEnabled apijson.Field
-	AccessGroups apijson.Field
-	Slug apijson.Field
-	PublishStatus apijson.Field
-	PublishMessage apijson.Field
-	TypesenseID apijson.Field
-	Repository apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	LoginPortalUID   apijson.Field
+	ActiveThemeID    apijson.Field
+	IsPrivate        apijson.Field
+	AgentEnabled     apijson.Field
+	AccessGroups     apijson.Field
+	Slug             apijson.Field
+	PublishStatus    apijson.Field
+	PublishMessage   apijson.Field
+	TypesenseID      apijson.Field
+	Repository       apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
 }
 
 func (r *GithubProject) UnmarshalJSON(data []byte) (err error) {
@@ -164,31 +173,31 @@ func (r githubProjectJSON) RawJSON() string {
 }
 
 type GithubProjectRepository struct {
-	LinkedBy string `json:"linkedBy" api:"required"`
-	ID float64 `json:"id" api:"required"`
-	Name string `json:"name" api:"required"`
-	ConfigPath string `json:"configPath" api:"required"`
-	Branch string `json:"branch" api:"required"`
-	PublishOnMerge bool `json:"publishOnMerge" api:"required"`
-	PublishPreviews bool `json:"publishPreviews" api:"required"`
-	PrComments bool `json:"prComments" api:"required"`
-	Expired bool `json:"expired" api:"required"`
-	JSON githubProjectRepositoryJSON `json:"-"`
+	LinkedBy        string                      `json:"linkedBy" api:"required"`
+	ID              float64                     `json:"id" api:"required"`
+	Name            string                      `json:"name" api:"required"`
+	ConfigPath      string                      `json:"configPath" api:"required"`
+	Branch          string                      `json:"branch" api:"required"`
+	PublishOnMerge  bool                        `json:"publishOnMerge" api:"required"`
+	PublishPreviews bool                        `json:"publishPreviews" api:"required"`
+	PrComments      bool                        `json:"prComments" api:"required"`
+	Expired         bool                        `json:"expired" api:"required"`
+	JSON            githubProjectRepositoryJSON `json:"-"`
 }
 
 // githubProjectRepositoryJSON contains the JSON metadata for the struct [GithubProjectRepository]
 type githubProjectRepositoryJSON struct {
-	LinkedBy apijson.Field
-	ID apijson.Field
-	Name apijson.Field
-	ConfigPath apijson.Field
-	Branch apijson.Field
-	PublishOnMerge apijson.Field
+	LinkedBy        apijson.Field
+	ID              apijson.Field
+	Name            apijson.Field
+	ConfigPath      apijson.Field
+	Branch          apijson.Field
+	PublishOnMerge  apijson.Field
 	PublishPreviews apijson.Field
-	PrComments apijson.Field
-	Expired apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	PrComments      apijson.Field
+	Expired         apijson.Field
+	raw             string
+	ExtraFields     map[string]apijson.Field
 }
 
 func (r *GithubProjectRepository) UnmarshalJSON(data []byte) (err error) {
@@ -200,16 +209,16 @@ func (r githubProjectRepositoryJSON) RawJSON() string {
 }
 
 type GithubProjectActiveDeployment struct {
-	UID string `json:"uid" api:"required"`
-	Domain string `json:"domain" api:"required"`
-	PublishedAt int64 `json:"publishedAt" api:"required"`
-	JSON githubProjectActiveDeploymentJSON `json:"-"`
+	UID         string                            `json:"uid" api:"required"`
+	Domain      string                            `json:"domain" api:"required"`
+	PublishedAt int64                             `json:"publishedAt" api:"required"`
+	JSON        githubProjectActiveDeploymentJSON `json:"-"`
 }
 
 // githubProjectActiveDeploymentJSON contains the JSON metadata for the struct [GithubProjectActiveDeployment]
 type githubProjectActiveDeploymentJSON struct {
-	UID apijson.Field
-	Domain apijson.Field
+	UID         apijson.Field
+	Domain      apijson.Field
 	PublishedAt apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -224,9 +233,9 @@ func (r githubProjectActiveDeploymentJSON) RawJSON() string {
 }
 
 type GithubProjectActiveDeploymentParam struct {
-	Domain param.Field[string] `json:"domain" api:"required"`
-	PublishedAt param.Field[int64] `json:"publishedAt" api:"required"`
-	UID param.Field[string] `json:"uid" api:"required"`
+	Domain      param.Field[string] `json:"domain" api:"required"`
+	PublishedAt param.Field[int64]  `json:"publishedAt" api:"required"`
+	UID         param.Field[string] `json:"uid" api:"required"`
 }
 
 func (r GithubProjectActiveDeploymentParam) MarshalJSON() (data []byte, err error) {
@@ -235,10 +244,10 @@ func (r GithubProjectActiveDeploymentParam) MarshalJSON() (data []byte, err erro
 
 type ScalarDocNewGuideParams struct {
 	AllowedDomains param.Field[[]string] `json:"allowedDomains" api:"required"`
-	AllowedUsers param.Field[[]string] `json:"allowedUsers" api:"required"`
-	IsPrivate param.Field[bool] `json:"isPrivate" api:"required"`
-	Name param.Field[string] `json:"name" api:"required"`
-	Slug param.Field[string] `json:"slug"`
+	AllowedUsers   param.Field[[]string] `json:"allowedUsers" api:"required"`
+	IsPrivate      param.Field[bool]     `json:"isPrivate" api:"required"`
+	Name           param.Field[string]   `json:"name" api:"required"`
+	Slug           param.Field[string]   `json:"slug"`
 }
 
 func (r ScalarDocNewGuideParams) MarshalJSON() (data []byte, err error) {
@@ -246,15 +255,15 @@ func (r ScalarDocNewGuideParams) MarshalJSON() (data []byte, err error) {
 }
 
 type ScalarDocNewGuideResponse struct {
-	UID string `json:"uid" api:"required"`
-	Slug string `json:"slug" api:"required"`
+	UID  string                        `json:"uid" api:"required"`
+	Slug string                        `json:"slug" api:"required"`
 	JSON scalarDocNewGuideResponseJSON `json:"-"`
 }
 
 // scalarDocNewGuideResponseJSON contains the JSON metadata for the struct [ScalarDocNewGuideResponse]
 type scalarDocNewGuideResponseJSON struct {
-	UID apijson.Field
-	Slug apijson.Field
+	UID         apijson.Field
+	Slug        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -268,13 +277,13 @@ func (r scalarDocNewGuideResponseJSON) RawJSON() string {
 }
 
 type ScalarDocPublishGuideResponse struct {
-	PublishUID string `json:"publishUid" api:"required"`
-	JSON scalarDocPublishGuideResponseJSON `json:"-"`
+	PublishUID string                            `json:"publishUid" api:"required"`
+	JSON       scalarDocPublishGuideResponseJSON `json:"-"`
 }
 
 // scalarDocPublishGuideResponseJSON contains the JSON metadata for the struct [ScalarDocPublishGuideResponse]
 type scalarDocPublishGuideResponseJSON struct {
-	PublishUID apijson.Field
+	PublishUID  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

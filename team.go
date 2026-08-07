@@ -31,19 +31,22 @@ func NewTeamService(opts ...option.RequestOption) (r *TeamService) {
 // List all available teams
 //
 // Parameters:
-//     ctx: Context for the request.
-//     opts: Options to apply to this request.
+//
+//	ctx: Context for the request.
+//	opts: Options to apply to this request.
 //
 // Returns:
-//     *[]Team: Default Response
+//
+//	*[]Team: Default Response
 //
 // Example:
 //
-//     team, err := client.Teams.List(context.Background())
-//     if err != nil {
-//     	panic(err)
-//     }
-//     fmt.Println(team)
+//	team, err := client.Teams.List(context.Background())
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(team)
 func (r *TeamService) List(ctx context.Context, opts ...option.RequestOption) (res *[]Team, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/teams"
@@ -52,21 +55,21 @@ func (r *TeamService) List(ctx context.Context, opts ...option.RequestOption) (r
 }
 
 type Team struct {
-	UID string `json:"uid" api:"required"`
-	Name string `json:"name" api:"required"`
-	Slug string `json:"slug" api:"required"`
-	Theme string `json:"theme" api:"required"`
-	ImageURI string `json:"imageUri"`
-	JSON teamJSON `json:"-"`
+	UID      string   `json:"uid" api:"required"`
+	Name     string   `json:"name" api:"required"`
+	Slug     string   `json:"slug" api:"required"`
+	Theme    string   `json:"theme" api:"required"`
+	ImageURI string   `json:"imageUri"`
+	JSON     teamJSON `json:"-"`
 }
 
 // teamJSON contains the JSON metadata for the struct [Team]
 type teamJSON struct {
-	UID apijson.Field
-	Name apijson.Field
-	Slug apijson.Field
-	Theme apijson.Field
-	ImageURI apijson.Field
+	UID         apijson.Field
+	Name        apijson.Field
+	Slug        apijson.Field
+	Theme       apijson.Field
+	ImageURI    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
