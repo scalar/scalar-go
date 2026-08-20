@@ -77,6 +77,8 @@ client := sdk.NewClient()
 
 ## `Registry`
 
+Registry
+
 ### List all API Documents
 
 List all API documents across every namespace the caller can access.
@@ -220,7 +222,7 @@ Get metadata (uid, content shas, version sha, tags) for a specific API document 
 
 | Direction | Type |
 | --- | --- |
-| Response | [`RegistryListAPIDocumentVersionMetadataResponse`](./registry.go) |
+| Response | [`ManagedDocVersion`](./shared/shared.go) |
 
 ```go
 registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
@@ -238,7 +240,7 @@ Create a new API document version.
 | Direction | Type |
 | --- | --- |
 | Request | [`RegistryNewAPIDocumentVersionParams`](./registry.go) |
-| Response | [`RegistryNewAPIDocumentVersionResponse`](./registry.go) |
+| Response | [`ManagedDocVersion`](./shared/shared.go) |
 
 ```go
 registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
@@ -296,6 +298,8 @@ fmt.Println(registry)
 
 ## `Schemas`
 
+Schemas
+
 ### List all shared components
 
 List schemas in a namespace.
@@ -320,7 +324,7 @@ Create a schema in a namespace.
 | Direction | Type |
 | --- | --- |
 | Request | [`SchemaNewParams`](./schema.go) |
-| Response | [`SchemaNewResponse`](./schema.go) |
+| Response | [`UID`](./shared/shared.go) |
 
 ```go
 schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
@@ -368,6 +372,8 @@ fmt.Println(schema)
 
 ### `Schemas Version`
 
+Schemas
+
 #### Get a shared component document
 
 Get a specific schema version document.
@@ -377,7 +383,7 @@ Get a specific schema version document.
 | Response | `string` |
 
 ```go
-version, err := client.Schemas.Version.GetSchema(context.Background(), "namespace", "slug", "semver")
+version, err := client.Schemas.Version.Get(context.Background(), "namespace", "slug", "semver")
 if err != nil {
 	panic(err)
 }
@@ -390,7 +396,7 @@ fmt.Println(version)
 Delete a schema version.
 
 ```go
-version, err := client.Schemas.Version.DeleteSchema(context.Background(), "namespace", "slug", "semver")
+version, err := client.Schemas.Version.Delete(context.Background(), "namespace", "slug", "semver")
 if err != nil {
 	panic(err)
 }
@@ -404,11 +410,11 @@ Create a schema version.
 
 | Direction | Type |
 | --- | --- |
-| Request | [`SchemaVersionNewSchemaParams`](./schemaversion.go) |
-| Response | [`SchemaVersionNewSchemaResponse`](./schemaversion.go) |
+| Request | [`SchemaVersionNewParams`](./schemaversion.go) |
+| Response | [`UID`](./shared/shared.go) |
 
 ```go
-version, err := client.Schemas.Version.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaVersionNewSchemaParams{
+version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
 	Document: sdk.F[string](""),
 	Version:  sdk.F[string]("x"),
 })
@@ -421,16 +427,18 @@ fmt.Println(version)
 
 ### `Schemas AccessGroup`
 
+Schemas
+
 #### Add shared component access group
 
 Add an access group to a schema.
 
 | Direction | Type |
 | --- | --- |
-| Request | [`SchemaAccessGroupNewSchemaParams`](./schemaaccessgroup.go) |
+| Request | [`SchemaAccessGroupNewParams`](./schemaaccessgroup.go) |
 
 ```go
-accessGroup, err := client.Schemas.AccessGroup.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewSchemaParams{
+accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
 	AccessGroup: sdk.AccessGroupParam{
 		AccessGroupSlug: sdk.F[string]("xxx"),
 	},
@@ -448,10 +456,10 @@ Remove an access group from a schema.
 
 | Direction | Type |
 | --- | --- |
-| Request | [`SchemaAccessGroupDeleteSchemaParams`](./schemaaccessgroup.go) |
+| Request | [`SchemaAccessGroupDeleteParams`](./schemaaccessgroup.go) |
 
 ```go
-accessGroup, err := client.Schemas.AccessGroup.DeleteSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteSchemaParams{
+accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
 	AccessGroup: sdk.AccessGroupParam{
 		AccessGroupSlug: sdk.F[string]("xxx"),
 	},
@@ -464,6 +472,8 @@ fmt.Println(accessGroup)
 ```
 
 ## `LoginPortals`
+
+Login Portals
 
 ### Get a login portal
 
@@ -519,7 +529,7 @@ Create a login portal for the current team.
 | Direction | Type |
 | --- | --- |
 | Request | [`LoginPortalNewParams`](./loginportal.go) |
-| Response | [`LoginPortalNewResponse`](./loginportal.go) |
+| Response | [`UID`](./shared/shared.go) |
 
 ```go
 loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPortalNewParams{
@@ -581,6 +591,8 @@ fmt.Println(loginPortal)
 
 ## `Rules`
 
+Rules
+
 ### List all rules
 
 List all rulesets in a namespace.
@@ -605,7 +617,7 @@ Create a rule in a namespace.
 | Direction | Type |
 | --- | --- |
 | Request | [`RuleNewRulesetParams`](./rule.go) |
-| Response | [`RuleNewRulesetResponse`](./rule.go) |
+| Response | [`UID`](./shared/shared.go) |
 
 ```go
 rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
@@ -711,6 +723,8 @@ fmt.Println(rule)
 
 ## `Themes`
 
+Themes
+
 ### List all themes
 
 List all team themes.
@@ -735,7 +749,7 @@ Create a team theme.
 | Direction | Type |
 | --- | --- |
 | Request | [`ThemeNewParams`](./theme.go) |
-| Response | [`ThemeNewResponse`](./theme.go) |
+| Response | [`UID`](./shared/shared.go) |
 
 ```go
 theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
@@ -818,6 +832,8 @@ fmt.Println(theme)
 
 ## `Teams`
 
+Teams
+
 ### List teams
 
 List all available teams
@@ -836,6 +852,8 @@ fmt.Println(team)
 ```
 
 ## `ScalarDocs`
+
+Scalar Docs
 
 ### List all projects
 
@@ -896,6 +914,8 @@ fmt.Println(scalarDoc)
 
 ## `Namespaces`
 
+Namespaces
+
 ### List namespaces
 
 Get all namespaces for the current team
@@ -914,6 +934,8 @@ fmt.Println(namespace)
 ```
 
 ## `Authentication`
+
+Authentication
 
 ### Exchange token
 

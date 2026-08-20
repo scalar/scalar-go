@@ -1,6 +1,6 @@
-# Scalar API
+# Scalar
 
-This library provides convenient access to the Scalar API from Go.
+This library provides convenient access to the Scalar REST API from Go.
 
 The full API of this library can be found in [api.md](./api.md).
 
