@@ -204,7 +204,7 @@ func _smokeCase15() {
 }
 
 func _smokeCase16() {
-	version, err := client.Schemas.Version.GetSchema(context.Background(), "namespace", "slug", "semver")
+	version, err := client.Schemas.Version.Get(context.Background(), "namespace", "slug", "semver")
 	if err != nil {
 		panic(err)
 	}
@@ -213,7 +213,7 @@ func _smokeCase16() {
 }
 
 func _smokeCase17() {
-	version, err := client.Schemas.Version.DeleteSchema(context.Background(), "namespace", "slug", "semver")
+	version, err := client.Schemas.Version.Delete(context.Background(), "namespace", "slug", "semver")
 	if err != nil {
 		panic(err)
 	}
@@ -222,7 +222,7 @@ func _smokeCase17() {
 }
 
 func _smokeCase18() {
-	version, err := client.Schemas.Version.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaVersionNewSchemaParams{
+	version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
 		Document: sdk.F[string](""),
 		Version:  sdk.F[string]("x"),
 	})
@@ -234,7 +234,7 @@ func _smokeCase18() {
 }
 
 func _smokeCase19() {
-	accessGroup, err := client.Schemas.AccessGroup.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewSchemaParams{
+	accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
 		},
@@ -247,7 +247,7 @@ func _smokeCase19() {
 }
 
 func _smokeCase20() {
-	accessGroup, err := client.Schemas.AccessGroup.DeleteSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteSchemaParams{
+	accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
 		},
@@ -655,35 +655,35 @@ var cases = []smokeCase{
 	},
 
 	{
-		Operation: "retrieveSchema",
+		Operation: "retrieve",
 		Method:    "GET",
 		Path:      "/v1/schemas/{namespace}/{slug}/version/{semver}",
 		Run:       _smokeCase16,
 	},
 
 	{
-		Operation: "deleteSchema",
+		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/schemas/{namespace}/{slug}/version/{semver}",
 		Run:       _smokeCase17,
 	},
 
 	{
-		Operation: "createSchema",
+		Operation: "create",
 		Method:    "POST",
 		Path:      "/v1/schemas/{namespace}/{slug}/version",
 		Run:       _smokeCase18,
 	},
 
 	{
-		Operation: "createSchema",
+		Operation: "create",
 		Method:    "POST",
 		Path:      "/v1/schemas/{namespace}/{slug}/access-group",
 		Run:       _smokeCase19,
 	},
 
 	{
-		Operation: "deleteSchema",
+		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/schemas/{namespace}/{slug}/access-group",
 		Run:       _smokeCase20,
