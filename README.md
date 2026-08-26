@@ -92,7 +92,7 @@ if err != nil {
 	panic(err)
 }
 
-// imports: sdk "github.com/scalar/scalar-go", "errors", "fmt"
+// imports: "context", "errors", "fmt", sdk "github.com/scalar/scalar-go"
 ```
 
 Documented error statuses: `400`, `401`, `403`, `404`, `422`, `500`.

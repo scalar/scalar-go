@@ -74,7 +74,7 @@ if err != nil {
 	panic(err)
 }
 
-// imports: sdk "github.com/scalar/scalar-go", "errors", "fmt"
+// imports: "context", "errors", "fmt", sdk "github.com/scalar/scalar-go"
 ```
 
 ## Requirements
