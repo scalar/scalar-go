@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.4.0](https://github.com/scalar/scalar-go/compare/v0.3.4...v0.4.0) (2026-08-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** Renamed SDK from `ScalarApi` to `Scalar`.
+* **api:** Renamed SDK from `Scalar` to `ScalarApi`.
+* **api:** 6 breaking changes to the SDK surface.
+    - Renamed SDK from `ScalarApi` to `Scalar`.
+    - Removed operation `schemas.version.retrieveSchema` (`GET /v1/schemas/{namespace}/{slug}/version/{semver}`).
+    - Removed operation `schemas.version.deleteSchema` (`DELETE /v1/schemas/{namespace}/{slug}/version/{semver}`).
+    - Removed operation `schemas.version.createSchema` (`POST /v1/schemas/{namespace}/{slug}/version`).
+    - Removed operation `schemas.accessGroup.createSchema` (`POST /v1/schemas/{namespace}/{slug}/access-group`).
+    - Removed operation `schemas.accessGroup.deleteSchema` (`DELETE /v1/schemas/{namespace}/{slug}/access-group`).
+
+### Features
+
+* **api:** update SDK name ([775c32d](https://github.com/scalar/scalar-go/commit/775c32d67926a52ef5e28fa9e0c486900262a3d3))
+* **api:** update SDK name ([9330288](https://github.com/scalar/scalar-go/commit/93302884345fbd6265588e80b95b7e2e0fd203ab))
+* **api:** update SDK name (+11 more changes) ([d1eddb9](https://github.com/scalar/scalar-go/commit/d1eddb9d756ffcd296a9537f4d6c50b92d705192))
+
+
+### Chores
+
+* **api:** regenerate SDK ([492bebb](https://github.com/scalar/scalar-go/commit/492bebb996c773d6d759ae4657cd00bfb48a5bde))
+* **api:** regenerate SDK ([fa383e3](https://github.com/scalar/scalar-go/commit/fa383e3892a10eda54587177c7e61371a4439a67))
+
 ## [0.3.4](https://github.com/scalar/scalar-go/compare/v0.3.3...v0.3.4) (2026-08-07)
 
 
