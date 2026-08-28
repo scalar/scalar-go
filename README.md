@@ -1,6 +1,6 @@
-# Scalar API
+# Scalar
 
-This library provides convenient access to the Scalar API from Go.
+This library provides convenient access to the Scalar REST API from Go.
 
 The full API of this library can be found in [api.md](./api.md).
 
@@ -92,7 +92,7 @@ if err != nil {
 	panic(err)
 }
 
-// imports: sdk "github.com/scalar/scalar-go", "errors", "fmt"
+// imports: "context", "errors", "fmt", sdk "github.com/scalar/scalar-go"
 ```
 
 Documented error statuses: `400`, `401`, `403`, `404`, `422`, `500`.

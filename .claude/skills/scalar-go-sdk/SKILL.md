@@ -1,9 +1,9 @@
 ---
-name: scalar-api-go-sdk
+name: scalar-go-sdk
 description: "Go SDK for Scalar API. Use when writing Go code that calls Scalar API with the github.com/scalar/scalar-go package: installing it, constructing and authenticating the client, and calling API operations."
 ---
 
-# Scalar API Go SDK
+# Scalar Go SDK
 
 Generated Go client for Scalar API, published as `github.com/scalar/scalar-go`. Use the generated client instead of hand-writing HTTP requests.
 
@@ -74,7 +74,7 @@ if err != nil {
 	panic(err)
 }
 
-// imports: sdk "github.com/scalar/scalar-go", "errors", "fmt"
+// imports: "context", "errors", "fmt", sdk "github.com/scalar/scalar-go"
 ```
 
 ## Requirements

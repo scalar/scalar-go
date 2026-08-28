@@ -24,15 +24,19 @@ type smokeResult struct {
 	Operation  string `json:"operation"`
 	Method     string `json:"method"`
 	Path       string `json:"path"`
+	Label      string `json:"label,omitempty"`
 	Status     string `json:"status"`
 	DurationMs int64  `json:"durationMs"`
 	Error      string `json:"error,omitempty"`
 }
 
+// Label says which of an operation's two calls this is — "required params" or "all params".
+// It is empty when the operation contributed a single case.
 type smokeCase struct {
 	Operation string
 	Method    string
 	Path      string
+	Label     string
 	Run       func()
 }
 
@@ -69,7 +73,15 @@ func _smokeCase2() {
 }
 
 func _smokeCase3() {
-	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
+	registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
+		Document:    sdk.F[string](""),
+		Slug:        sdk.F[string](""),
+		Title:       sdk.F[string](""),
+		Version:     sdk.F[string]("x"),
+		Description: sdk.F[string](""),
+		IsPrivate:   sdk.F[bool](false),
+		Ruleset:     sdk.F[string](""),
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -78,7 +90,7 @@ func _smokeCase3() {
 }
 
 func _smokeCase4() {
-	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
+	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -87,7 +99,12 @@ func _smokeCase4() {
 }
 
 func _smokeCase5() {
-	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{
+		Description: sdk.F[string](""),
+		IsPrivate:   sdk.F[bool](false),
+		Ruleset:     sdk.F[string](""),
+		Title:       sdk.F[string](""),
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -96,6 +113,24 @@ func _smokeCase5() {
 }
 
 func _smokeCase6() {
+	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(registry)
+}
+
+func _smokeCase7() {
+	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(registry)
+}
+
+func _smokeCase8() {
 	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
 		Document: sdk.F[string](""),
 	})
@@ -106,7 +141,19 @@ func _smokeCase6() {
 	fmt.Println(registry)
 }
 
-func _smokeCase7() {
+func _smokeCase9() {
+	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
+		Document:            sdk.F[string](""),
+		LastKnownVersionSha: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(registry)
+}
+
+func _smokeCase10() {
 	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
 	if err != nil {
 		panic(err)
@@ -115,7 +162,7 @@ func _smokeCase7() {
 	fmt.Println(registry)
 }
 
-func _smokeCase8() {
+func _smokeCase11() {
 	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
 	if err != nil {
 		panic(err)
@@ -124,7 +171,7 @@ func _smokeCase8() {
 	fmt.Println(registry)
 }
 
-func _smokeCase9() {
+func _smokeCase12() {
 	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
 		Document: sdk.F[string](""),
 		Version:  sdk.F[string]("x"),
@@ -136,7 +183,21 @@ func _smokeCase9() {
 	fmt.Println(registry)
 }
 
-func _smokeCase10() {
+func _smokeCase13() {
+	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
+		Document:            sdk.F[string](""),
+		Version:             sdk.F[string]("x"),
+		Force:               sdk.F[bool](false),
+		LastKnownVersionSha: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(registry)
+}
+
+func _smokeCase14() {
 	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
@@ -149,7 +210,7 @@ func _smokeCase10() {
 	fmt.Println(registry)
 }
 
-func _smokeCase11() {
+func _smokeCase15() {
 	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
@@ -162,7 +223,7 @@ func _smokeCase11() {
 	fmt.Println(registry)
 }
 
-func _smokeCase12() {
+func _smokeCase16() {
 	schema, err := client.Schemas.List(context.Background(), "namespace")
 	if err != nil {
 		panic(err)
@@ -171,7 +232,7 @@ func _smokeCase12() {
 	fmt.Println(schema)
 }
 
-func _smokeCase13() {
+func _smokeCase17() {
 	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
 		Document: sdk.F[string](""),
 		Slug:     sdk.F[string](""),
@@ -185,7 +246,23 @@ func _smokeCase13() {
 	fmt.Println(schema)
 }
 
-func _smokeCase14() {
+func _smokeCase18() {
+	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
+		Document:    sdk.F[string](""),
+		Slug:        sdk.F[string](""),
+		Title:       sdk.F[string](""),
+		Version:     sdk.F[string]("x"),
+		Description: sdk.F[string](""),
+		IsPrivate:   sdk.F[bool](false),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(schema)
+}
+
+func _smokeCase19() {
 	schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{})
 	if err != nil {
 		panic(err)
@@ -194,7 +271,20 @@ func _smokeCase14() {
 	fmt.Println(schema)
 }
 
-func _smokeCase15() {
+func _smokeCase20() {
+	schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{
+		Description: sdk.F[string](""),
+		IsPrivate:   sdk.F[bool](false),
+		Title:       sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(schema)
+}
+
+func _smokeCase21() {
 	schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
 	if err != nil {
 		panic(err)
@@ -203,8 +293,8 @@ func _smokeCase15() {
 	fmt.Println(schema)
 }
 
-func _smokeCase16() {
-	version, err := client.Schemas.Version.GetSchema(context.Background(), "namespace", "slug", "semver")
+func _smokeCase22() {
+	version, err := client.Schemas.Version.Get(context.Background(), "namespace", "slug", "semver")
 	if err != nil {
 		panic(err)
 	}
@@ -212,8 +302,8 @@ func _smokeCase16() {
 	fmt.Println(version)
 }
 
-func _smokeCase17() {
-	version, err := client.Schemas.Version.DeleteSchema(context.Background(), "namespace", "slug", "semver")
+func _smokeCase23() {
+	version, err := client.Schemas.Version.Delete(context.Background(), "namespace", "slug", "semver")
 	if err != nil {
 		panic(err)
 	}
@@ -221,8 +311,8 @@ func _smokeCase17() {
 	fmt.Println(version)
 }
 
-func _smokeCase18() {
-	version, err := client.Schemas.Version.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaVersionNewSchemaParams{
+func _smokeCase24() {
+	version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
 		Document: sdk.F[string](""),
 		Version:  sdk.F[string]("x"),
 	})
@@ -233,8 +323,8 @@ func _smokeCase18() {
 	fmt.Println(version)
 }
 
-func _smokeCase19() {
-	accessGroup, err := client.Schemas.AccessGroup.NewSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewSchemaParams{
+func _smokeCase25() {
+	accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
 		},
@@ -246,8 +336,8 @@ func _smokeCase19() {
 	fmt.Println(accessGroup)
 }
 
-func _smokeCase20() {
-	accessGroup, err := client.Schemas.AccessGroup.DeleteSchema(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteSchemaParams{
+func _smokeCase26() {
+	accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
 		},
@@ -259,7 +349,7 @@ func _smokeCase20() {
 	fmt.Println(accessGroup)
 }
 
-func _smokeCase21() {
+func _smokeCase27() {
 	loginPortal, err := client.LoginPortals.Get(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -268,7 +358,7 @@ func _smokeCase21() {
 	fmt.Println(loginPortal)
 }
 
-func _smokeCase22() {
+func _smokeCase28() {
 	loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{})
 	if err != nil {
 		panic(err)
@@ -277,7 +367,18 @@ func _smokeCase22() {
 	fmt.Println(loginPortal)
 }
 
-func _smokeCase23() {
+func _smokeCase29() {
+	loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{
+		Title: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(loginPortal)
+}
+
+func _smokeCase30() {
 	loginPortal, err := client.LoginPortals.Delete(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -286,7 +387,7 @@ func _smokeCase23() {
 	fmt.Println(loginPortal)
 }
 
-func _smokeCase24() {
+func _smokeCase31() {
 	loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPortalNewParams{
 		Email: sdk.F[sdk.LoginPortalEmailParam](sdk.LoginPortalEmailParam{
 			Logo:             sdk.F[string](""),
@@ -327,7 +428,7 @@ func _smokeCase24() {
 	fmt.Println(loginPortal)
 }
 
-func _smokeCase25() {
+func _smokeCase32() {
 	loginPortal, err := client.LoginPortals.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -336,7 +437,7 @@ func _smokeCase25() {
 	fmt.Println(loginPortal)
 }
 
-func _smokeCase26() {
+func _smokeCase33() {
 	rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
 	if err != nil {
 		panic(err)
@@ -345,7 +446,7 @@ func _smokeCase26() {
 	fmt.Println(rule)
 }
 
-func _smokeCase27() {
+func _smokeCase34() {
 	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
 		Document: sdk.F[string](""),
 		Slug:     sdk.F[string](""),
@@ -358,7 +459,22 @@ func _smokeCase27() {
 	fmt.Println(rule)
 }
 
-func _smokeCase28() {
+func _smokeCase35() {
+	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
+		Document:    sdk.F[string](""),
+		Slug:        sdk.F[string](""),
+		Title:       sdk.F[string](""),
+		Description: sdk.F[string](""),
+		IsPrivate:   sdk.F[bool](false),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(rule)
+}
+
+func _smokeCase36() {
 	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{})
 	if err != nil {
 		panic(err)
@@ -367,7 +483,22 @@ func _smokeCase28() {
 	fmt.Println(rule)
 }
 
-func _smokeCase29() {
+func _smokeCase37() {
+	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{
+		Description: sdk.F[string](""),
+		IsPrivate:   sdk.F[bool](false),
+		Namespace:   sdk.F[string](""),
+		Slug:        sdk.F[string](""),
+		Title:       sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(rule)
+}
+
+func _smokeCase38() {
 	rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug")
 	if err != nil {
 		panic(err)
@@ -376,7 +507,7 @@ func _smokeCase29() {
 	fmt.Println(rule)
 }
 
-func _smokeCase30() {
+func _smokeCase39() {
 	rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", "slug")
 	if err != nil {
 		panic(err)
@@ -385,7 +516,7 @@ func _smokeCase30() {
 	fmt.Println(rule)
 }
 
-func _smokeCase31() {
+func _smokeCase40() {
 	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
@@ -398,7 +529,7 @@ func _smokeCase31() {
 	fmt.Println(rule)
 }
 
-func _smokeCase32() {
+func _smokeCase41() {
 	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("xxx"),
@@ -411,7 +542,7 @@ func _smokeCase32() {
 	fmt.Println(rule)
 }
 
-func _smokeCase33() {
+func _smokeCase42() {
 	theme, err := client.Themes.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -420,7 +551,7 @@ func _smokeCase33() {
 	fmt.Println(theme)
 }
 
-func _smokeCase34() {
+func _smokeCase43() {
 	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
 		Document: sdk.F[string](""),
 		Name:     sdk.F[string](""),
@@ -433,7 +564,21 @@ func _smokeCase34() {
 	fmt.Println(theme)
 }
 
-func _smokeCase35() {
+func _smokeCase44() {
+	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
+		Document:    sdk.F[string](""),
+		Name:        sdk.F[string](""),
+		Slug:        sdk.F[string](""),
+		Description: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(theme)
+}
+
+func _smokeCase45() {
 	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
 	if err != nil {
 		panic(err)
@@ -442,7 +587,19 @@ func _smokeCase35() {
 	fmt.Println(theme)
 }
 
-func _smokeCase36() {
+func _smokeCase46() {
+	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{
+		Description: sdk.F[string](""),
+		Name:        sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(theme)
+}
+
+func _smokeCase47() {
 	theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
 		Document: sdk.F[string](""),
 	})
@@ -453,7 +610,7 @@ func _smokeCase36() {
 	fmt.Println(theme)
 }
 
-func _smokeCase37() {
+func _smokeCase48() {
 	theme, err := client.Themes.Delete(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -462,7 +619,7 @@ func _smokeCase37() {
 	fmt.Println(theme)
 }
 
-func _smokeCase38() {
+func _smokeCase49() {
 	theme, err := client.Themes.Get(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -471,7 +628,7 @@ func _smokeCase38() {
 	fmt.Println(theme)
 }
 
-func _smokeCase39() {
+func _smokeCase50() {
 	team, err := client.Teams.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -480,7 +637,7 @@ func _smokeCase39() {
 	fmt.Println(team)
 }
 
-func _smokeCase40() {
+func _smokeCase51() {
 	scalarDoc, err := client.ScalarDocs.ListGuides(context.Background())
 	if err != nil {
 		panic(err)
@@ -489,7 +646,7 @@ func _smokeCase40() {
 	fmt.Println(scalarDoc)
 }
 
-func _smokeCase41() {
+func _smokeCase52() {
 	scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
 		AllowedDomains: sdk.F[[]string]([]string{""}),
 		AllowedUsers:   sdk.F[[]string]([]string{""}),
@@ -503,7 +660,22 @@ func _smokeCase41() {
 	fmt.Println(scalarDoc)
 }
 
-func _smokeCase42() {
+func _smokeCase53() {
+	scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
+		AllowedDomains: sdk.F[[]string]([]string{""}),
+		AllowedUsers:   sdk.F[[]string]([]string{""}),
+		IsPrivate:      sdk.F[bool](false),
+		Name:           sdk.F[string](""),
+		Slug:           sdk.F[string]("xxx"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase54() {
 	scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -512,7 +684,7 @@ func _smokeCase42() {
 	fmt.Println(scalarDoc)
 }
 
-func _smokeCase43() {
+func _smokeCase55() {
 	namespace, err := client.Namespaces.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -521,7 +693,7 @@ func _smokeCase43() {
 	fmt.Println(namespace)
 }
 
-func _smokeCase44() {
+func _smokeCase56() {
 	authentication, err := client.Authentication.ExchangePersonalToken(context.Background(), sdk.AuthenticationExchangePersonalTokenParams{
 		PersonalToken: sdk.F[string](""),
 	})
@@ -532,7 +704,7 @@ func _smokeCase44() {
 	fmt.Println(authentication)
 }
 
-func _smokeCase45() {
+func _smokeCase57() {
 	authentication, err := client.Authentication.ListCurrentUser(context.Background())
 	if err != nil {
 		panic(err)
@@ -560,308 +732,416 @@ var cases = []smokeCase{
 		Operation: "createApiDocument",
 		Method:    "POST",
 		Path:      "/v1/apis/{namespace}",
+		Label:     "required params",
 		Run:       _smokeCase2,
+	},
+
+	{
+		Operation: "createApiDocument",
+		Method:    "POST",
+		Path:      "/v1/apis/{namespace}",
+		Label:     "all params",
+		Run:       _smokeCase3,
 	},
 
 	{
 		Operation: "updateApiDocument",
 		Method:    "PATCH",
 		Path:      "/v1/apis/{namespace}/{slug}",
-		Run:       _smokeCase3,
+		Label:     "required params",
+		Run:       _smokeCase4,
+	},
+
+	{
+		Operation: "updateApiDocument",
+		Method:    "PATCH",
+		Path:      "/v1/apis/{namespace}/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase5,
 	},
 
 	{
 		Operation: "deleteApiDocument",
 		Method:    "DELETE",
 		Path:      "/v1/apis/{namespace}/{slug}",
-		Run:       _smokeCase4,
+		Run:       _smokeCase6,
 	},
 
 	{
 		Operation: "retrieveApiDocumentVersion",
 		Method:    "GET",
 		Path:      "/v1/apis/{namespace}/{slug}/version/{semver}",
-		Run:       _smokeCase5,
+		Run:       _smokeCase7,
 	},
 
 	{
 		Operation: "updateApiDocumentVersion",
 		Method:    "PATCH",
 		Path:      "/v1/apis/{namespace}/{slug}/version/{semver}",
-		Run:       _smokeCase6,
+		Label:     "required params",
+		Run:       _smokeCase8,
+	},
+
+	{
+		Operation: "updateApiDocumentVersion",
+		Method:    "PATCH",
+		Path:      "/v1/apis/{namespace}/{slug}/version/{semver}",
+		Label:     "all params",
+		Run:       _smokeCase9,
 	},
 
 	{
 		Operation: "deleteApiDocumentVersion",
 		Method:    "DELETE",
 		Path:      "/v1/apis/{namespace}/{slug}/version/{semver}",
-		Run:       _smokeCase7,
+		Run:       _smokeCase10,
 	},
 
 	{
 		Operation: "listApiDocumentVersionMetadata",
 		Method:    "GET",
 		Path:      "/v1/apis/{namespace}/{slug}/version/{semver}/metadata",
-		Run:       _smokeCase8,
+		Run:       _smokeCase11,
 	},
 
 	{
 		Operation: "createApiDocumentVersion",
 		Method:    "POST",
 		Path:      "/v1/apis/{namespace}/{slug}/version",
-		Run:       _smokeCase9,
+		Label:     "required params",
+		Run:       _smokeCase12,
+	},
+
+	{
+		Operation: "createApiDocumentVersion",
+		Method:    "POST",
+		Path:      "/v1/apis/{namespace}/{slug}/version",
+		Label:     "all params",
+		Run:       _smokeCase13,
 	},
 
 	{
 		Operation: "createApiDocumentAccessGroup",
 		Method:    "POST",
 		Path:      "/v1/apis/{namespace}/{slug}/access-group",
-		Run:       _smokeCase10,
+		Run:       _smokeCase14,
 	},
 
 	{
 		Operation: "deleteApiDocumentAccessGroup",
 		Method:    "DELETE",
 		Path:      "/v1/apis/{namespace}/{slug}/access-group",
-		Run:       _smokeCase11,
+		Run:       _smokeCase15,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/schemas/{namespace}",
-		Run:       _smokeCase12,
+		Run:       _smokeCase16,
 	},
 
 	{
 		Operation: "create",
 		Method:    "POST",
 		Path:      "/v1/schemas/{namespace}",
-		Run:       _smokeCase13,
+		Label:     "required params",
+		Run:       _smokeCase17,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/schemas/{namespace}",
+		Label:     "all params",
+		Run:       _smokeCase18,
 	},
 
 	{
 		Operation: "update",
 		Method:    "PATCH",
 		Path:      "/v1/schemas/{namespace}/{slug}",
-		Run:       _smokeCase14,
+		Label:     "required params",
+		Run:       _smokeCase19,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/schemas/{namespace}/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase20,
 	},
 
 	{
 		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/schemas/{namespace}/{slug}",
-		Run:       _smokeCase15,
-	},
-
-	{
-		Operation: "retrieveSchema",
-		Method:    "GET",
-		Path:      "/v1/schemas/{namespace}/{slug}/version/{semver}",
-		Run:       _smokeCase16,
-	},
-
-	{
-		Operation: "deleteSchema",
-		Method:    "DELETE",
-		Path:      "/v1/schemas/{namespace}/{slug}/version/{semver}",
-		Run:       _smokeCase17,
-	},
-
-	{
-		Operation: "createSchema",
-		Method:    "POST",
-		Path:      "/v1/schemas/{namespace}/{slug}/version",
-		Run:       _smokeCase18,
-	},
-
-	{
-		Operation: "createSchema",
-		Method:    "POST",
-		Path:      "/v1/schemas/{namespace}/{slug}/access-group",
-		Run:       _smokeCase19,
-	},
-
-	{
-		Operation: "deleteSchema",
-		Method:    "DELETE",
-		Path:      "/v1/schemas/{namespace}/{slug}/access-group",
-		Run:       _smokeCase20,
+		Run:       _smokeCase21,
 	},
 
 	{
 		Operation: "retrieve",
 		Method:    "GET",
-		Path:      "/v1/login-portals/{slug}",
-		Run:       _smokeCase21,
-	},
-
-	{
-		Operation: "update",
-		Method:    "PATCH",
-		Path:      "/v1/login-portals/{slug}",
+		Path:      "/v1/schemas/{namespace}/{slug}/version/{semver}",
 		Run:       _smokeCase22,
 	},
 
 	{
 		Operation: "delete",
 		Method:    "DELETE",
-		Path:      "/v1/login-portals/{slug}",
+		Path:      "/v1/schemas/{namespace}/{slug}/version/{semver}",
 		Run:       _smokeCase23,
 	},
 
 	{
 		Operation: "create",
 		Method:    "POST",
-		Path:      "/v1/login-portals",
+		Path:      "/v1/schemas/{namespace}/{slug}/version",
 		Run:       _smokeCase24,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/schemas/{namespace}/{slug}/access-group",
+		Run:       _smokeCase25,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/schemas/{namespace}/{slug}/access-group",
+		Run:       _smokeCase26,
+	},
+
+	{
+		Operation: "retrieve",
+		Method:    "GET",
+		Path:      "/v1/login-portals/{slug}",
+		Run:       _smokeCase27,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/login-portals/{slug}",
+		Label:     "required params",
+		Run:       _smokeCase28,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/login-portals/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase29,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/login-portals/{slug}",
+		Run:       _smokeCase30,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/login-portals",
+		Run:       _smokeCase31,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/login-portals",
-		Run:       _smokeCase25,
+		Run:       _smokeCase32,
 	},
 
 	{
 		Operation: "listRulesets",
 		Method:    "GET",
 		Path:      "/v1/rulesets/{namespace}",
-		Run:       _smokeCase26,
+		Run:       _smokeCase33,
 	},
 
 	{
 		Operation: "createRuleset",
 		Method:    "POST",
 		Path:      "/v1/rulesets/{namespace}",
-		Run:       _smokeCase27,
+		Label:     "required params",
+		Run:       _smokeCase34,
+	},
+
+	{
+		Operation: "createRuleset",
+		Method:    "POST",
+		Path:      "/v1/rulesets/{namespace}",
+		Label:     "all params",
+		Run:       _smokeCase35,
 	},
 
 	{
 		Operation: "updateRuleset",
 		Method:    "PATCH",
 		Path:      "/v1/rulesets/{namespace}/{slug}",
-		Run:       _smokeCase28,
+		Label:     "required params",
+		Run:       _smokeCase36,
+	},
+
+	{
+		Operation: "updateRuleset",
+		Method:    "PATCH",
+		Path:      "/v1/rulesets/{namespace}/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase37,
 	},
 
 	{
 		Operation: "deleteRuleset",
 		Method:    "DELETE",
 		Path:      "/v1/rulesets/{namespace}/{slug}",
-		Run:       _smokeCase29,
+		Run:       _smokeCase38,
 	},
 
 	{
 		Operation: "retrieveRulesetDocument",
 		Method:    "GET",
 		Path:      "/v1/rulesets/{namespace}/{slug}",
-		Run:       _smokeCase30,
+		Run:       _smokeCase39,
 	},
 
 	{
 		Operation: "createRulesetAccessGroup",
 		Method:    "POST",
 		Path:      "/v1/rulesets/{namespace}/{slug}/access-group",
-		Run:       _smokeCase31,
+		Run:       _smokeCase40,
 	},
 
 	{
 		Operation: "deleteRulesetAccessGroup",
 		Method:    "DELETE",
 		Path:      "/v1/rulesets/{namespace}/{slug}/access-group",
-		Run:       _smokeCase32,
+		Run:       _smokeCase41,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/themes",
-		Run:       _smokeCase33,
+		Run:       _smokeCase42,
 	},
 
 	{
 		Operation: "create",
 		Method:    "POST",
 		Path:      "/v1/themes",
-		Run:       _smokeCase34,
+		Label:     "required params",
+		Run:       _smokeCase43,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/themes",
+		Label:     "all params",
+		Run:       _smokeCase44,
 	},
 
 	{
 		Operation: "update",
 		Method:    "PATCH",
 		Path:      "/v1/themes/{slug}",
-		Run:       _smokeCase35,
+		Label:     "required params",
+		Run:       _smokeCase45,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/themes/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase46,
 	},
 
 	{
 		Operation: "replaceDocument",
 		Method:    "PUT",
 		Path:      "/v1/themes/{slug}",
-		Run:       _smokeCase36,
+		Run:       _smokeCase47,
 	},
 
 	{
 		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/themes/{slug}",
-		Run:       _smokeCase37,
+		Run:       _smokeCase48,
 	},
 
 	{
 		Operation: "retrieve",
 		Method:    "GET",
 		Path:      "/v1/themes/{slug}",
-		Run:       _smokeCase38,
+		Run:       _smokeCase49,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/teams",
-		Run:       _smokeCase39,
+		Run:       _smokeCase50,
 	},
 
 	{
 		Operation: "listGuides",
 		Method:    "GET",
 		Path:      "/v1/guides",
-		Run:       _smokeCase40,
+		Run:       _smokeCase51,
 	},
 
 	{
 		Operation: "createGuide",
 		Method:    "POST",
 		Path:      "/v1/guides",
-		Run:       _smokeCase41,
+		Label:     "required params",
+		Run:       _smokeCase52,
+	},
+
+	{
+		Operation: "createGuide",
+		Method:    "POST",
+		Path:      "/v1/guides",
+		Label:     "all params",
+		Run:       _smokeCase53,
 	},
 
 	{
 		Operation: "publishGuide",
 		Method:    "POST",
 		Path:      "/v1/guides/{slug}/publish",
-		Run:       _smokeCase42,
+		Run:       _smokeCase54,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/namespaces",
-		Run:       _smokeCase43,
+		Run:       _smokeCase55,
 	},
 
 	{
 		Operation: "exchangePersonalToken",
 		Method:    "POST",
 		Path:      "/v1/auth/exchange",
-		Run:       _smokeCase44,
+		Run:       _smokeCase56,
 	},
 
 	{
 		Operation: "listCurrentUser",
 		Method:    "GET",
 		Path:      "/v1/auth/me",
-		Run:       _smokeCase45,
+		Run:       _smokeCase57,
 	},
 }
 
@@ -893,6 +1173,7 @@ func runCase(testCase smokeCase) (result smokeResult) {
 		Operation: testCase.Operation,
 		Method:    testCase.Method,
 		Path:      testCase.Path,
+		Label:     testCase.Label,
 		Status:    "passed",
 	}
 	defer func() {
@@ -937,10 +1218,14 @@ func main() {
 		}
 	} else {
 		for _, result := range results {
+			suffix := ""
+			if result.Label != "" {
+				suffix = " [" + result.Label + "]"
+			}
 			if result.Status == "passed" {
-				fmt.Printf("PASS %s (%s %s) %dms\n", result.Operation, result.Method, result.Path, result.DurationMs)
+				fmt.Printf("PASS %s%s (%s %s) %dms\n", result.Operation, suffix, result.Method, result.Path, result.DurationMs)
 			} else {
-				fmt.Fprintf(os.Stderr, "FAIL %s (%s %s)\n%s\n", result.Operation, result.Method, result.Path, result.Error)
+				fmt.Fprintf(os.Stderr, "FAIL %s%s (%s %s)\n%s\n", result.Operation, suffix, result.Method, result.Path, result.Error)
 			}
 		}
 		if len(results) == 0 {

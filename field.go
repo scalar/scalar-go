@@ -1,4 +1,4 @@
-package scalargo
+package sdk
 
 import (
 	"github.com/scalar/scalar-go/internal/param"
