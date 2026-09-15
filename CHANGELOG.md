@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/scalar/scalar-go/compare/v0.5.0...v0.5.1) (2026-09-15)
+
+
+### Chores
+
+* **api:** update generated SDK content ([db06c1c](https://github.com/scalar/scalar-go/commit/db06c1cc66c872ceb784e2379d44f3a1da85921a))
+
 ## [0.5.0](https://github.com/scalar/scalar-go/compare/v0.4.0...v0.5.0) (2026-09-15)
 
 
