@@ -883,8 +883,8 @@ Create a guide project.
 
 ```go
 scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
-	AllowedDomains: sdk.F[[]string]([]string{""}),
-	AllowedUsers:   sdk.F[[]string]([]string{""}),
+	AllowedDomains: sdk.F[[]string]([]string{}),
+	AllowedUsers:   sdk.F[[]string]([]string{}),
 	IsPrivate:      sdk.F[bool](false),
 	Name:           sdk.F[string](""),
 })
