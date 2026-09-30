@@ -265,7 +265,7 @@ Add an access group to an API document.
 ```go
 registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
+		AccessGroupSlug: sdk.F[string]("x"),
 	},
 })
 if err != nil {
@@ -286,7 +286,7 @@ Remove an access group from an API document.
 ```go
 registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
+		AccessGroupSlug: sdk.F[string]("x"),
 	},
 })
 if err != nil {
@@ -411,7 +411,7 @@ Create a schema version.
 | Direction | Type |
 | --- | --- |
 | Request | [`SchemaVersionNewParams`](./schemaversion.go) |
-| Response | [`UID`](./shared/shared.go) |
+| Response | [`SchemaVersionNewResponse`](./schemaversion.go) |
 
 ```go
 version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
@@ -440,7 +440,7 @@ Add an access group to a schema.
 ```go
 accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
+		AccessGroupSlug: sdk.F[string]("x"),
 	},
 })
 if err != nil {
@@ -461,7 +461,7 @@ Remove an access group from a schema.
 ```go
 accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
+		AccessGroupSlug: sdk.F[string]("x"),
 	},
 })
 if err != nil {
@@ -541,7 +541,7 @@ loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPorta
 		Title:            sdk.F[string]("Private Docs"),
 		MainColor:        sdk.F[string]("#2a2f45"),
 		MainBackground:   sdk.F[string]("#f6f6f6"),
-		CardColor:        sdk.F[string]("2a2f45"),
+		CardColor:        sdk.F[string]("#2a2f45"),
 		CardBackground:   sdk.F[string]("#fff"),
 		ButtonColor:      sdk.F[string]("#fff"),
 		ButtonBackground: sdk.F[string]("#0f0f0f"),
@@ -690,7 +690,7 @@ Grant an access group to a rule.
 ```go
 rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
+		AccessGroupSlug: sdk.F[string]("x"),
 	},
 })
 if err != nil {
@@ -711,7 +711,7 @@ Remove an access group from a rule.
 ```go
 rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("xxx"),
+		AccessGroupSlug: sdk.F[string]("x"),
 	},
 })
 if err != nil {

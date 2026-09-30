@@ -122,45 +122,49 @@ func (r *ScalarDocService) PublishGuide(ctx context.Context, slug string, opts .
 }
 
 type GithubProject struct {
-	UID              string                        `json:"uid" api:"required"`
-	CreatedAt        int64                         `json:"createdAt" api:"required"`
-	UpdatedAt        int64                         `json:"updatedAt" api:"required"`
-	Name             string                        `json:"name" api:"required"`
+	AccessGroups     interface{}                   `json:"accessGroups" api:"required"`
 	ActiveDeployment GithubProjectActiveDeployment `json:"activeDeployment" api:"required,nullable"`
+	ActiveThemeID    string                        `json:"activeThemeId" api:"required"`
+	AgentEnabled     bool                          `json:"agentEnabled" api:"required"`
+	AnalyticsEnabled bool                          `json:"analyticsEnabled" api:"required"`
+	CreatedAt        int64                         `json:"createdAt" api:"required"`
+	IsPrivate        bool                          `json:"isPrivate" api:"required"`
 	LastPublished    int64                         `json:"lastPublished" api:"required,nullable"`
 	LastPublishedUID string                        `json:"lastPublishedUid" api:"required,nullable"`
 	LoginPortalUID   string                        `json:"loginPortalUid" api:"required"`
-	ActiveThemeID    string                        `json:"activeThemeId" api:"required"`
-	IsPrivate        bool                          `json:"isPrivate" api:"required"`
-	AgentEnabled     bool                          `json:"agentEnabled" api:"required"`
-	AccessGroups     interface{}                   `json:"accessGroups" api:"required"`
-	Slug             string                        `json:"slug" api:"required"`
-	PublishStatus    string                        `json:"publishStatus" api:"required"`
+	Name             string                        `json:"name" api:"required"`
 	PublishMessage   string                        `json:"publishMessage" api:"required"`
-	TypesenseID      float64                       `json:"typesenseId"`
+	PublishStatus    string                        `json:"publishStatus" api:"required"`
+	Slug             string                        `json:"slug" api:"required"`
+	UID              string                        `json:"uid" api:"required"`
+	UpdatedAt        int64                         `json:"updatedAt" api:"required"`
+	UserInfoHookURL  string                        `json:"userInfoHookUrl" api:"required"`
 	Repository       GithubProjectRepository       `json:"repository" api:"nullable"`
+	TypesenseID      float64                       `json:"typesenseId"`
 	JSON             githubProjectJSON             `json:"-"`
 }
 
 // githubProjectJSON contains the JSON metadata for the struct [GithubProject]
 type githubProjectJSON struct {
-	UID              apijson.Field
-	CreatedAt        apijson.Field
-	UpdatedAt        apijson.Field
-	Name             apijson.Field
+	AccessGroups     apijson.Field
 	ActiveDeployment apijson.Field
+	ActiveThemeID    apijson.Field
+	AgentEnabled     apijson.Field
+	AnalyticsEnabled apijson.Field
+	CreatedAt        apijson.Field
+	IsPrivate        apijson.Field
 	LastPublished    apijson.Field
 	LastPublishedUID apijson.Field
 	LoginPortalUID   apijson.Field
-	ActiveThemeID    apijson.Field
-	IsPrivate        apijson.Field
-	AgentEnabled     apijson.Field
-	AccessGroups     apijson.Field
-	Slug             apijson.Field
-	PublishStatus    apijson.Field
+	Name             apijson.Field
 	PublishMessage   apijson.Field
-	TypesenseID      apijson.Field
+	PublishStatus    apijson.Field
+	Slug             apijson.Field
+	UID              apijson.Field
+	UpdatedAt        apijson.Field
+	UserInfoHookURL  apijson.Field
 	Repository       apijson.Field
+	TypesenseID      apijson.Field
 	raw              string
 	ExtraFields      map[string]apijson.Field
 }
@@ -174,29 +178,29 @@ func (r githubProjectJSON) RawJSON() string {
 }
 
 type GithubProjectRepository struct {
-	LinkedBy        string                      `json:"linkedBy" api:"required"`
 	ID              float64                     `json:"id" api:"required"`
-	Name            string                      `json:"name" api:"required"`
-	ConfigPath      string                      `json:"configPath" api:"required"`
 	Branch          string                      `json:"branch" api:"required"`
+	ConfigPath      string                      `json:"configPath" api:"required"`
+	Expired         bool                        `json:"expired" api:"required"`
+	LinkedBy        string                      `json:"linkedBy" api:"required"`
+	Name            string                      `json:"name" api:"required"`
+	PrComments      bool                        `json:"prComments" api:"required"`
 	PublishOnMerge  bool                        `json:"publishOnMerge" api:"required"`
 	PublishPreviews bool                        `json:"publishPreviews" api:"required"`
-	PrComments      bool                        `json:"prComments" api:"required"`
-	Expired         bool                        `json:"expired" api:"required"`
 	JSON            githubProjectRepositoryJSON `json:"-"`
 }
 
 // githubProjectRepositoryJSON contains the JSON metadata for the struct [GithubProjectRepository]
 type githubProjectRepositoryJSON struct {
-	LinkedBy        apijson.Field
 	ID              apijson.Field
-	Name            apijson.Field
-	ConfigPath      apijson.Field
 	Branch          apijson.Field
+	ConfigPath      apijson.Field
+	Expired         apijson.Field
+	LinkedBy        apijson.Field
+	Name            apijson.Field
+	PrComments      apijson.Field
 	PublishOnMerge  apijson.Field
 	PublishPreviews apijson.Field
-	PrComments      apijson.Field
-	Expired         apijson.Field
 	raw             string
 	ExtraFields     map[string]apijson.Field
 }
@@ -210,17 +214,17 @@ func (r githubProjectRepositoryJSON) RawJSON() string {
 }
 
 type GithubProjectActiveDeployment struct {
-	UID         string                            `json:"uid" api:"required"`
 	Domain      string                            `json:"domain" api:"required"`
 	PublishedAt int64                             `json:"publishedAt" api:"required"`
+	UID         string                            `json:"uid" api:"required"`
 	JSON        githubProjectActiveDeploymentJSON `json:"-"`
 }
 
 // githubProjectActiveDeploymentJSON contains the JSON metadata for the struct [GithubProjectActiveDeployment]
 type githubProjectActiveDeploymentJSON struct {
-	UID         apijson.Field
 	Domain      apijson.Field
 	PublishedAt apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -231,16 +235,6 @@ func (r *GithubProjectActiveDeployment) UnmarshalJSON(data []byte) (err error) {
 
 func (r githubProjectActiveDeploymentJSON) RawJSON() string {
 	return r.raw
-}
-
-type GithubProjectActiveDeploymentParam struct {
-	Domain      param.Field[string] `json:"domain" api:"required"`
-	PublishedAt param.Field[int64]  `json:"publishedAt" api:"required"`
-	UID         param.Field[string] `json:"uid" api:"required"`
-}
-
-func (r GithubProjectActiveDeploymentParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
 }
 
 type ScalarDocNewGuideParams struct {
@@ -256,15 +250,15 @@ func (r ScalarDocNewGuideParams) MarshalJSON() (data []byte, err error) {
 }
 
 type ScalarDocNewGuideResponse struct {
-	UID  string                        `json:"uid" api:"required"`
 	Slug string                        `json:"slug" api:"required"`
+	UID  string                        `json:"uid" api:"required"`
 	JSON scalarDocNewGuideResponseJSON `json:"-"`
 }
 
 // scalarDocNewGuideResponseJSON contains the JSON metadata for the struct [ScalarDocNewGuideResponse]
 type scalarDocNewGuideResponseJSON struct {
-	UID         apijson.Field
 	Slug        apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

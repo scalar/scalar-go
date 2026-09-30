@@ -179,24 +179,24 @@ func (r *SchemaService) Delete(ctx context.Context, namespace string, slug strin
 }
 
 type Schema struct {
-	UID         string          `json:"uid" api:"required"`
-	Title       string          `json:"title" api:"required"`
 	Description string          `json:"description" api:"required"`
-	Slug        string          `json:"slug" api:"required"`
-	Namespace   string          `json:"namespace" api:"required"`
 	IsPrivate   bool            `json:"isPrivate" api:"required"`
+	Namespace   string          `json:"namespace" api:"required"`
+	Slug        string          `json:"slug" api:"required"`
+	Title       string          `json:"title" api:"required"`
+	UID         string          `json:"uid" api:"required"`
 	Versions    []SchemaVersion `json:"versions" api:"required"`
 	JSON        schemaJSON      `json:"-"`
 }
 
 // schemaJSON contains the JSON metadata for the struct [Schema]
 type schemaJSON struct {
-	UID         apijson.Field
-	Title       apijson.Field
 	Description apijson.Field
-	Slug        apijson.Field
-	Namespace   apijson.Field
 	IsPrivate   apijson.Field
+	Namespace   apijson.Field
+	Slug        apijson.Field
+	Title       apijson.Field
+	UID         apijson.Field
 	Versions    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -234,19 +234,23 @@ func (r SchemaUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 
 type SchemaVersion struct {
-	UID       string            `json:"uid" api:"required"`
 	CreatedAt int64             `json:"createdAt" api:"required"`
+	UID       string            `json:"uid" api:"required"`
 	UpdatedAt int64             `json:"updatedAt" api:"required"`
 	Version   string            `json:"version" api:"required"`
+	JsonSha   string            `json:"jsonSha"`
+	YamlSha   string            `json:"yamlSha"`
 	JSON      schemaVersionJSON `json:"-"`
 }
 
 // schemaVersionJSON contains the JSON metadata for the struct [SchemaVersion]
 type schemaVersionJSON struct {
-	UID         apijson.Field
 	CreatedAt   apijson.Field
+	UID         apijson.Field
 	UpdatedAt   apijson.Field
 	Version     apijson.Field
+	JsonSha     apijson.Field
+	YamlSha     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

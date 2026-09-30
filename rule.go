@@ -228,7 +228,7 @@ func (r *RuleService) GetRulesetDocument(ctx context.Context, namespace string, 
 //
 //	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("x"),
 //		},
 //	})
 //	if err != nil {
@@ -269,7 +269,7 @@ func (r *RuleService) NewRulesetAccessGroup(ctx context.Context, namespace strin
 //
 //	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("x"),
 //		},
 //	})
 //	if err != nil {
@@ -293,23 +293,23 @@ func (r *RuleService) DeleteRulesetAccessGroup(ctx context.Context, namespace st
 }
 
 type Rule struct {
-	UID         string   `json:"uid" api:"required"`
-	Title       string   `json:"title" api:"required"`
 	Description string   `json:"description" api:"required"`
-	Slug        string   `json:"slug" api:"required"`
-	Namespace   string   `json:"namespace" api:"required"`
 	IsPrivate   bool     `json:"isPrivate" api:"required"`
+	Namespace   string   `json:"namespace" api:"required"`
+	Slug        string   `json:"slug" api:"required"`
+	Title       string   `json:"title" api:"required"`
+	UID         string   `json:"uid" api:"required"`
 	JSON        ruleJSON `json:"-"`
 }
 
 // ruleJSON contains the JSON metadata for the struct [Rule]
 type ruleJSON struct {
-	UID         apijson.Field
-	Title       apijson.Field
 	Description apijson.Field
-	Slug        apijson.Field
-	Namespace   apijson.Field
 	IsPrivate   apijson.Field
+	Namespace   apijson.Field
+	Slug        apijson.Field
+	Title       apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

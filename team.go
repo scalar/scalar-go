@@ -55,20 +55,20 @@ func (r *TeamService) List(ctx context.Context, opts ...option.RequestOption) (r
 }
 
 type Team struct {
-	UID      string   `json:"uid" api:"required"`
 	Name     string   `json:"name" api:"required"`
 	Slug     string   `json:"slug" api:"required"`
 	Theme    string   `json:"theme" api:"required"`
+	UID      string   `json:"uid" api:"required"`
 	ImageURI string   `json:"imageUri"`
 	JSON     teamJSON `json:"-"`
 }
 
 // teamJSON contains the JSON metadata for the struct [Team]
 type teamJSON struct {
-	UID         apijson.Field
 	Name        apijson.Field
 	Slug        apijson.Field
 	Theme       apijson.Field
+	UID         apijson.Field
 	ImageURI    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field

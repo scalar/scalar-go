@@ -85,26 +85,26 @@ func (r *AuthenticationService) ListCurrentUser(ctx context.Context, opts ...opt
 }
 
 type AuthenticationListCurrentUserResponse struct {
-	UID          string                                      `json:"uid" api:"required"`
-	CreatedAt    int64                                       `json:"createdAt" api:"required"`
-	UpdatedAt    int64                                       `json:"updatedAt" api:"required"`
-	Email        string                                      `json:"email" api:"required" format:"email"`
 	ActiveTeamID string                                      `json:"activeTeamId" api:"required,nullable"`
+	CreatedAt    int64                                       `json:"createdAt" api:"required"`
+	Email        string                                      `json:"email" api:"required" format:"email"`
 	HasGithub    bool                                        `json:"hasGithub" api:"required"`
 	Teams        []AuthenticationListCurrentUserResponseTeam `json:"teams" api:"required"`
+	UID          string                                      `json:"uid" api:"required"`
+	UpdatedAt    int64                                       `json:"updatedAt" api:"required"`
 	Theme        string                                      `json:"theme"`
 	JSON         authenticationListCurrentUserResponseJSON   `json:"-"`
 }
 
 // authenticationListCurrentUserResponseJSON contains the JSON metadata for the struct [AuthenticationListCurrentUserResponse]
 type authenticationListCurrentUserResponseJSON struct {
-	UID          apijson.Field
-	CreatedAt    apijson.Field
-	UpdatedAt    apijson.Field
-	Email        apijson.Field
 	ActiveTeamID apijson.Field
+	CreatedAt    apijson.Field
+	Email        apijson.Field
 	HasGithub    apijson.Field
 	Teams        apijson.Field
+	UID          apijson.Field
+	UpdatedAt    apijson.Field
 	Theme        apijson.Field
 	raw          string
 	ExtraFields  map[string]apijson.Field
@@ -147,16 +147,16 @@ func (r authenticationExchangePersonalTokenResponseJSON) RawJSON() string {
 }
 
 type AuthenticationListCurrentUserResponseTeam struct {
-	UID      string                                        `json:"uid" api:"required"`
 	Name     string                                        `json:"name" api:"required"`
+	UID      string                                        `json:"uid" api:"required"`
 	ImageURI string                                        `json:"imageUri"`
 	JSON     authenticationListCurrentUserResponseTeamJSON `json:"-"`
 }
 
 // authenticationListCurrentUserResponseTeamJSON contains the JSON metadata for the struct [AuthenticationListCurrentUserResponseTeam]
 type authenticationListCurrentUserResponseTeamJSON struct {
-	UID         apijson.Field
 	Name        apijson.Field
+	UID         apijson.Field
 	ImageURI    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field

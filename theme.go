@@ -220,19 +220,19 @@ func (r *ThemeService) Get(ctx context.Context, slug string, opts ...option.Requ
 }
 
 type Theme struct {
-	UID         string    `json:"uid" api:"required"`
-	Name        string    `json:"name" api:"required"`
 	Description string    `json:"description" api:"required"`
+	Name        string    `json:"name" api:"required"`
 	Slug        string    `json:"slug" api:"required"`
+	UID         string    `json:"uid" api:"required"`
 	JSON        themeJSON `json:"-"`
 }
 
 // themeJSON contains the JSON metadata for the struct [Theme]
 type themeJSON struct {
-	UID         apijson.Field
-	Name        apijson.Field
 	Description apijson.Field
+	Name        apijson.Field
 	Slug        apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
