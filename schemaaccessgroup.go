@@ -49,7 +49,7 @@ func NewSchemaAccessGroupService(opts ...option.RequestOption) (r *SchemaAccessG
 //
 //	accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("x"),
 //		},
 //	})
 //	if err != nil {
@@ -90,7 +90,7 @@ func (r *SchemaAccessGroupService) New(ctx context.Context, namespace string, sl
 //
 //	accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("x"),
 //		},
 //	})
 //	if err != nil {

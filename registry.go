@@ -426,7 +426,7 @@ func (r *RegistryService) NewAPIDocumentVersion(ctx context.Context, namespace s
 //
 //	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("x"),
 //		},
 //	})
 //	if err != nil {
@@ -467,7 +467,7 @@ func (r *RegistryService) NewAPIDocumentAccessGroup(ctx context.Context, namespa
 //
 //	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("x"),
 //		},
 //	})
 //	if err != nil {
@@ -499,28 +499,28 @@ func (r AccessGroupParam) MarshalJSON() (data []byte, err error) {
 }
 
 type APIDocument struct {
+	Description string                     `json:"description" api:"required"`
+	IsPrivate   bool                       `json:"isPrivate" api:"required"`
+	Namespace   string                     `json:"namespace" api:"required"`
+	Slug        string                     `json:"slug" api:"required"`
+	Tags        interface{}                `json:"tags" api:"required"`
+	Title       string                     `json:"title" api:"required"`
 	UID         string                     `json:"uid" api:"required"`
 	Version     string                     `json:"version" api:"required"`
-	Title       string                     `json:"title" api:"required"`
-	Slug        string                     `json:"slug" api:"required"`
-	Description string                     `json:"description" api:"required"`
-	Namespace   string                     `json:"namespace" api:"required"`
-	IsPrivate   bool                       `json:"isPrivate" api:"required"`
-	Tags        interface{}                `json:"tags" api:"required"`
 	Versions    []shared.ManagedDocVersion `json:"versions" api:"required"`
 	JSON        apiDocumentJSON            `json:"-"`
 }
 
 // apiDocumentJSON contains the JSON metadata for the struct [APIDocument]
 type apiDocumentJSON struct {
+	Description apijson.Field
+	IsPrivate   apijson.Field
+	Namespace   apijson.Field
+	Slug        apijson.Field
+	Tags        apijson.Field
+	Title       apijson.Field
 	UID         apijson.Field
 	Version     apijson.Field
-	Title       apijson.Field
-	Slug        apijson.Field
-	Description apijson.Field
-	Namespace   apijson.Field
-	IsPrivate   apijson.Field
-	Tags        apijson.Field
 	Versions    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -560,8 +560,7 @@ func (r RegistryUpdateAPIDocumentParams) MarshalJSON() (data []byte, err error) 
 }
 
 type RegistryUpdateAPIDocumentVersionParams struct {
-	Document            param.Field[string] `json:"document" api:"required"`
-	LastKnownVersionSha param.Field[string] `json:"lastKnownVersionSha"`
+	Document param.Field[string] `json:"document" api:"required"`
 }
 
 func (r RegistryUpdateAPIDocumentVersionParams) MarshalJSON() (data []byte, err error) {
@@ -569,10 +568,9 @@ func (r RegistryUpdateAPIDocumentVersionParams) MarshalJSON() (data []byte, err 
 }
 
 type RegistryNewAPIDocumentVersionParams struct {
-	Document            param.Field[string] `json:"document" api:"required"`
-	Version             param.Field[string] `json:"version" api:"required"`
-	Force               param.Field[bool]   `json:"force"`
-	LastKnownVersionSha param.Field[string] `json:"lastKnownVersionSha"`
+	Document param.Field[string] `json:"document" api:"required"`
+	Version  param.Field[string] `json:"version" api:"required"`
+	Force    param.Field[bool]   `json:"force"`
 }
 
 func (r RegistryNewAPIDocumentVersionParams) MarshalJSON() (data []byte, err error) {
@@ -596,23 +594,21 @@ func (r RegistryDeleteAPIDocumentAccessGroupParams) MarshalJSON() (data []byte, 
 }
 
 type RegistryNewAPIDocumentResponse struct {
+	JsonSha    string                             `json:"jsonSha" api:"required"`
+	Title      string                             `json:"title" api:"required"`
 	UID        string                             `json:"uid" api:"required"`
 	VersionUID string                             `json:"versionUid" api:"required"`
-	Title      string                             `json:"title" api:"required"`
-	JsonSha    string                             `json:"jsonSha" api:"required"`
 	YamlSha    string                             `json:"yamlSha" api:"required"`
-	VersionSha string                             `json:"versionSha" api:"required"`
 	JSON       registryNewAPIDocumentResponseJSON `json:"-"`
 }
 
 // registryNewAPIDocumentResponseJSON contains the JSON metadata for the struct [RegistryNewAPIDocumentResponse]
 type registryNewAPIDocumentResponseJSON struct {
+	JsonSha     apijson.Field
+	Title       apijson.Field
 	UID         apijson.Field
 	VersionUID  apijson.Field
-	Title       apijson.Field
-	JsonSha     apijson.Field
 	YamlSha     apijson.Field
-	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -626,17 +622,15 @@ func (r registryNewAPIDocumentResponseJSON) RawJSON() string {
 }
 
 type RegistryUpdateAPIDocumentVersionResponse struct {
-	JsonSha    string                                       `json:"jsonSha" api:"required"`
-	YamlSha    string                                       `json:"yamlSha" api:"required"`
-	VersionSha string                                       `json:"versionSha" api:"required"`
-	JSON       registryUpdateAPIDocumentVersionResponseJSON `json:"-"`
+	JsonSha string                                       `json:"jsonSha" api:"required"`
+	YamlSha string                                       `json:"yamlSha" api:"required"`
+	JSON    registryUpdateAPIDocumentVersionResponseJSON `json:"-"`
 }
 
 // registryUpdateAPIDocumentVersionResponseJSON contains the JSON metadata for the struct [RegistryUpdateAPIDocumentVersionResponse]
 type registryUpdateAPIDocumentVersionResponseJSON struct {
 	JsonSha     apijson.Field
 	YamlSha     apijson.Field
-	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

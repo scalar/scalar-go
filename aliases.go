@@ -39,6 +39,7 @@ const (
 	ManagedDocVersionToolsMethodPatch   = shared.ManagedDocVersionToolsMethodPatch
 	ManagedDocVersionToolsMethodPost    = shared.ManagedDocVersionToolsMethodPost
 	ManagedDocVersionToolsMethodPut     = shared.ManagedDocVersionToolsMethodPut
+	ManagedDocVersionToolsMethodQuery   = shared.ManagedDocVersionToolsMethodQuery
 	ManagedDocVersionToolsMethodTrace   = shared.ManagedDocVersionToolsMethodTrace
 )
 

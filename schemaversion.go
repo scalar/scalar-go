@@ -14,7 +14,6 @@ import (
 	"github.com/scalar/scalar-go/internal/param"
 	"github.com/scalar/scalar-go/internal/requestconfig"
 	"github.com/scalar/scalar-go/option"
-	"github.com/scalar/scalar-go/shared"
 )
 
 // SchemaVersionService contains methods and other services that help with interacting
@@ -128,7 +127,7 @@ func (r *SchemaVersionService) Delete(ctx context.Context, namespace string, slu
 //
 // Returns:
 //
-//	*shared.UID: Default Response
+//	*SchemaVersionNewResponse: Default Response
 //
 // Example:
 //
@@ -141,7 +140,7 @@ func (r *SchemaVersionService) Delete(ctx context.Context, namespace string, slu
 //	}
 //
 //	fmt.Println(version)
-func (r *SchemaVersionService) New(ctx context.Context, namespace string, slug string, body SchemaVersionNewParams, opts ...option.RequestOption) (res *shared.UID, err error) {
+func (r *SchemaVersionService) New(ctx context.Context, namespace string, slug string, body SchemaVersionNewParams, opts ...option.RequestOption) (res *SchemaVersionNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
 		err = errors.New("missing required namespace parameter")
@@ -159,8 +158,29 @@ func (r *SchemaVersionService) New(ctx context.Context, namespace string, slug s
 type SchemaVersionNewParams struct {
 	Document param.Field[string] `json:"document" api:"required"`
 	Version  param.Field[string] `json:"version" api:"required"`
+	Force    param.Field[bool]   `json:"force"`
 }
 
 func (r SchemaVersionNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
+}
+
+type SchemaVersionNewResponse struct {
+	UID  string                       `json:"uid" api:"required"`
+	JSON schemaVersionNewResponseJSON `json:"-"`
+}
+
+// schemaVersionNewResponseJSON contains the JSON metadata for the struct [SchemaVersionNewResponse]
+type schemaVersionNewResponseJSON struct {
+	UID         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *SchemaVersionNewResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r schemaVersionNewResponseJSON) RawJSON() string {
+	return r.raw
 }

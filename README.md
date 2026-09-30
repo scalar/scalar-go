@@ -75,6 +75,7 @@ Pass credentials to the generated client constructor. Environment variables are 
 Declared schemes:
 
 - `BearerAuth` bearer token
+- `OAuth2` OAuth2/OpenID Connect
 
 <br />
 

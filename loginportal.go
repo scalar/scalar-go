@@ -150,7 +150,7 @@ func (r *LoginPortalService) Delete(ctx context.Context, slug string, opts ...op
 //			Title:            sdk.F[string]("Private Docs"),
 //			MainColor:        sdk.F[string]("#2a2f45"),
 //			MainBackground:   sdk.F[string]("#f6f6f6"),
-//			CardColor:        sdk.F[string]("2a2f45"),
+//			CardColor:        sdk.F[string]("#2a2f45"),
 //			CardBackground:   sdk.F[string]("#fff"),
 //			ButtonColor:      sdk.F[string]("#fff"),
 //			ButtonBackground: sdk.F[string]("#0f0f0f"),
@@ -213,33 +213,33 @@ func (r *LoginPortalService) List(ctx context.Context, opts ...option.RequestOpt
 }
 
 type LoginPortalEmail struct {
+	ButtonBackground string               `json:"buttonBackground" api:"required"`
+	ButtonColor      string               `json:"buttonColor" api:"required"`
+	ButtonText       string               `json:"buttonText" api:"required"`
+	CardBackground   string               `json:"cardBackground" api:"required"`
+	CardColor        string               `json:"cardColor" api:"required"`
 	Logo             string               `json:"logo" api:"required"`
 	LogoSize         string               `json:"logoSize" api:"required"`
-	ButtonText       string               `json:"buttonText" api:"required"`
+	MainBackground   string               `json:"mainBackground" api:"required"`
+	MainColor        string               `json:"mainColor" api:"required"`
 	Message          string               `json:"message" api:"required"`
 	Title            string               `json:"title" api:"required"`
-	MainColor        string               `json:"mainColor" api:"required"`
-	MainBackground   string               `json:"mainBackground" api:"required"`
-	CardColor        string               `json:"cardColor" api:"required"`
-	CardBackground   string               `json:"cardBackground" api:"required"`
-	ButtonColor      string               `json:"buttonColor" api:"required"`
-	ButtonBackground string               `json:"buttonBackground" api:"required"`
 	JSON             loginPortalEmailJSON `json:"-"`
 }
 
 // loginPortalEmailJSON contains the JSON metadata for the struct [LoginPortalEmail]
 type loginPortalEmailJSON struct {
+	ButtonBackground apijson.Field
+	ButtonColor      apijson.Field
+	ButtonText       apijson.Field
+	CardBackground   apijson.Field
+	CardColor        apijson.Field
 	Logo             apijson.Field
 	LogoSize         apijson.Field
-	ButtonText       apijson.Field
+	MainBackground   apijson.Field
+	MainColor        apijson.Field
 	Message          apijson.Field
 	Title            apijson.Field
-	MainColor        apijson.Field
-	MainBackground   apijson.Field
-	CardColor        apijson.Field
-	CardBackground   apijson.Field
-	ButtonColor      apijson.Field
-	ButtonBackground apijson.Field
 	raw              string
 	ExtraFields      map[string]apijson.Field
 }
@@ -271,39 +271,39 @@ func (r LoginPortalEmailParam) MarshalJSON() (data []byte, err error) {
 }
 
 type LoginPortalPage struct {
-	Title           string              `json:"title" api:"required"`
-	Description     string              `json:"description" api:"required"`
-	Head            string              `json:"head" api:"required"`
-	Script          string              `json:"script" api:"required"`
-	Theme           string              `json:"theme" api:"required"`
 	CompanyName     string              `json:"companyName" api:"required"`
-	Logo            string              `json:"logo" api:"required"`
-	LogoURL         string              `json:"logoURL" api:"required"`
+	Description     string              `json:"description" api:"required"`
 	Favicon         string              `json:"favicon" api:"required"`
-	TermsLink       string              `json:"termsLink" api:"required"`
-	PrivacyLink     string              `json:"privacyLink" api:"required"`
-	FormTitle       string              `json:"formTitle" api:"required"`
 	FormDescription string              `json:"formDescription" api:"required"`
 	FormImage       string              `json:"formImage" api:"required"`
+	FormTitle       string              `json:"formTitle" api:"required"`
+	Head            string              `json:"head" api:"required"`
+	Logo            string              `json:"logo" api:"required"`
+	LogoURL         string              `json:"logoURL" api:"required"`
+	PrivacyLink     string              `json:"privacyLink" api:"required"`
+	Script          string              `json:"script" api:"required"`
+	TermsLink       string              `json:"termsLink" api:"required"`
+	Theme           string              `json:"theme" api:"required"`
+	Title           string              `json:"title" api:"required"`
 	JSON            loginPortalPageJSON `json:"-"`
 }
 
 // loginPortalPageJSON contains the JSON metadata for the struct [LoginPortalPage]
 type loginPortalPageJSON struct {
-	Title           apijson.Field
-	Description     apijson.Field
-	Head            apijson.Field
-	Script          apijson.Field
-	Theme           apijson.Field
 	CompanyName     apijson.Field
-	Logo            apijson.Field
-	LogoURL         apijson.Field
+	Description     apijson.Field
 	Favicon         apijson.Field
-	TermsLink       apijson.Field
-	PrivacyLink     apijson.Field
-	FormTitle       apijson.Field
 	FormDescription apijson.Field
 	FormImage       apijson.Field
+	FormTitle       apijson.Field
+	Head            apijson.Field
+	Logo            apijson.Field
+	LogoURL         apijson.Field
+	PrivacyLink     apijson.Field
+	Script          apijson.Field
+	TermsLink       apijson.Field
+	Theme           apijson.Field
+	Title           apijson.Field
 	raw             string
 	ExtraFields     map[string]apijson.Field
 }
@@ -338,17 +338,17 @@ func (r LoginPortalPageParam) MarshalJSON() (data []byte, err error) {
 }
 
 type LoginPortal struct {
-	UID   string          `json:"uid" api:"required"`
-	Title string          `json:"title" api:"required"`
 	Slug  string          `json:"slug" api:"required"`
+	Title string          `json:"title" api:"required"`
+	UID   string          `json:"uid" api:"required"`
 	JSON  loginPortalJSON `json:"-"`
 }
 
 // loginPortalJSON contains the JSON metadata for the struct [LoginPortal]
 type loginPortalJSON struct {
-	UID         apijson.Field
-	Title       apijson.Field
 	Slug        apijson.Field
+	Title       apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -381,21 +381,21 @@ func (r LoginPortalNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type LoginPortalGetResponse struct {
-	UID   string                     `json:"uid" api:"required"`
-	Title string                     `json:"title" api:"required"`
-	Slug  string                     `json:"slug" api:"required"`
 	Email LoginPortalEmail           `json:"email" api:"required"`
 	Page  LoginPortalPage            `json:"page" api:"required"`
+	Slug  string                     `json:"slug" api:"required"`
+	Title string                     `json:"title" api:"required"`
+	UID   string                     `json:"uid" api:"required"`
 	JSON  loginPortalGetResponseJSON `json:"-"`
 }
 
 // loginPortalGetResponseJSON contains the JSON metadata for the struct [LoginPortalGetResponse]
 type loginPortalGetResponseJSON struct {
-	UID         apijson.Field
-	Title       apijson.Field
-	Slug        apijson.Field
 	Email       apijson.Field
 	Page        apijson.Field
+	Slug        apijson.Field
+	Title       apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
