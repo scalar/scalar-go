@@ -46,7 +46,7 @@ func NewMcpServerInstallationService(opts ...option.RequestOption) (r *McpServer
 //
 // Example:
 //
-//	installation, err := client.Mcp.Servers.Installations.List(context.Background(), "id")
+//	installation, err := client.Mcp.Servers.Installations.List(context.Background(), "42")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -78,9 +78,9 @@ func (r *McpServerInstallationService) List(ctx context.Context, id string, opts
 //
 // Example:
 //
-//	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "id", sdk.McpServerInstallationNewParams{
+//	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
 //		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-//		Name:         sdk.F[string]("x"),
+//		Name:         sdk.F[string]("Acme MCP"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -113,7 +113,7 @@ func (r *McpServerInstallationService) New(ctx context.Context, id string, body 
 //
 // Example:
 //
-//	installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "id", "installationId")
+//	installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "42", "84")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -150,7 +150,7 @@ func (r *McpServerInstallationService) Get(ctx context.Context, id string, insta
 //
 // Example:
 //
-//	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "id", "installationId", sdk.McpServerInstallationUpdateParams{})
+//	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -186,7 +186,7 @@ func (r *McpServerInstallationService) Update(ctx context.Context, id string, in
 //
 // Example:
 //
-//	installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "id", "installationId")
+//	installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -223,8 +223,8 @@ func (r *McpServerInstallationService) Delete(ctx context.Context, id string, in
 //
 // Example:
 //
-//	installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationNewAccessGroupParams{
-//		AccessGroupUID: sdk.F[string]("xxxxx"),
+//	installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationNewAccessGroupParams{
+//		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -262,8 +262,8 @@ func (r *McpServerInstallationService) NewAccessGroup(ctx context.Context, id st
 //
 // Example:
 //
-//	installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationDeleteAccessGroupParams{
-//		AccessGroupUID: sdk.F[string]("xxxxx"),
+//	installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationDeleteAccessGroupParams{
+//		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 //	})
 //	if err != nil {
 //		panic(err)

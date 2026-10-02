@@ -73,7 +73,7 @@ func (r *TeamMemberService) List(ctx context.Context, opts ...option.RequestOpti
 //
 // Example:
 //
-//	member, err := client.Teams.Members.Update(context.Background(), "uidxx", sdk.TeamMemberUpdateParams{
+//	member, err := client.Teams.Members.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.TeamMemberUpdateParams{
 //		Role: sdk.F[sdk.Role](sdk.Role("owner")),
 //	})
 //	if err != nil {
@@ -106,7 +106,7 @@ func (r *TeamMemberService) Update(ctx context.Context, uid string, body TeamMem
 //
 // Example:
 //
-//	member, err := client.Teams.Members.Delete(context.Background(), "uidxx")
+//	member, err := client.Teams.Members.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 //	if err != nil {
 //		panic(err)
 //	}

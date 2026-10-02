@@ -51,7 +51,7 @@ func NewSchemaService(opts ...option.RequestOption) (r *SchemaService) {
 //
 // Example:
 //
-//	schema, err := client.Schemas.List(context.Background(), "namespace")
+//	schema, err := client.Schemas.List(context.Background(), "acme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -83,11 +83,11 @@ func (r *SchemaService) List(ctx context.Context, namespace string, opts ...opti
 //
 // Example:
 //
-//	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
-//		Document: sdk.F[string](""),
-//		Slug:     sdk.F[string](""),
-//		Title:    sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	schema, err := client.Schemas.New(context.Background(), "acme", sdk.SchemaNewParams{
+//		Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+//		Slug:     sdk.F[string]("customer"),
+//		Title:    sdk.F[string]("Customer"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -121,7 +121,7 @@ func (r *SchemaService) New(ctx context.Context, namespace string, body SchemaNe
 //
 // Example:
 //
-//	schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{})
+//	schema, err := client.Schemas.Update(context.Background(), "acme", "customer", sdk.SchemaUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -157,7 +157,7 @@ func (r *SchemaService) Update(ctx context.Context, namespace string, slug strin
 //
 // Example:
 //
-//	schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
+//	schema, err := client.Schemas.Delete(context.Background(), "acme", "customer")
 //	if err != nil {
 //		panic(err)
 //	}

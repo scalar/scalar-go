@@ -165,7 +165,7 @@ List API documents in a namespace.
 | Response | [`[]APIDocument`](./registry.go) |
 
 ```go
-registry, err := client.Registry.ListAPIDocuments(context.Background(), "namespace")
+registry, err := client.Registry.ListAPIDocuments(context.Background(), "acme")
 if err != nil {
 	panic(err)
 }
@@ -183,11 +183,11 @@ Create an API document.
 | Response | [`RegistryNewAPIDocumentResponse`](./registry.go) |
 
 ```go
-registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
-	Document: sdk.F[string](""),
-	Slug:     sdk.F[string](""),
-	Title:    sdk.F[string](""),
-	Version:  sdk.F[string]("x"),
+registry, err := client.Registry.NewAPIDocument(context.Background(), "acme", sdk.RegistryNewAPIDocumentParams{
+	Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+	Slug:     sdk.F[string]("acme-api"),
+	Title:    sdk.F[string]("Acme API"),
+	Version:  sdk.F[string]("1.2.0"),
 })
 if err != nil {
 	panic(err)
@@ -205,7 +205,7 @@ Update metadata for an API document.
 | Request | [`RegistryUpdateAPIDocumentParams`](./registry.go) |
 
 ```go
-registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
+registry, err := client.Registry.UpdateAPIDocument(context.Background(), "acme", "acme-api", sdk.RegistryUpdateAPIDocumentParams{})
 if err != nil {
 	panic(err)
 }
@@ -218,7 +218,7 @@ fmt.Println(registry)
 Delete an API document and all versions.
 
 ```go
-registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
+registry, err := client.Registry.DeleteAPIDocument(context.Background(), "acme", "acme-api")
 if err != nil {
 	panic(err)
 }
@@ -235,7 +235,7 @@ Get a specific API document version.
 | Response | `string` |
 
 ```go
-registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 if err != nil {
 	panic(err)
 }
@@ -253,8 +253,8 @@ Update the registry file content for an API document version.
 | Response | [`RegistryUpdateAPIDocumentVersionResponse`](./registry.go) |
 
 ```go
-registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
-	Document: sdk.F[string](""),
+registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0", sdk.RegistryUpdateAPIDocumentVersionParams{
+	Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
 })
 if err != nil {
 	panic(err)
@@ -268,7 +268,7 @@ fmt.Println(registry)
 Delete a specific API document version.
 
 ```go
-registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 if err != nil {
 	panic(err)
 }
@@ -285,7 +285,7 @@ Get metadata (uid, content shas, version sha, tags) for a specific API document 
 | Response | [`ManagedDocVersion`](./shared/shared.go) |
 
 ```go
-registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
+registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "acme", "acme-api", "1.2.0")
 if err != nil {
 	panic(err)
 }
@@ -303,9 +303,9 @@ Create a new API document version.
 | Response | [`ManagedDocVersion`](./shared/shared.go) |
 
 ```go
-registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
-	Document: sdk.F[string](""),
-	Version:  sdk.F[string]("x"),
+registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentVersionParams{
+	Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+	Version:  sdk.F[string]("1.2.0"),
 })
 if err != nil {
 	panic(err)
@@ -323,9 +323,9 @@ Add an access group to an API document.
 | Request | [`RegistryNewAPIDocumentAccessGroupParams`](./registry.go) |
 
 ```go
-registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
+registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("x"),
+		AccessGroupSlug: sdk.F[string]("acme-api"),
 	},
 })
 if err != nil {
@@ -344,9 +344,9 @@ Remove an access group from an API document.
 | Request | [`RegistryDeleteAPIDocumentAccessGroupParams`](./registry.go) |
 
 ```go
-registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
+registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("x"),
+		AccessGroupSlug: sdk.F[string]("acme-api"),
 	},
 })
 if err != nil {
@@ -369,7 +369,7 @@ List schemas in a namespace.
 | Response | [`[]Schema`](./schema.go) |
 
 ```go
-schema, err := client.Schemas.List(context.Background(), "namespace")
+schema, err := client.Schemas.List(context.Background(), "acme")
 if err != nil {
 	panic(err)
 }
@@ -387,11 +387,11 @@ Create a schema in a namespace.
 | Response | [`UID`](./shared/shared.go) |
 
 ```go
-schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
-	Document: sdk.F[string](""),
-	Slug:     sdk.F[string](""),
-	Title:    sdk.F[string](""),
-	Version:  sdk.F[string]("x"),
+schema, err := client.Schemas.New(context.Background(), "acme", sdk.SchemaNewParams{
+	Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+	Slug:     sdk.F[string]("customer"),
+	Title:    sdk.F[string]("Customer"),
+	Version:  sdk.F[string]("1.2.0"),
 })
 if err != nil {
 	panic(err)
@@ -409,7 +409,7 @@ Update schema metadata.
 | Request | [`SchemaUpdateParams`](./schema.go) |
 
 ```go
-schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{})
+schema, err := client.Schemas.Update(context.Background(), "acme", "customer", sdk.SchemaUpdateParams{})
 if err != nil {
 	panic(err)
 }
@@ -422,7 +422,7 @@ fmt.Println(schema)
 Delete a schema and all related versions.
 
 ```go
-schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
+schema, err := client.Schemas.Delete(context.Background(), "acme", "customer")
 if err != nil {
 	panic(err)
 }
@@ -443,7 +443,7 @@ Get a specific schema version document.
 | Response | `string` |
 
 ```go
-version, err := client.Schemas.Version.Get(context.Background(), "namespace", "slug", "semver")
+version, err := client.Schemas.Version.Get(context.Background(), "acme", "customer", "1.2.0")
 if err != nil {
 	panic(err)
 }
@@ -456,7 +456,7 @@ fmt.Println(version)
 Delete a schema version.
 
 ```go
-version, err := client.Schemas.Version.Delete(context.Background(), "namespace", "slug", "semver")
+version, err := client.Schemas.Version.Delete(context.Background(), "acme", "customer", "1.2.0")
 if err != nil {
 	panic(err)
 }
@@ -474,9 +474,9 @@ Create a schema version.
 | Response | [`SchemaVersionNewResponse`](./schemaversion.go) |
 
 ```go
-version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
-	Document: sdk.F[string](""),
-	Version:  sdk.F[string]("x"),
+version, err := client.Schemas.Version.New(context.Background(), "acme", "customer", sdk.SchemaVersionNewParams{
+	Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+	Version:  sdk.F[string]("1.2.0"),
 })
 if err != nil {
 	panic(err)
@@ -498,9 +498,9 @@ Add an access group to a schema.
 | Request | [`SchemaAccessGroupNewParams`](./schemaaccessgroup.go) |
 
 ```go
-accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
+accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "acme", "customer", sdk.SchemaAccessGroupNewParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("x"),
+		AccessGroupSlug: sdk.F[string]("acme-api"),
 	},
 })
 if err != nil {
@@ -519,9 +519,9 @@ Remove an access group from a schema.
 | Request | [`SchemaAccessGroupDeleteParams`](./schemaaccessgroup.go) |
 
 ```go
-accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
+accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "acme", "customer", sdk.SchemaAccessGroupDeleteParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("x"),
+		AccessGroupSlug: sdk.F[string]("acme-api"),
 	},
 })
 if err != nil {
@@ -544,7 +544,7 @@ Get a login portal by slug.
 | Response | [`LoginPortalGetResponse`](./loginportal.go) |
 
 ```go
-loginPortal, err := client.LoginPortals.Get(context.Background(), "slug")
+loginPortal, err := client.LoginPortals.Get(context.Background(), "acme-login")
 if err != nil {
 	panic(err)
 }
@@ -561,7 +561,7 @@ Update metadata for a login portal.
 | Request | [`LoginPortalUpdateParams`](./loginportal.go) |
 
 ```go
-loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{})
+loginPortal, err := client.LoginPortals.Update(context.Background(), "acme-login", sdk.LoginPortalUpdateParams{})
 if err != nil {
 	panic(err)
 }
@@ -574,7 +574,7 @@ fmt.Println(loginPortal)
 Delete a login portal.
 
 ```go
-loginPortal, err := client.LoginPortals.Delete(context.Background(), "slug")
+loginPortal, err := client.LoginPortals.Delete(context.Background(), "acme-login")
 if err != nil {
 	panic(err)
 }
@@ -622,8 +622,8 @@ loginPortal, err := client.LoginPortals.New(context.Background(), sdk.LoginPorta
 		FormDescription: sdk.F[string]("Login to access your documentation"),
 		FormImage:       sdk.F[string](""),
 	}),
-	Slug:  sdk.F[string](""),
-	Title: sdk.F[string](""),
+	Slug:  sdk.F[string]("acme-login"),
+	Title: sdk.F[string]("Acme Private Documentation"),
 })
 if err != nil {
 	panic(err)
@@ -680,7 +680,7 @@ Get a group and its email and domain allowlists by slug.
 | Response | [`AccessGroupGetResponse`](./accessgroup.go) |
 
 ```go
-accessGroup, err := client.AccessGroups.Get(context.Background(), "slug")
+accessGroup, err := client.AccessGroups.Get(context.Background(), "acme-api")
 if err != nil {
 	panic(err)
 }
@@ -697,7 +697,7 @@ Update group metadata. Requires docs edit permission. After changing the slug, u
 | Request | [`AccessGroupUpdateParams`](./accessgroup.go) |
 
 ```go
-accessGroup, err := client.AccessGroups.Update(context.Background(), "slug", sdk.AccessGroupUpdateParams{})
+accessGroup, err := client.AccessGroups.Update(context.Background(), "acme-api", sdk.AccessGroupUpdateParams{})
 if err != nil {
 	panic(err)
 }
@@ -710,7 +710,7 @@ fmt.Println(accessGroup)
 Delete a group and remove its project assignments. Requires docs edit permission.
 
 ```go
-accessGroup, err := client.AccessGroups.Delete(context.Background(), "slug")
+accessGroup, err := client.AccessGroups.Delete(context.Background(), "acme-api")
 if err != nil {
 	panic(err)
 }
@@ -731,8 +731,8 @@ Allow an exact email domain in a group. Requires docs edit permission. A group s
 | Request | [`AccessGroupDomainNewParams`](./accessgroupdomain.go) |
 
 ```go
-domain, err := client.AccessGroups.Domains.New(context.Background(), "slug", sdk.AccessGroupDomainNewParams{
-	Domain: sdk.F[string](""),
+domain, err := client.AccessGroups.Domains.New(context.Background(), "acme-api", sdk.AccessGroupDomainNewParams{
+	Domain: sdk.F[string]("example.com"),
 })
 if err != nil {
 	panic(err)
@@ -750,8 +750,8 @@ Remove an exact email domain from a group. Requires docs edit permission. Other 
 | Request | [`AccessGroupDomainDeleteParams`](./accessgroupdomain.go) |
 
 ```go
-domain, err := client.AccessGroups.Domains.Delete(context.Background(), "slug", sdk.AccessGroupDomainDeleteParams{
-	Domain: sdk.F[string](""),
+domain, err := client.AccessGroups.Domains.Delete(context.Background(), "acme-api", sdk.AccessGroupDomainDeleteParams{
+	Domain: sdk.F[string]("example.com"),
 })
 if err != nil {
 	panic(err)
@@ -773,7 +773,7 @@ List all rulesets in a namespace.
 | Response | [`[]Rule`](./rule.go) |
 
 ```go
-rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
+rule, err := client.Rules.ListRulesets(context.Background(), "acme")
 if err != nil {
 	panic(err)
 }
@@ -791,10 +791,10 @@ Create a rule in a namespace.
 | Response | [`UID`](./shared/shared.go) |
 
 ```go
-rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
-	Document: sdk.F[string](""),
-	Slug:     sdk.F[string](""),
-	Title:    sdk.F[string](""),
+rule, err := client.Rules.NewRuleset(context.Background(), "acme", sdk.RuleNewRulesetParams{
+	Document: sdk.F[string]("extends: [\"spectral:oas\"]\nrules:\n  info-contact: warn\n"),
+	Slug:     sdk.F[string]("acme-rules"),
+	Title:    sdk.F[string]("Acme API Rules"),
 })
 if err != nil {
 	panic(err)
@@ -812,7 +812,7 @@ Update rule metadata by slug.
 | Request | [`RuleUpdateRulesetParams`](./rule.go) |
 
 ```go
-rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{})
+rule, err := client.Rules.UpdateRuleset(context.Background(), "acme", "acme-rules", sdk.RuleUpdateRulesetParams{})
 if err != nil {
 	panic(err)
 }
@@ -825,7 +825,7 @@ fmt.Println(rule)
 Delete a rule by slug.
 
 ```go
-rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug")
+rule, err := client.Rules.DeleteRuleset(context.Background(), "acme", "acme-rules")
 if err != nil {
 	panic(err)
 }
@@ -842,7 +842,7 @@ Get a rule document by slug.
 | Response | `string` |
 
 ```go
-rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", "slug")
+rule, err := client.Rules.GetRulesetDocument(context.Background(), "acme", "acme-rules")
 if err != nil {
 	panic(err)
 }
@@ -859,9 +859,9 @@ Grant an access group to a rule.
 | Request | [`RuleNewRulesetAccessGroupParams`](./rule.go) |
 
 ```go
-rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
+rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "acme", "acme-rules", sdk.RuleNewRulesetAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("x"),
+		AccessGroupSlug: sdk.F[string]("acme-api"),
 	},
 })
 if err != nil {
@@ -880,9 +880,9 @@ Remove an access group from a rule.
 | Request | [`RuleDeleteRulesetAccessGroupParams`](./rule.go) |
 
 ```go
-rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
+rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "acme", "acme-rules", sdk.RuleDeleteRulesetAccessGroupParams{
 	AccessGroup: sdk.AccessGroupParam{
-		AccessGroupSlug: sdk.F[string]("x"),
+		AccessGroupSlug: sdk.F[string]("acme-api"),
 	},
 })
 if err != nil {
@@ -924,9 +924,9 @@ Create a team theme.
 
 ```go
 theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
-	Document: sdk.F[string](""),
-	Name:     sdk.F[string](""),
-	Slug:     sdk.F[string](""),
+	Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
+	Name:     sdk.F[string]("Acme Theme"),
+	Slug:     sdk.F[string]("acme-theme"),
 })
 if err != nil {
 	panic(err)
@@ -944,7 +944,7 @@ Update theme metadata.
 | Request | [`ThemeUpdateParams`](./theme.go) |
 
 ```go
-theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
+theme, err := client.Themes.Update(context.Background(), "acme-theme", sdk.ThemeUpdateParams{})
 if err != nil {
 	panic(err)
 }
@@ -961,8 +961,8 @@ Replace the theme document.
 | Request | [`ThemeReplaceDocumentParams`](./theme.go) |
 
 ```go
-theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
-	Document: sdk.F[string](""),
+theme, err := client.Themes.ReplaceDocument(context.Background(), "acme-theme", sdk.ThemeReplaceDocumentParams{
+	Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
 })
 if err != nil {
 	panic(err)
@@ -976,7 +976,7 @@ fmt.Println(theme)
 Delete a theme by slug.
 
 ```go
-theme, err := client.Themes.Delete(context.Background(), "slug")
+theme, err := client.Themes.Delete(context.Background(), "acme-theme")
 if err != nil {
 	panic(err)
 }
@@ -993,7 +993,7 @@ Get the theme document by slug.
 | Response | `string` |
 
 ```go
-theme, err := client.Themes.Get(context.Background(), "slug")
+theme, err := client.Themes.Get(context.Background(), "acme-theme")
 if err != nil {
 	panic(err)
 }
@@ -1052,7 +1052,7 @@ Change what a member of the current team is allowed to do.
 | Request | [`TeamMemberUpdateParams`](./teammember.go) |
 
 ```go
-member, err := client.Teams.Members.Update(context.Background(), "uidxx", sdk.TeamMemberUpdateParams{
+member, err := client.Teams.Members.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.TeamMemberUpdateParams{
 	Role: sdk.F[sdk.Role](sdk.Role("owner")),
 })
 if err != nil {
@@ -1067,7 +1067,7 @@ fmt.Println(member)
 Remove someone from the current team.
 
 ```go
-member, err := client.Teams.Members.Delete(context.Background(), "uidxx")
+member, err := client.Teams.Members.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 if err != nil {
 	panic(err)
 }
@@ -1089,7 +1089,7 @@ Invite someone to the current team by email.
 
 ```go
 invite, err := client.Teams.Invites.Member(context.Background(), sdk.TeamInviteMemberParams{
-	Email: sdk.F[string]("user@example.com"),
+	Email: sdk.F[string]("alex@example.com"),
 	Role:  sdk.F[sdk.Role](sdk.Role("owner")),
 })
 if err != nil {
@@ -1104,7 +1104,7 @@ fmt.Println(invite)
 Send the invite email again.
 
 ```go
-invite, err := client.Teams.Invites.Resend(context.Background(), "uidxx")
+invite, err := client.Teams.Invites.Resend(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 if err != nil {
 	panic(err)
 }
@@ -1117,7 +1117,7 @@ fmt.Println(invite)
 Withdraw an invite that has not been accepted.
 
 ```go
-invite, err := client.Teams.Invites.Cancel(context.Background(), "uidxx")
+invite, err := client.Teams.Invites.Cancel(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 if err != nil {
 	panic(err)
 }
@@ -1160,7 +1160,7 @@ scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDoc
 	AllowedDomains: sdk.F[[]string]([]string{}),
 	AllowedUsers:   sdk.F[[]string]([]string{}),
 	IsPrivate:      sdk.F[bool](false),
-	Name:           sdk.F[string](""),
+	Name:           sdk.F[string]("Acme Documentation"),
 })
 if err != nil {
 	panic(err)
@@ -1178,7 +1178,7 @@ Start a new publish process.
 | Response | [`ScalarDocPublishGuideResponse`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
+scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "acme-docs")
 if err != nil {
 	panic(err)
 }
@@ -1215,7 +1215,7 @@ Create a docs project. Omit `provider` to have Scalar host the repository.
 
 ```go
 scalarDoc, err := client.ScalarDocs.NewProject(context.Background(), sdk.ScalarDocNewProjectParams{
-	Name:     sdk.F[string](""),
+	Name:     sdk.F[string]("Acme Documentation"),
 	Provider: sdk.F[sdk.ScalarDocNewProjectParamsProvider](sdk.ScalarDocNewProjectParamsProvider("forgejo")),
 })
 if err != nil {
@@ -1234,7 +1234,7 @@ Get a single docs project by its slug.
 | Response | [`DocsProject`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "slug")
+scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "acme-docs")
 if err != nil {
 	panic(err)
 }
@@ -1251,7 +1251,7 @@ Update project settings. Set `isPrivate` with `accessGroups` to put the site beh
 | Request | [`ScalarDocUpdateProjectParams`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "slug", sdk.ScalarDocUpdateProjectParams{})
+scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectParams{})
 if err != nil {
 	panic(err)
 }
@@ -1264,7 +1264,7 @@ fmt.Println(scalarDoc)
 Delete a docs project, its deploys, its publish records and its cached builds.
 
 ```go
-scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "slug")
+scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "acme-docs")
 if err != nil {
 	panic(err)
 }
@@ -1282,7 +1282,7 @@ Start a build and deploy. The returned `publishUid` identifies the publish recor
 | Response | [`ScalarDocPublishProjectResponse`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "slug", sdk.ScalarDocPublishProjectParams{})
+scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "acme-docs", sdk.ScalarDocPublishProjectParams{})
 if err != nil {
 	panic(err)
 }
@@ -1300,7 +1300,7 @@ Read `scalar.config.json` straight from the project repository, without cloning 
 | Response | [`ScalarDocListProjectConfigResponse`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "slug", sdk.ScalarDocListProjectConfigParams{})
+scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocListProjectConfigParams{})
 if err != nil {
 	panic(err)
 }
@@ -1318,8 +1318,8 @@ Commit `scalar.config.json` straight to the project repository. Pass the `baseTo
 | Response | [`ScalarDocUpdateProjectConfigResponse`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "slug", sdk.ScalarDocUpdateProjectConfigParams{
-	Content: sdk.F[string](""),
+scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectConfigParams{
+	Content: sdk.F[string]("{\"name\":\"Acme Documentation\"}"),
 })
 if err != nil {
 	panic(err)
@@ -1337,7 +1337,7 @@ The domains the project serves on — the Scalar-hosted one and the custom one, 
 | Response | [`ScalarDocListProjectDomainResponse`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "slug")
+scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "acme-docs")
 if err != nil {
 	panic(err)
 }
@@ -1354,7 +1354,7 @@ Whether the project custom domain points at Scalar yet. `expected` is the CNAME 
 | Response | [`ScalarDocListProjectDomainStatusResponse`](./scalardoc.go) |
 
 ```go
-scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "slug")
+scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "acme-docs")
 if err != nil {
 	panic(err)
 }
@@ -1398,7 +1398,7 @@ Exchange an API key for an access token.
 
 ```go
 authentication, err := client.Authentication.ExchangePersonalToken(context.Background(), sdk.AuthenticationExchangePersonalTokenParams{
-	PersonalToken: sdk.F[string](""),
+	PersonalToken: sdk.F[string]("scalar_example_personal_token"),
 })
 if err != nil {
 	panic(err)
@@ -1457,7 +1457,7 @@ Create an SDK from an API document, targeting one or more languages.
 
 ```go
 sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
-	APIUID:    sdk.F[string]("xxxxx"),
+	APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 	Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
 })
 if err != nil {
@@ -1476,7 +1476,7 @@ Get a single SDK by its uid.
 | Response | [`Sdk`](./sdk.go) |
 
 ```go
-sdk, err := client.Sdks.Get(context.Background(), "uidxx")
+sdk, err := client.Sdks.Get(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 if err != nil {
 	panic(err)
 }
@@ -1493,7 +1493,7 @@ Update SDK metadata, its linked API, or its config.
 | Request | [`SdkUpdateParams`](./sdk.go) |
 
 ```go
-sdk, err := client.Sdks.Update(context.Background(), "uidxx", sdk.SdkUpdateParams{})
+sdk, err := client.Sdks.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkUpdateParams{})
 if err != nil {
 	panic(err)
 }
@@ -1506,7 +1506,7 @@ fmt.Println(sdk)
 Delete an SDK and every version it holds.
 
 ```go
-sdk, err := client.Sdks.Delete(context.Background(), "uidxx")
+sdk, err := client.Sdks.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 if err != nil {
 	panic(err)
 }
@@ -1524,7 +1524,7 @@ Start a build. Omit `version` to build the current work — the open draft, else
 | Response | [`SdkBuildResponse`](./sdk.go) |
 
 ```go
-sdk, err := client.Sdks.Build(context.Background(), "uidxx", sdk.SdkBuildParams{})
+sdk, err := client.Sdks.Build(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkBuildParams{})
 if err != nil {
 	panic(err)
 }
@@ -1545,9 +1545,9 @@ Create a new SDK version against a specific API version.
 | Request | [`SdkVersionNewParams`](./sdkversion.go) |
 
 ```go
-version, err := client.Sdks.Versions.New(context.Background(), "uidxx", sdk.SdkVersionNewParams{
-	APIVersion: sdk.F[string](""),
-	Version:    sdk.F[string](""),
+version, err := client.Sdks.Versions.New(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkVersionNewParams{
+	APIVersion: sdk.F[string]("1.2.0"),
+	Version:    sdk.F[string]("1.2.0"),
 })
 if err != nil {
 	panic(err)
@@ -1561,7 +1561,7 @@ fmt.Println(version)
 Permanently delete one version of an SDK.
 
 ```go
-version, err := client.Sdks.Versions.Delete(context.Background(), "uidxx", "version")
+version, err := client.Sdks.Versions.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "1.2.0")
 if err != nil {
 	panic(err)
 }
@@ -1583,10 +1583,10 @@ Link one language target to a GitHub repository, so builds sync there.
 | Response | [`SdkRepositoryLinkResponse`](./sdkrepository.go) |
 
 ```go
-repository, err := client.Sdks.Repositories.Link(context.Background(), "uidxx", sdk.SdkRepositoryLinkParams{
-	BaseBranch:   sdk.F[string](""),
+repository, err := client.Sdks.Repositories.Link(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkRepositoryLinkParams{
+	BaseBranch:   sdk.F[string]("main"),
 	Language:     sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
-	RepositoryID: sdk.F[int64](0),
+	RepositoryID: sdk.F[int64](123456789),
 })
 if err != nil {
 	panic(err)
@@ -1600,7 +1600,7 @@ fmt.Println(repository)
 Unlink one language target from its repository.
 
 ```go
-repository, err := client.Sdks.Repositories.Unlink(context.Background(), "uidxx", "typescript")
+repository, err := client.Sdks.Repositories.Unlink(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript")
 if err != nil {
 	panic(err)
 }
@@ -1617,8 +1617,8 @@ Toggle publish-on-merge and the release settings for a linked target.
 | Request | [`SdkRepositoryUpdatePublishingParams`](./sdkrepository.go) |
 
 ```go
-repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "uidxx", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
-	PublishOnMerge: sdk.F[bool](false),
+repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
+	PublishOnMerge: sdk.F[bool](true),
 })
 if err != nil {
 	panic(err)
@@ -1661,7 +1661,7 @@ Create an MCP server over one or more API document versions. The response carrie
 
 ```go
 server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
-	Name: sdk.F[string]("x"),
+	Name: sdk.F[string]("Acme MCP"),
 })
 if err != nil {
 	panic(err)
@@ -1679,7 +1679,7 @@ Get a single MCP server by its id.
 | Response | [`McpServer`](./mcpserver.go) |
 
 ```go
-server, err := client.Mcp.Servers.Get(context.Background(), "id")
+server, err := client.Mcp.Servers.Get(context.Background(), "42")
 if err != nil {
 	panic(err)
 }
@@ -1697,7 +1697,7 @@ Update MCP server metadata and which tools it exposes.
 | Response | [`McpServer`](./mcpserver.go) |
 
 ```go
-server, err := client.Mcp.Servers.Update(context.Background(), "id", sdk.McpServerUpdateParams{})
+server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{})
 if err != nil {
 	panic(err)
 }
@@ -1710,7 +1710,7 @@ fmt.Println(server)
 Delete an MCP server and every installation it serves.
 
 ```go
-server, err := client.Mcp.Servers.Delete(context.Background(), "id")
+server, err := client.Mcp.Servers.Delete(context.Background(), "42")
 if err != nil {
 	panic(err)
 }
@@ -1731,7 +1731,7 @@ List the installations of an MCP server. An installation is what an MCP client c
 | Response | [`[]McpInstallationListItem`](./mcpserverinstallation.go) |
 
 ```go
-installation, err := client.Mcp.Servers.Installations.List(context.Background(), "id")
+installation, err := client.Mcp.Servers.Installations.List(context.Background(), "42")
 if err != nil {
 	panic(err)
 }
@@ -1749,9 +1749,9 @@ Create an installation of an MCP server. `documentAuth` holds the credentials th
 | Response | [`McpInstallation`](./mcpserver.go) |
 
 ```go
-installation, err := client.Mcp.Servers.Installations.New(context.Background(), "id", sdk.McpServerInstallationNewParams{
+installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
 	DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-	Name:         sdk.F[string]("x"),
+	Name:         sdk.F[string]("Acme MCP"),
 })
 if err != nil {
 	panic(err)
@@ -1769,7 +1769,7 @@ Get a single installation of an MCP server.
 | Response | [`McpInstallation`](./mcpserver.go) |
 
 ```go
-installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "id", "installationId")
+installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "42", "84")
 if err != nil {
 	panic(err)
 }
@@ -1787,7 +1787,7 @@ Update an installation. Set `isPrivate` and add access groups to put it behind a
 | Response | [`McpInstallation`](./mcpserver.go) |
 
 ```go
-installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "id", "installationId", sdk.McpServerInstallationUpdateParams{})
+installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{})
 if err != nil {
 	panic(err)
 }
@@ -1800,7 +1800,7 @@ fmt.Println(installation)
 Delete an installation of an MCP server.
 
 ```go
-installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "id", "installationId")
+installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
 if err != nil {
 	panic(err)
 }
@@ -1817,8 +1817,8 @@ Let an access group reach a private installation.
 | Request | [`McpServerInstallationNewAccessGroupParams`](./mcpserverinstallation.go) |
 
 ```go
-installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationNewAccessGroupParams{
-	AccessGroupUID: sdk.F[string]("xxxxx"),
+installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationNewAccessGroupParams{
+	AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 })
 if err != nil {
 	panic(err)
@@ -1836,8 +1836,8 @@ Stop an access group reaching a private installation.
 | Request | [`McpServerInstallationDeleteAccessGroupParams`](./mcpserverinstallation.go) |
 
 ```go
-installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationDeleteAccessGroupParams{
-	AccessGroupUID: sdk.F[string]("xxxxx"),
+installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationDeleteAccessGroupParams{
+	AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 })
 if err != nil {
 	panic(err)

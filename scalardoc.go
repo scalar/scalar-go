@@ -77,7 +77,7 @@ func (r *ScalarDocService) ListGuides(ctx context.Context, opts ...option.Reques
 //		AllowedDomains: sdk.F[[]string]([]string{}),
 //		AllowedUsers:   sdk.F[[]string]([]string{}),
 //		IsPrivate:      sdk.F[bool](false),
-//		Name:           sdk.F[string](""),
+//		Name:           sdk.F[string]("Acme Documentation"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -105,7 +105,7 @@ func (r *ScalarDocService) NewGuide(ctx context.Context, body ScalarDocNewGuideP
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
+//	scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "acme-docs")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -164,7 +164,7 @@ func (r *ScalarDocService) ListProjects(ctx context.Context, query ScalarDocList
 // Example:
 //
 //	scalarDoc, err := client.ScalarDocs.NewProject(context.Background(), sdk.ScalarDocNewProjectParams{
-//		Name:     sdk.F[string](""),
+//		Name:     sdk.F[string]("Acme Documentation"),
 //		Provider: sdk.F[sdk.ScalarDocNewProjectParamsProvider](sdk.ScalarDocNewProjectParamsProvider("forgejo")),
 //	})
 //	if err != nil {
@@ -193,7 +193,7 @@ func (r *ScalarDocService) NewProject(ctx context.Context, body ScalarDocNewProj
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "slug")
+//	scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "acme-docs")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -225,7 +225,7 @@ func (r *ScalarDocService) GetProject(ctx context.Context, slug string, opts ...
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "slug", sdk.ScalarDocUpdateProjectParams{})
+//	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -256,7 +256,7 @@ func (r *ScalarDocService) UpdateProject(ctx context.Context, slug string, body 
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "slug")
+//	scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "acme-docs")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -288,7 +288,7 @@ func (r *ScalarDocService) DeleteProject(ctx context.Context, slug string, opts 
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "slug", sdk.ScalarDocPublishProjectParams{})
+//	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "acme-docs", sdk.ScalarDocPublishProjectParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -320,7 +320,7 @@ func (r *ScalarDocService) PublishProject(ctx context.Context, slug string, body
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "slug", sdk.ScalarDocListProjectConfigParams{})
+//	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocListProjectConfigParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -352,8 +352,8 @@ func (r *ScalarDocService) ListProjectConfig(ctx context.Context, slug string, q
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "slug", sdk.ScalarDocUpdateProjectConfigParams{
-//		Content: sdk.F[string](""),
+//	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectConfigParams{
+//		Content: sdk.F[string]("{\"name\":\"Acme Documentation\"}"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -385,7 +385,7 @@ func (r *ScalarDocService) UpdateProjectConfig(ctx context.Context, slug string,
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "slug")
+//	scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "acme-docs")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -416,7 +416,7 @@ func (r *ScalarDocService) ListProjectDomain(ctx context.Context, slug string, o
 //
 // Example:
 //
-//	scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "slug")
+//	scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "acme-docs")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -434,7 +434,7 @@ func (r *ScalarDocService) ListProjectDomainStatus(ctx context.Context, slug str
 }
 
 type GithubProject struct {
-	AccessGroups     interface{}             `json:"accessGroups" api:"required"`
+	AccessGroups     string                  `json:"accessGroups" api:"required"`
 	ActiveDeployment ActiveDeployment        `json:"activeDeployment" api:"required,nullable"`
 	ActiveThemeID    string                  `json:"activeThemeId" api:"required"`
 	AgentEnabled     bool                    `json:"agentEnabled" api:"required"`
@@ -490,7 +490,7 @@ func (r githubProjectJSON) RawJSON() string {
 }
 
 type DocsProject struct {
-	AccessGroups     interface{}     `json:"accessGroups" api:"required"`
+	AccessGroups     string          `json:"accessGroups" api:"required"`
 	ActiveThemeID    string          `json:"activeThemeId" api:"required"`
 	AgentEnabled     bool            `json:"agentEnabled" api:"required"`
 	AnalyticsEnabled bool            `json:"analyticsEnabled" api:"required"`

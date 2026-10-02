@@ -44,7 +44,7 @@ func NewAuthenticationService(opts ...option.RequestOption) (r *AuthenticationSe
 // Example:
 //
 //	authentication, err := client.Authentication.ExchangePersonalToken(context.Background(), sdk.AuthenticationExchangePersonalTokenParams{
-//		PersonalToken: sdk.F[string](""),
+//		PersonalToken: sdk.F[string]("scalar_example_personal_token"),
 //	})
 //	if err != nil {
 //		panic(err)

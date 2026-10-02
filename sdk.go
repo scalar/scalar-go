@@ -80,7 +80,7 @@ func (r *SdkService) List(ctx context.Context, query SdkListParams, opts ...opti
 // Example:
 //
 //	sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
-//		APIUID:    sdk.F[string]("xxxxx"),
+//		APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 //		Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
 //	})
 //	if err != nil {
@@ -109,7 +109,7 @@ func (r *SdkService) New(ctx context.Context, body SdkNewParams, opts ...option.
 //
 // Example:
 //
-//	sdk, err := client.Sdks.Get(context.Background(), "uidxx")
+//	sdk, err := client.Sdks.Get(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -141,7 +141,7 @@ func (r *SdkService) Get(ctx context.Context, uid string, opts ...option.Request
 //
 // Example:
 //
-//	sdk, err := client.Sdks.Update(context.Background(), "uidxx", sdk.SdkUpdateParams{})
+//	sdk, err := client.Sdks.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -172,7 +172,7 @@ func (r *SdkService) Update(ctx context.Context, uid string, body SdkUpdateParam
 //
 // Example:
 //
-//	sdk, err := client.Sdks.Delete(context.Background(), "uidxx")
+//	sdk, err := client.Sdks.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -204,7 +204,7 @@ func (r *SdkService) Delete(ctx context.Context, uid string, opts ...option.Requ
 //
 // Example:
 //
-//	sdk, err := client.Sdks.Build(context.Background(), "uidxx", sdk.SdkBuildParams{})
+//	sdk, err := client.Sdks.Build(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkBuildParams{})
 //	if err != nil {
 //		panic(err)
 //	}
