@@ -17,6 +17,8 @@ import (
 // the [NewTeamService] method instead.
 type TeamService struct {
 	Options []option.RequestOption
+	Members *TeamMemberService
+	Invites *TeamInviteService
 }
 
 // NewTeamService generates a new service that applies the given options to each request.
@@ -25,6 +27,8 @@ type TeamService struct {
 func NewTeamService(opts ...option.RequestOption) (r *TeamService) {
 	r = &TeamService{}
 	r.Options = opts
+	r.Members = NewTeamMemberService(opts...)
+	r.Invites = NewTeamInviteService(opts...)
 	return
 }
 

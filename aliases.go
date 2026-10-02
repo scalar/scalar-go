@@ -29,20 +29,6 @@ type ManagedDocVersion = shared.ManagedDocVersion
 
 type ManagedDocVersionTool = shared.ManagedDocVersionTool
 
-type ManagedDocVersionToolsMethod = shared.ManagedDocVersionToolsMethod
-
-const (
-	ManagedDocVersionToolsMethodDelete  = shared.ManagedDocVersionToolsMethodDelete
-	ManagedDocVersionToolsMethodGet     = shared.ManagedDocVersionToolsMethodGet
-	ManagedDocVersionToolsMethodHead    = shared.ManagedDocVersionToolsMethodHead
-	ManagedDocVersionToolsMethodOptions = shared.ManagedDocVersionToolsMethodOptions
-	ManagedDocVersionToolsMethodPatch   = shared.ManagedDocVersionToolsMethodPatch
-	ManagedDocVersionToolsMethodPost    = shared.ManagedDocVersionToolsMethodPost
-	ManagedDocVersionToolsMethodPut     = shared.ManagedDocVersionToolsMethodPut
-	ManagedDocVersionToolsMethodQuery   = shared.ManagedDocVersionToolsMethodQuery
-	ManagedDocVersionToolsMethodTrace   = shared.ManagedDocVersionToolsMethodTrace
-)
-
 type ManagedDocVersionToolsEnabledTool = shared.ManagedDocVersionToolsEnabledTool
 
 const (
