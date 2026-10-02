@@ -439,6 +439,89 @@ func _smokeCase32() {
 }
 
 func _smokeCase33() {
+	accessGroup, err := client.AccessGroups.New(context.Background(), sdk.AccessGroupNewParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(accessGroup)
+}
+
+func _smokeCase34() {
+	accessGroup, err := client.AccessGroups.New(context.Background(), sdk.AccessGroupNewParams{
+		AllowedDomains: sdk.F[interface{}](nil),
+		Name:           sdk.F[string](""),
+		Slug:           sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(accessGroup)
+}
+
+func _smokeCase35() {
+	accessGroup, err := client.AccessGroups.Get(context.Background(), "slug")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(accessGroup)
+}
+
+func _smokeCase36() {
+	accessGroup, err := client.AccessGroups.Update(context.Background(), "slug", sdk.AccessGroupUpdateParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(accessGroup)
+}
+
+func _smokeCase37() {
+	accessGroup, err := client.AccessGroups.Update(context.Background(), "slug", sdk.AccessGroupUpdateParams{
+		Name: sdk.F[string](""),
+		Slug: sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(accessGroup)
+}
+
+func _smokeCase38() {
+	accessGroup, err := client.AccessGroups.Delete(context.Background(), "slug")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(accessGroup)
+}
+
+func _smokeCase39() {
+	domain, err := client.AccessGroups.Domains.New(context.Background(), "slug", sdk.AccessGroupDomainNewParams{
+		Domain: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(domain)
+}
+
+func _smokeCase40() {
+	domain, err := client.AccessGroups.Domains.Delete(context.Background(), "slug", sdk.AccessGroupDomainDeleteParams{
+		Domain: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(domain)
+}
+
+func _smokeCase41() {
 	rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
 	if err != nil {
 		panic(err)
@@ -447,7 +530,7 @@ func _smokeCase33() {
 	fmt.Println(rule)
 }
 
-func _smokeCase34() {
+func _smokeCase42() {
 	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
 		Document: sdk.F[string](""),
 		Slug:     sdk.F[string](""),
@@ -460,7 +543,7 @@ func _smokeCase34() {
 	fmt.Println(rule)
 }
 
-func _smokeCase35() {
+func _smokeCase43() {
 	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
 		Document:    sdk.F[string](""),
 		Slug:        sdk.F[string](""),
@@ -475,7 +558,7 @@ func _smokeCase35() {
 	fmt.Println(rule)
 }
 
-func _smokeCase36() {
+func _smokeCase44() {
 	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{})
 	if err != nil {
 		panic(err)
@@ -484,7 +567,7 @@ func _smokeCase36() {
 	fmt.Println(rule)
 }
 
-func _smokeCase37() {
+func _smokeCase45() {
 	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{
 		Description: sdk.F[string](""),
 		IsPrivate:   sdk.F[bool](false),
@@ -499,7 +582,7 @@ func _smokeCase37() {
 	fmt.Println(rule)
 }
 
-func _smokeCase38() {
+func _smokeCase46() {
 	rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug")
 	if err != nil {
 		panic(err)
@@ -508,7 +591,7 @@ func _smokeCase38() {
 	fmt.Println(rule)
 }
 
-func _smokeCase39() {
+func _smokeCase47() {
 	rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", "slug")
 	if err != nil {
 		panic(err)
@@ -517,7 +600,7 @@ func _smokeCase39() {
 	fmt.Println(rule)
 }
 
-func _smokeCase40() {
+func _smokeCase48() {
 	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("x"),
@@ -530,7 +613,7 @@ func _smokeCase40() {
 	fmt.Println(rule)
 }
 
-func _smokeCase41() {
+func _smokeCase49() {
 	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
 			AccessGroupSlug: sdk.F[string]("x"),
@@ -543,7 +626,7 @@ func _smokeCase41() {
 	fmt.Println(rule)
 }
 
-func _smokeCase42() {
+func _smokeCase50() {
 	theme, err := client.Themes.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -552,7 +635,7 @@ func _smokeCase42() {
 	fmt.Println(theme)
 }
 
-func _smokeCase43() {
+func _smokeCase51() {
 	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
 		Document: sdk.F[string](""),
 		Name:     sdk.F[string](""),
@@ -565,7 +648,7 @@ func _smokeCase43() {
 	fmt.Println(theme)
 }
 
-func _smokeCase44() {
+func _smokeCase52() {
 	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
 		Document:    sdk.F[string](""),
 		Name:        sdk.F[string](""),
@@ -579,7 +662,7 @@ func _smokeCase44() {
 	fmt.Println(theme)
 }
 
-func _smokeCase45() {
+func _smokeCase53() {
 	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
 	if err != nil {
 		panic(err)
@@ -588,7 +671,7 @@ func _smokeCase45() {
 	fmt.Println(theme)
 }
 
-func _smokeCase46() {
+func _smokeCase54() {
 	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{
 		Description: sdk.F[string](""),
 		Name:        sdk.F[string](""),
@@ -600,7 +683,7 @@ func _smokeCase46() {
 	fmt.Println(theme)
 }
 
-func _smokeCase47() {
+func _smokeCase55() {
 	theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
 		Document: sdk.F[string](""),
 	})
@@ -611,7 +694,7 @@ func _smokeCase47() {
 	fmt.Println(theme)
 }
 
-func _smokeCase48() {
+func _smokeCase56() {
 	theme, err := client.Themes.Delete(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -620,7 +703,7 @@ func _smokeCase48() {
 	fmt.Println(theme)
 }
 
-func _smokeCase49() {
+func _smokeCase57() {
 	theme, err := client.Themes.Get(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -629,7 +712,7 @@ func _smokeCase49() {
 	fmt.Println(theme)
 }
 
-func _smokeCase50() {
+func _smokeCase58() {
 	team, err := client.Teams.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -638,7 +721,66 @@ func _smokeCase50() {
 	fmt.Println(team)
 }
 
-func _smokeCase51() {
+func _smokeCase59() {
+	member, err := client.Teams.Members.List(context.Background())
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(member)
+}
+
+func _smokeCase60() {
+	member, err := client.Teams.Members.Update(context.Background(), "uidxx", sdk.TeamMemberUpdateParams{
+		Role: sdk.F[sdk.Role](sdk.Role("owner")),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(member)
+}
+
+func _smokeCase61() {
+	member, err := client.Teams.Members.Delete(context.Background(), "uidxx")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(member)
+}
+
+func _smokeCase62() {
+	invite, err := client.Teams.Invites.Member(context.Background(), sdk.TeamInviteMemberParams{
+		Email: sdk.F[string]("user@example.com"),
+		Role:  sdk.F[sdk.Role](sdk.Role("owner")),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(invite)
+}
+
+func _smokeCase63() {
+	invite, err := client.Teams.Invites.Resend(context.Background(), "uidxx")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(invite)
+}
+
+func _smokeCase64() {
+	invite, err := client.Teams.Invites.Cancel(context.Background(), "uidxx")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(invite)
+}
+
+func _smokeCase65() {
 	scalarDoc, err := client.ScalarDocs.ListGuides(context.Background())
 	if err != nil {
 		panic(err)
@@ -647,7 +789,7 @@ func _smokeCase51() {
 	fmt.Println(scalarDoc)
 }
 
-func _smokeCase52() {
+func _smokeCase66() {
 	scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
 		AllowedDomains: sdk.F[[]string]([]string{}),
 		AllowedUsers:   sdk.F[[]string]([]string{}),
@@ -661,7 +803,7 @@ func _smokeCase52() {
 	fmt.Println(scalarDoc)
 }
 
-func _smokeCase53() {
+func _smokeCase67() {
 	scalarDoc, err := client.ScalarDocs.NewGuide(context.Background(), sdk.ScalarDocNewGuideParams{
 		AllowedDomains: sdk.F[[]string]([]string{}),
 		AllowedUsers:   sdk.F[[]string]([]string{}),
@@ -676,7 +818,7 @@ func _smokeCase53() {
 	fmt.Println(scalarDoc)
 }
 
-func _smokeCase54() {
+func _smokeCase68() {
 	scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
 	if err != nil {
 		panic(err)
@@ -685,7 +827,192 @@ func _smokeCase54() {
 	fmt.Println(scalarDoc)
 }
 
-func _smokeCase55() {
+func _smokeCase69() {
+	scalarDoc, err := client.ScalarDocs.ListProjects(context.Background(), sdk.ScalarDocListProjectsParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase70() {
+	scalarDoc, err := client.ScalarDocs.ListProjects(context.Background(), sdk.ScalarDocListProjectsParams{
+		Limit: sdk.F[int64](1),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase71() {
+	scalarDoc, err := client.ScalarDocs.NewProject(context.Background(), sdk.ScalarDocNewProjectParams{
+		Name:     sdk.F[string](""),
+		Provider: sdk.F[sdk.ScalarDocNewProjectParamsProvider](sdk.ScalarDocNewProjectParamsProvider("forgejo")),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase72() {
+	scalarDoc, err := client.ScalarDocs.NewProject(context.Background(), sdk.ScalarDocNewProjectParams{
+		Name:     sdk.F[string](""),
+		Provider: sdk.F[sdk.ScalarDocNewProjectParamsProvider](sdk.ScalarDocNewProjectParamsProvider("forgejo")),
+		BitbucketRepository: sdk.F[sdk.ScalarDocNewProjectParamsBitbucketRepository](sdk.ScalarDocNewProjectParamsBitbucketRepository{
+			WorkspaceUUID: sdk.F[string](""),
+			RepoUUID:      sdk.F[string](""),
+		}),
+		Blank: sdk.F[bool](false),
+		GithubRepository: sdk.F[sdk.ScalarDocNewProjectParamsGithubRepository](sdk.ScalarDocNewProjectParamsGithubRepository{
+			InstallationID: sdk.F[int64](0),
+			RepoID:         sdk.F[int64](0),
+		}),
+		IsPrivate: sdk.F[bool](false),
+		Slug:      sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase73() {
+	scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "slug")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase74() {
+	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "slug", sdk.ScalarDocUpdateProjectParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase75() {
+	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "slug", sdk.ScalarDocUpdateProjectParams{
+		AccessGroups:     sdk.F[[]string]([]string{"xxxxx"}),
+		ActiveThemeID:    sdk.F[string]("xxxxx"),
+		AgentEnabled:     sdk.F[bool](false),
+		AnalyticsEnabled: sdk.F[bool](false),
+		IsPrivate:        sdk.F[bool](false),
+		LoginPortalUID:   sdk.F[interface{}]("xxxxx"),
+		Name:             sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase76() {
+	scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "slug")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase77() {
+	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "slug", sdk.ScalarDocPublishProjectParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase78() {
+	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "slug", sdk.ScalarDocPublishProjectParams{
+		CommitSha:  sdk.F[string](""),
+		ConfigPath: sdk.F[string](""),
+		Preview:    sdk.F[bool](false),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase79() {
+	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "slug", sdk.ScalarDocListProjectConfigParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase80() {
+	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "slug", sdk.ScalarDocListProjectConfigParams{
+		Ref: sdk.F[string]("ref"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase81() {
+	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "slug", sdk.ScalarDocUpdateProjectConfigParams{
+		Content: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase82() {
+	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "slug", sdk.ScalarDocUpdateProjectConfigParams{
+		Content:   sdk.F[string](""),
+		BaseToken: sdk.F[string](""),
+		Message:   sdk.F[string](""),
+		Path:      sdk.F[string](""),
+		Ref:       sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase83() {
+	scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "slug")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase84() {
+	scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "slug")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(scalarDoc)
+}
+
+func _smokeCase85() {
 	namespace, err := client.Namespaces.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -694,7 +1021,7 @@ func _smokeCase55() {
 	fmt.Println(namespace)
 }
 
-func _smokeCase56() {
+func _smokeCase86() {
 	authentication, err := client.Authentication.ExchangePersonalToken(context.Background(), sdk.AuthenticationExchangePersonalTokenParams{
 		PersonalToken: sdk.F[string](""),
 	})
@@ -705,13 +1032,454 @@ func _smokeCase56() {
 	fmt.Println(authentication)
 }
 
-func _smokeCase57() {
+func _smokeCase87() {
 	authentication, err := client.Authentication.ListCurrentUser(context.Background())
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println(authentication)
+}
+
+func _smokeCase88() {
+	sdk, err := client.Sdks.List(context.Background(), sdk.SdkListParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase89() {
+	sdk, err := client.Sdks.List(context.Background(), sdk.SdkListParams{
+		Limit: sdk.F[int64](1),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase90() {
+	sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
+		APIUID:    sdk.F[string]("xxxxx"),
+		Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase91() {
+	sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
+		APIUID:    sdk.F[string]("xxxxx"),
+		Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
+		ClassName: sdk.F[string](""),
+		Config:    sdk.F[string](""),
+		Slug:      sdk.F[string]("x"),
+		Title:     sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase92() {
+	sdk, err := client.Sdks.Get(context.Background(), "uidxx")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase93() {
+	sdk, err := client.Sdks.Update(context.Background(), "uidxx", sdk.SdkUpdateParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase94() {
+	sdk, err := client.Sdks.Update(context.Background(), "uidxx", sdk.SdkUpdateParams{
+		APIUID:     sdk.F[string]("xxxxx"),
+		APIVersion: sdk.F[string](""),
+		Config:     sdk.F[string](""),
+		IsPrivate:  sdk.F[bool](false),
+		Slug:       sdk.F[string]("x"),
+		Title:      sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase95() {
+	sdk, err := client.Sdks.Delete(context.Background(), "uidxx")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase96() {
+	sdk, err := client.Sdks.Build(context.Background(), "uidxx", sdk.SdkBuildParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase97() {
+	sdk, err := client.Sdks.Build(context.Background(), "uidxx", sdk.SdkBuildParams{
+		Languages: sdk.F[[]sdk.SdkBuildParamsLanguage]([]sdk.SdkBuildParamsLanguage{"typescript"}),
+		Version:   sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(sdk)
+}
+
+func _smokeCase98() {
+	version, err := client.Sdks.Versions.New(context.Background(), "uidxx", sdk.SdkVersionNewParams{
+		APIVersion: sdk.F[string](""),
+		Version:    sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(version)
+}
+
+func _smokeCase99() {
+	version, err := client.Sdks.Versions.Delete(context.Background(), "uidxx", "version")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(version)
+}
+
+func _smokeCase100() {
+	repository, err := client.Sdks.Repositories.Link(context.Background(), "uidxx", sdk.SdkRepositoryLinkParams{
+		BaseBranch:   sdk.F[string](""),
+		Language:     sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
+		RepositoryID: sdk.F[int64](0),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(repository)
+}
+
+func _smokeCase101() {
+	repository, err := client.Sdks.Repositories.Link(context.Background(), "uidxx", sdk.SdkRepositoryLinkParams{
+		BaseBranch:     sdk.F[string](""),
+		Language:       sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
+		RepositoryID:   sdk.F[int64](0),
+		PrereleaseType: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(repository)
+}
+
+func _smokeCase102() {
+	repository, err := client.Sdks.Repositories.Unlink(context.Background(), "uidxx", "typescript")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(repository)
+}
+
+func _smokeCase103() {
+	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "uidxx", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
+		PublishOnMerge: sdk.F[bool](false),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(repository)
+}
+
+func _smokeCase104() {
+	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "uidxx", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
+		PublishOnMerge: sdk.F[bool](false),
+		Access:         sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAccess](sdk.SdkRepositoryUpdatePublishingParamsAccess("public")),
+		AuthMethod:     sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAuthMethod](sdk.SdkRepositoryUpdatePublishingParamsAuthMethod("oidc")),
+		Tag:            sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(repository)
+}
+
+func _smokeCase105() {
+	server, err := client.Mcp.Servers.List(context.Background())
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(server)
+}
+
+func _smokeCase106() {
+	server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
+		Name: sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(server)
+}
+
+func _smokeCase107() {
+	server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
+		Name:        sdk.F[string]("x"),
+		ProjectUIDs: sdk.F[[]string]([]string{""}),
+		Slug:        sdk.F[string]("x"),
+		VersionUIDs: sdk.F[[]string]([]string{""}),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(server)
+}
+
+func _smokeCase108() {
+	server, err := client.Mcp.Servers.Get(context.Background(), "id")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(server)
+}
+
+func _smokeCase109() {
+	server, err := client.Mcp.Servers.Update(context.Background(), "id", sdk.McpServerUpdateParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(server)
+}
+
+func _smokeCase110() {
+	server, err := client.Mcp.Servers.Update(context.Background(), "id", sdk.McpServerUpdateParams{
+		AutoAddOperations: sdk.F[bool](false),
+		DocsPages:         sdk.F[[]string]([]string{""}),
+		Name:              sdk.F[string]("x"),
+		Operations:        sdk.F[[]string]([]string{""}),
+		Slug:              sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(server)
+}
+
+func _smokeCase111() {
+	server, err := client.Mcp.Servers.Delete(context.Background(), "id")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(server)
+}
+
+func _smokeCase112() {
+	installation, err := client.Mcp.Servers.Installations.List(context.Background(), "id")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase113() {
+	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "id", sdk.McpServerInstallationNewParams{
+		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
+		Name:         sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase114() {
+	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "id", sdk.McpServerInstallationNewParams{
+		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
+		Name:         sdk.F[string]("x"),
+		Slug:         sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase115() {
+	installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "id", "installationId")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase116() {
+	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "id", "installationId", sdk.McpServerInstallationUpdateParams{})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase117() {
+	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "id", "installationId", sdk.McpServerInstallationUpdateParams{
+		DocumentAuth:   sdk.F[map[string]interface{}](map[string]interface{}{}),
+		IsPrivate:      sdk.F[bool](false),
+		LoginPortalUID: sdk.F[string](""),
+		McpVersion:     sdk.F[string](""),
+		Name:           sdk.F[string]("x"),
+		Slug:           sdk.F[string]("x"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase118() {
+	installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "id", "installationId")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase119() {
+	installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationNewAccessGroupParams{
+		AccessGroupUID: sdk.F[string]("xxxxx"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase120() {
+	installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationDeleteAccessGroupParams{
+		AccessGroupUID: sdk.F[string]("xxxxx"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(installation)
+}
+
+func _smokeCase121() {
+	oAuth, err := client.OAuth.OauthAuthorize(context.Background())
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(oAuth)
+}
+
+func _smokeCase122() {
+	oAuth, err := client.OAuth.OauthToken(context.Background(), sdk.OAuthOauthTokenParams{
+		GrantType: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(oAuth)
+}
+
+func _smokeCase123() {
+	oAuth, err := client.OAuth.OauthToken(context.Background(), sdk.OAuthOauthTokenParams{
+		GrantType:    sdk.F[string](""),
+		ClientID:     sdk.F[string](""),
+		ClientSecret: sdk.F[string](""),
+		Code:         sdk.F[string](""),
+		CodeVerifier: sdk.F[string](""),
+		RedirectURI:  sdk.F[string](""),
+		RefreshToken: sdk.F[string](""),
+		Scope:        sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(oAuth)
+}
+
+func _smokeCase124() {
+	oAuth, err := client.OAuth.OauthRevoke(context.Background(), sdk.OAuthOauthRevokeParams{
+		Token: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(oAuth)
+}
+
+func _smokeCase125() {
+	oAuth, err := client.OAuth.OauthRevoke(context.Background(), sdk.OAuthOauthRevokeParams{
+		Token:         sdk.F[string](""),
+		ClientID:      sdk.F[string](""),
+		ClientSecret:  sdk.F[string](""),
+		TokenTypeHint: sdk.F[string](""),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(oAuth)
+}
+
+func _smokeCase126() {
+	oAuth, err := client.OAuth.OauthAuthorizationServerMetadata(context.Background())
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(oAuth)
 }
 
 var cases = []smokeCase{
@@ -961,144 +1729,246 @@ var cases = []smokeCase{
 	},
 
 	{
-		Operation: "listRulesets",
-		Method:    "GET",
-		Path:      "/v1/rulesets/{namespace}",
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/access-groups",
+		Label:     "required params",
 		Run:       _smokeCase33,
 	},
 
 	{
-		Operation: "createRuleset",
+		Operation: "create",
 		Method:    "POST",
-		Path:      "/v1/rulesets/{namespace}",
-		Label:     "required params",
+		Path:      "/v1/access-groups",
+		Label:     "all params",
 		Run:       _smokeCase34,
 	},
 
 	{
-		Operation: "createRuleset",
-		Method:    "POST",
-		Path:      "/v1/rulesets/{namespace}",
-		Label:     "all params",
+		Operation: "retrieve",
+		Method:    "GET",
+		Path:      "/v1/access-groups/{slug}",
 		Run:       _smokeCase35,
 	},
 
 	{
-		Operation: "updateRuleset",
+		Operation: "update",
 		Method:    "PATCH",
-		Path:      "/v1/rulesets/{namespace}/{slug}",
+		Path:      "/v1/access-groups/{slug}",
 		Label:     "required params",
 		Run:       _smokeCase36,
 	},
 
 	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/access-groups/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase37,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/access-groups/{slug}",
+		Run:       _smokeCase38,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/access-groups/{slug}/domains",
+		Run:       _smokeCase39,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/access-groups/{slug}/domains",
+		Run:       _smokeCase40,
+	},
+
+	{
+		Operation: "listRulesets",
+		Method:    "GET",
+		Path:      "/v1/rulesets/{namespace}",
+		Run:       _smokeCase41,
+	},
+
+	{
+		Operation: "createRuleset",
+		Method:    "POST",
+		Path:      "/v1/rulesets/{namespace}",
+		Label:     "required params",
+		Run:       _smokeCase42,
+	},
+
+	{
+		Operation: "createRuleset",
+		Method:    "POST",
+		Path:      "/v1/rulesets/{namespace}",
+		Label:     "all params",
+		Run:       _smokeCase43,
+	},
+
+	{
+		Operation: "updateRuleset",
+		Method:    "PATCH",
+		Path:      "/v1/rulesets/{namespace}/{slug}",
+		Label:     "required params",
+		Run:       _smokeCase44,
+	},
+
+	{
 		Operation: "updateRuleset",
 		Method:    "PATCH",
 		Path:      "/v1/rulesets/{namespace}/{slug}",
 		Label:     "all params",
-		Run:       _smokeCase37,
+		Run:       _smokeCase45,
 	},
 
 	{
 		Operation: "deleteRuleset",
 		Method:    "DELETE",
 		Path:      "/v1/rulesets/{namespace}/{slug}",
-		Run:       _smokeCase38,
+		Run:       _smokeCase46,
 	},
 
 	{
 		Operation: "retrieveRulesetDocument",
 		Method:    "GET",
 		Path:      "/v1/rulesets/{namespace}/{slug}",
-		Run:       _smokeCase39,
+		Run:       _smokeCase47,
 	},
 
 	{
 		Operation: "createRulesetAccessGroup",
 		Method:    "POST",
 		Path:      "/v1/rulesets/{namespace}/{slug}/access-group",
-		Run:       _smokeCase40,
+		Run:       _smokeCase48,
 	},
 
 	{
 		Operation: "deleteRulesetAccessGroup",
 		Method:    "DELETE",
 		Path:      "/v1/rulesets/{namespace}/{slug}/access-group",
-		Run:       _smokeCase41,
-	},
-
-	{
-		Operation: "list",
-		Method:    "GET",
-		Path:      "/v1/themes",
-		Run:       _smokeCase42,
-	},
-
-	{
-		Operation: "create",
-		Method:    "POST",
-		Path:      "/v1/themes",
-		Label:     "required params",
-		Run:       _smokeCase43,
-	},
-
-	{
-		Operation: "create",
-		Method:    "POST",
-		Path:      "/v1/themes",
-		Label:     "all params",
-		Run:       _smokeCase44,
-	},
-
-	{
-		Operation: "update",
-		Method:    "PATCH",
-		Path:      "/v1/themes/{slug}",
-		Label:     "required params",
-		Run:       _smokeCase45,
-	},
-
-	{
-		Operation: "update",
-		Method:    "PATCH",
-		Path:      "/v1/themes/{slug}",
-		Label:     "all params",
-		Run:       _smokeCase46,
-	},
-
-	{
-		Operation: "replaceDocument",
-		Method:    "PUT",
-		Path:      "/v1/themes/{slug}",
-		Run:       _smokeCase47,
-	},
-
-	{
-		Operation: "delete",
-		Method:    "DELETE",
-		Path:      "/v1/themes/{slug}",
-		Run:       _smokeCase48,
-	},
-
-	{
-		Operation: "retrieve",
-		Method:    "GET",
-		Path:      "/v1/themes/{slug}",
 		Run:       _smokeCase49,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
-		Path:      "/v1/teams",
+		Path:      "/v1/themes",
 		Run:       _smokeCase50,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/themes",
+		Label:     "required params",
+		Run:       _smokeCase51,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/themes",
+		Label:     "all params",
+		Run:       _smokeCase52,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/themes/{slug}",
+		Label:     "required params",
+		Run:       _smokeCase53,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/themes/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase54,
+	},
+
+	{
+		Operation: "replaceDocument",
+		Method:    "PUT",
+		Path:      "/v1/themes/{slug}",
+		Run:       _smokeCase55,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/themes/{slug}",
+		Run:       _smokeCase56,
+	},
+
+	{
+		Operation: "retrieve",
+		Method:    "GET",
+		Path:      "/v1/themes/{slug}",
+		Run:       _smokeCase57,
+	},
+
+	{
+		Operation: "list",
+		Method:    "GET",
+		Path:      "/v1/teams",
+		Run:       _smokeCase58,
+	},
+
+	{
+		Operation: "list",
+		Method:    "GET",
+		Path:      "/v1/teams/members",
+		Run:       _smokeCase59,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/teams/members/{uid}",
+		Run:       _smokeCase60,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/teams/members/{uid}",
+		Run:       _smokeCase61,
+	},
+
+	{
+		Operation: "member",
+		Method:    "POST",
+		Path:      "/v1/teams/invites",
+		Run:       _smokeCase62,
+	},
+
+	{
+		Operation: "resend",
+		Method:    "PATCH",
+		Path:      "/v1/teams/invites/{uid}",
+		Run:       _smokeCase63,
+	},
+
+	{
+		Operation: "cancel",
+		Method:    "DELETE",
+		Path:      "/v1/teams/invites/{uid}",
+		Run:       _smokeCase64,
 	},
 
 	{
 		Operation: "listGuides",
 		Method:    "GET",
 		Path:      "/v1/guides",
-		Run:       _smokeCase51,
+		Run:       _smokeCase65,
 	},
 
 	{
@@ -1106,7 +1976,7 @@ var cases = []smokeCase{
 		Method:    "POST",
 		Path:      "/v1/guides",
 		Label:     "required params",
-		Run:       _smokeCase52,
+		Run:       _smokeCase66,
 	},
 
 	{
@@ -1114,35 +1984,456 @@ var cases = []smokeCase{
 		Method:    "POST",
 		Path:      "/v1/guides",
 		Label:     "all params",
-		Run:       _smokeCase53,
+		Run:       _smokeCase67,
 	},
 
 	{
 		Operation: "publishGuide",
 		Method:    "POST",
 		Path:      "/v1/guides/{slug}/publish",
-		Run:       _smokeCase54,
+		Run:       _smokeCase68,
+	},
+
+	{
+		Operation: "listProjects",
+		Method:    "GET",
+		Path:      "/v1/docs",
+		Label:     "required params",
+		Run:       _smokeCase69,
+	},
+
+	{
+		Operation: "listProjects",
+		Method:    "GET",
+		Path:      "/v1/docs",
+		Label:     "all params",
+		Run:       _smokeCase70,
+	},
+
+	{
+		Operation: "createProject",
+		Method:    "POST",
+		Path:      "/v1/docs",
+		Label:     "required params",
+		Run:       _smokeCase71,
+	},
+
+	{
+		Operation: "createProject",
+		Method:    "POST",
+		Path:      "/v1/docs",
+		Label:     "all params",
+		Run:       _smokeCase72,
+	},
+
+	{
+		Operation: "retrieveProject",
+		Method:    "GET",
+		Path:      "/v1/docs/{slug}",
+		Run:       _smokeCase73,
+	},
+
+	{
+		Operation: "updateProject",
+		Method:    "PATCH",
+		Path:      "/v1/docs/{slug}",
+		Label:     "required params",
+		Run:       _smokeCase74,
+	},
+
+	{
+		Operation: "updateProject",
+		Method:    "PATCH",
+		Path:      "/v1/docs/{slug}",
+		Label:     "all params",
+		Run:       _smokeCase75,
+	},
+
+	{
+		Operation: "deleteProject",
+		Method:    "DELETE",
+		Path:      "/v1/docs/{slug}",
+		Run:       _smokeCase76,
+	},
+
+	{
+		Operation: "publishProject",
+		Method:    "POST",
+		Path:      "/v1/docs/{slug}/publish",
+		Label:     "required params",
+		Run:       _smokeCase77,
+	},
+
+	{
+		Operation: "publishProject",
+		Method:    "POST",
+		Path:      "/v1/docs/{slug}/publish",
+		Label:     "all params",
+		Run:       _smokeCase78,
+	},
+
+	{
+		Operation: "listProjectConfig",
+		Method:    "GET",
+		Path:      "/v1/docs/{slug}/config",
+		Label:     "required params",
+		Run:       _smokeCase79,
+	},
+
+	{
+		Operation: "listProjectConfig",
+		Method:    "GET",
+		Path:      "/v1/docs/{slug}/config",
+		Label:     "all params",
+		Run:       _smokeCase80,
+	},
+
+	{
+		Operation: "updateProjectConfig",
+		Method:    "PUT",
+		Path:      "/v1/docs/{slug}/config",
+		Label:     "required params",
+		Run:       _smokeCase81,
+	},
+
+	{
+		Operation: "updateProjectConfig",
+		Method:    "PUT",
+		Path:      "/v1/docs/{slug}/config",
+		Label:     "all params",
+		Run:       _smokeCase82,
+	},
+
+	{
+		Operation: "listProjectDomain",
+		Method:    "GET",
+		Path:      "/v1/docs/{slug}/domain",
+		Run:       _smokeCase83,
+	},
+
+	{
+		Operation: "listProjectDomainStatus",
+		Method:    "GET",
+		Path:      "/v1/docs/{slug}/domain/status",
+		Run:       _smokeCase84,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/namespaces",
-		Run:       _smokeCase55,
+		Run:       _smokeCase85,
 	},
 
 	{
 		Operation: "exchangePersonalToken",
 		Method:    "POST",
 		Path:      "/v1/auth/exchange",
-		Run:       _smokeCase56,
+		Run:       _smokeCase86,
 	},
 
 	{
 		Operation: "listCurrentUser",
 		Method:    "GET",
 		Path:      "/v1/auth/me",
-		Run:       _smokeCase57,
+		Run:       _smokeCase87,
+	},
+
+	{
+		Operation: "list",
+		Method:    "GET",
+		Path:      "/v1/sdks",
+		Label:     "required params",
+		Run:       _smokeCase88,
+	},
+
+	{
+		Operation: "list",
+		Method:    "GET",
+		Path:      "/v1/sdks",
+		Label:     "all params",
+		Run:       _smokeCase89,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/sdks",
+		Label:     "required params",
+		Run:       _smokeCase90,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/sdks",
+		Label:     "all params",
+		Run:       _smokeCase91,
+	},
+
+	{
+		Operation: "retrieve",
+		Method:    "GET",
+		Path:      "/v1/sdks/{uid}",
+		Run:       _smokeCase92,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/sdks/{uid}",
+		Label:     "required params",
+		Run:       _smokeCase93,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/sdks/{uid}",
+		Label:     "all params",
+		Run:       _smokeCase94,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/sdks/{uid}",
+		Run:       _smokeCase95,
+	},
+
+	{
+		Operation: "build",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/build",
+		Label:     "required params",
+		Run:       _smokeCase96,
+	},
+
+	{
+		Operation: "build",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/build",
+		Label:     "all params",
+		Run:       _smokeCase97,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/versions",
+		Run:       _smokeCase98,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/sdks/{uid}/versions/{version}",
+		Run:       _smokeCase99,
+	},
+
+	{
+		Operation: "link",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/repositories",
+		Label:     "required params",
+		Run:       _smokeCase100,
+	},
+
+	{
+		Operation: "link",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/repositories",
+		Label:     "all params",
+		Run:       _smokeCase101,
+	},
+
+	{
+		Operation: "unlink",
+		Method:    "DELETE",
+		Path:      "/v1/sdks/{uid}/repositories/{language}",
+		Run:       _smokeCase102,
+	},
+
+	{
+		Operation: "updatePublishing",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/repositories/{language}/publishing",
+		Label:     "required params",
+		Run:       _smokeCase103,
+	},
+
+	{
+		Operation: "updatePublishing",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/repositories/{language}/publishing",
+		Label:     "all params",
+		Run:       _smokeCase104,
+	},
+
+	{
+		Operation: "list",
+		Method:    "GET",
+		Path:      "/v1/mcp/servers",
+		Run:       _smokeCase105,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/mcp/servers",
+		Label:     "required params",
+		Run:       _smokeCase106,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/mcp/servers",
+		Label:     "all params",
+		Run:       _smokeCase107,
+	},
+
+	{
+		Operation: "retrieve",
+		Method:    "GET",
+		Path:      "/v1/mcp/servers/{id}",
+		Run:       _smokeCase108,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/mcp/servers/{id}",
+		Label:     "required params",
+		Run:       _smokeCase109,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/mcp/servers/{id}",
+		Label:     "all params",
+		Run:       _smokeCase110,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/mcp/servers/{id}",
+		Run:       _smokeCase111,
+	},
+
+	{
+		Operation: "list",
+		Method:    "GET",
+		Path:      "/v1/mcp/servers/{id}/installations",
+		Run:       _smokeCase112,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/mcp/servers/{id}/installations",
+		Label:     "required params",
+		Run:       _smokeCase113,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/mcp/servers/{id}/installations",
+		Label:     "all params",
+		Run:       _smokeCase114,
+	},
+
+	{
+		Operation: "retrieve",
+		Method:    "GET",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
+		Run:       _smokeCase115,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
+		Label:     "required params",
+		Run:       _smokeCase116,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
+		Label:     "all params",
+		Run:       _smokeCase117,
+	},
+
+	{
+		Operation: "delete",
+		Method:    "DELETE",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
+		Run:       _smokeCase118,
+	},
+
+	{
+		Operation: "createAccessGroup",
+		Method:    "POST",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}/access-group",
+		Run:       _smokeCase119,
+	},
+
+	{
+		Operation: "deleteAccessGroup",
+		Method:    "DELETE",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}/access-group",
+		Run:       _smokeCase120,
+	},
+
+	{
+		Operation: "oauthAuthorize",
+		Method:    "GET",
+		Path:      "/v1/oauth/authorize",
+		Run:       _smokeCase121,
+	},
+
+	{
+		Operation: "oauthToken",
+		Method:    "POST",
+		Path:      "/v1/oauth/token",
+		Label:     "required params",
+		Run:       _smokeCase122,
+	},
+
+	{
+		Operation: "oauthToken",
+		Method:    "POST",
+		Path:      "/v1/oauth/token",
+		Label:     "all params",
+		Run:       _smokeCase123,
+	},
+
+	{
+		Operation: "oauthRevoke",
+		Method:    "POST",
+		Path:      "/v1/oauth/revoke",
+		Label:     "required params",
+		Run:       _smokeCase124,
+	},
+
+	{
+		Operation: "oauthRevoke",
+		Method:    "POST",
+		Path:      "/v1/oauth/revoke",
+		Label:     "all params",
+		Run:       _smokeCase125,
+	},
+
+	{
+		Operation: "oauthAuthorizationServerMetadata",
+		Method:    "GET",
+		Path:      "/.well-known/oauth-authorization-server",
+		Run:       _smokeCase126,
 	},
 }
 

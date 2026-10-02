@@ -11,6 +11,7 @@ import (
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
+	"github.com/scalar/scalar-go/internal/apiquery"
 	"github.com/scalar/scalar-go/internal/param"
 	"github.com/scalar/scalar-go/internal/requestconfig"
 	"github.com/scalar/scalar-go/option"
@@ -121,27 +122,338 @@ func (r *ScalarDocService) PublishGuide(ctx context.Context, slug string, opts .
 	return res, err
 }
 
+// List every docs project on the team.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	query: ScalarDocListProjectsParams request parameters.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*ScalarDocListProjectsResponse: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.ListProjects(context.Background(), sdk.ScalarDocListProjectsParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) ListProjects(ctx context.Context, query ScalarDocListProjectsParams, opts ...option.RequestOption) (res *ScalarDocListProjectsResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "v1/docs"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return res, err
+}
+
+// Create a docs project. Omit `provider` to have Scalar host the repository.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	body: ScalarDocNewProjectParams request parameters.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*DocsProject: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.NewProject(context.Background(), sdk.ScalarDocNewProjectParams{
+//		Name:     sdk.F[string](""),
+//		Provider: sdk.F[sdk.ScalarDocNewProjectParamsProvider](sdk.ScalarDocNewProjectParamsProvider("forgejo")),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) NewProject(ctx context.Context, body ScalarDocNewProjectParams, opts ...option.RequestOption) (res *DocsProject, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "v1/docs"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return res, err
+}
+
+// Get a single docs project by its slug.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*DocsProject: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) GetProject(ctx context.Context, slug string, opts ...option.RequestOption) (res *DocsProject, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return res, err
+}
+
+// Update project settings. Set `isPrivate` with `accessGroups` to put the site behind a login.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	body: ScalarDocUpdateProjectParams request parameters.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*map[string]interface{}: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "slug", sdk.ScalarDocUpdateProjectParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) UpdateProject(ctx context.Context, slug string, body ScalarDocUpdateProjectParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return res, err
+}
+
+// Delete a docs project, its deploys, its publish records and its cached builds.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*map[string]interface{}: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) DeleteProject(ctx context.Context, slug string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
+	return res, err
+}
+
+// Start a build and deploy. The returned `publishUid` identifies the publish record.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	body: ScalarDocPublishProjectParams request parameters.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*ScalarDocPublishProjectResponse: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "slug", sdk.ScalarDocPublishProjectParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) PublishProject(ctx context.Context, slug string, body ScalarDocPublishProjectParams, opts ...option.RequestOption) (res *ScalarDocPublishProjectResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s/publish", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return res, err
+}
+
+// Read `scalar.config.json` straight from the project repository, without cloning it. `baseToken` is the compare-and-swap handle for a later write.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	query: ScalarDocListProjectConfigParams request parameters.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*ScalarDocListProjectConfigResponse: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "slug", sdk.ScalarDocListProjectConfigParams{})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) ListProjectConfig(ctx context.Context, slug string, query ScalarDocListProjectConfigParams, opts ...option.RequestOption) (res *ScalarDocListProjectConfigResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s/config", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return res, err
+}
+
+// Commit `scalar.config.json` straight to the project repository. Pass the `baseToken` from the read this edit was based on; a conflict means the file moved underneath it.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	body: ScalarDocUpdateProjectConfigParams request parameters.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*ScalarDocUpdateProjectConfigResponse: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "slug", sdk.ScalarDocUpdateProjectConfigParams{
+//		Content: sdk.F[string](""),
+//	})
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) UpdateProjectConfig(ctx context.Context, slug string, body ScalarDocUpdateProjectConfigParams, opts ...option.RequestOption) (res *ScalarDocUpdateProjectConfigResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s/config", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	return res, err
+}
+
+// The domains the project serves on — the Scalar-hosted one and the custom one, when set.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*ScalarDocListProjectDomainResponse: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) ListProjectDomain(ctx context.Context, slug string, opts ...option.RequestOption) (res *ScalarDocListProjectDomainResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s/domain", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return res, err
+}
+
+// Whether the project custom domain points at Scalar yet. `expected` is the CNAME record to create; `found` is what resolves today. A project with no custom domain reports `verified` with no expected record, because Scalar serves its own subdomain directly.
+//
+// Parameters:
+//
+//	ctx: Context for the request.
+//	slug: Path parameter.
+//	opts: Options to apply to this request.
+//
+// Returns:
+//
+//	*ScalarDocListProjectDomainStatusResponse: Default Response
+//
+// Example:
+//
+//	scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "slug")
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	fmt.Println(scalarDoc)
+func (r *ScalarDocService) ListProjectDomainStatus(ctx context.Context, slug string, opts ...option.RequestOption) (res *ScalarDocListProjectDomainStatusResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if slug == "" {
+		err = errors.New("missing required slug parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/docs/%s/domain/status", url.PathEscape(slug))
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return res, err
+}
+
 type GithubProject struct {
-	AccessGroups     interface{}                   `json:"accessGroups" api:"required"`
-	ActiveDeployment GithubProjectActiveDeployment `json:"activeDeployment" api:"required,nullable"`
-	ActiveThemeID    string                        `json:"activeThemeId" api:"required"`
-	AgentEnabled     bool                          `json:"agentEnabled" api:"required"`
-	AnalyticsEnabled bool                          `json:"analyticsEnabled" api:"required"`
-	CreatedAt        int64                         `json:"createdAt" api:"required"`
-	IsPrivate        bool                          `json:"isPrivate" api:"required"`
-	LastPublished    int64                         `json:"lastPublished" api:"required,nullable"`
-	LastPublishedUID string                        `json:"lastPublishedUid" api:"required,nullable"`
-	LoginPortalUID   string                        `json:"loginPortalUid" api:"required"`
-	Name             string                        `json:"name" api:"required"`
-	PublishMessage   string                        `json:"publishMessage" api:"required"`
-	PublishStatus    string                        `json:"publishStatus" api:"required"`
-	Slug             string                        `json:"slug" api:"required"`
-	UID              string                        `json:"uid" api:"required"`
-	UpdatedAt        int64                         `json:"updatedAt" api:"required"`
-	UserInfoHookURL  string                        `json:"userInfoHookUrl" api:"required"`
-	Repository       GithubProjectRepository       `json:"repository" api:"nullable"`
-	TypesenseID      float64                       `json:"typesenseId"`
-	JSON             githubProjectJSON             `json:"-"`
+	AccessGroups     interface{}             `json:"accessGroups" api:"required"`
+	ActiveDeployment ActiveDeployment        `json:"activeDeployment" api:"required,nullable"`
+	ActiveThemeID    string                  `json:"activeThemeId" api:"required"`
+	AgentEnabled     bool                    `json:"agentEnabled" api:"required"`
+	AnalyticsEnabled bool                    `json:"analyticsEnabled" api:"required"`
+	CreatedAt        int64                   `json:"createdAt" api:"required"`
+	IsPrivate        bool                    `json:"isPrivate" api:"required"`
+	LastPublished    int64                   `json:"lastPublished" api:"required,nullable"`
+	LastPublishedUID string                  `json:"lastPublishedUid" api:"required,nullable"`
+	LoginPortalUID   string                  `json:"loginPortalUid" api:"required"`
+	Name             string                  `json:"name" api:"required"`
+	PublishMessage   string                  `json:"publishMessage" api:"required"`
+	PublishStatus    string                  `json:"publishStatus" api:"required"`
+	Slug             string                  `json:"slug" api:"required"`
+	UID              string                  `json:"uid" api:"required"`
+	UpdatedAt        int64                   `json:"updatedAt" api:"required"`
+	UserInfoHookURL  string                  `json:"userInfoHookUrl" api:"required"`
+	Repository       GithubProjectRepository `json:"repository" api:"nullable"`
+	TypesenseID      float64                 `json:"typesenseId"`
+	JSON             githubProjectJSON       `json:"-"`
 }
 
 // githubProjectJSON contains the JSON metadata for the struct [GithubProject]
@@ -174,6 +486,70 @@ func (r *GithubProject) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r githubProjectJSON) RawJSON() string {
+	return r.raw
+}
+
+type DocsProject struct {
+	AccessGroups     interface{}     `json:"accessGroups" api:"required"`
+	ActiveThemeID    string          `json:"activeThemeId" api:"required"`
+	AgentEnabled     bool            `json:"agentEnabled" api:"required"`
+	AnalyticsEnabled bool            `json:"analyticsEnabled" api:"required"`
+	IsPrivate        bool            `json:"isPrivate" api:"required"`
+	LastPublished    int64           `json:"lastPublished" api:"required,nullable"`
+	LoginPortalUID   string          `json:"loginPortalUid" api:"required"`
+	Name             string          `json:"name" api:"required"`
+	PublishStatus    string          `json:"publishStatus" api:"required"`
+	Slug             string          `json:"slug" api:"required"`
+	UID              string          `json:"uid" api:"required"`
+	JSON             docsProjectJSON `json:"-"`
+}
+
+// docsProjectJSON contains the JSON metadata for the struct [DocsProject]
+type docsProjectJSON struct {
+	AccessGroups     apijson.Field
+	ActiveThemeID    apijson.Field
+	AgentEnabled     apijson.Field
+	AnalyticsEnabled apijson.Field
+	IsPrivate        apijson.Field
+	LastPublished    apijson.Field
+	LoginPortalUID   apijson.Field
+	Name             apijson.Field
+	PublishStatus    apijson.Field
+	Slug             apijson.Field
+	UID              apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *DocsProject) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r docsProjectJSON) RawJSON() string {
+	return r.raw
+}
+
+type ActiveDeployment struct {
+	Domain      string               `json:"domain" api:"required"`
+	PublishedAt int64                `json:"publishedAt" api:"required"`
+	UID         string               `json:"uid" api:"required"`
+	JSON        activeDeploymentJSON `json:"-"`
+}
+
+// activeDeploymentJSON contains the JSON metadata for the struct [ActiveDeployment]
+type activeDeploymentJSON struct {
+	Domain      apijson.Field
+	PublishedAt apijson.Field
+	UID         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ActiveDeployment) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r activeDeploymentJSON) RawJSON() string {
 	return r.raw
 }
 
@@ -213,30 +589,6 @@ func (r githubProjectRepositoryJSON) RawJSON() string {
 	return r.raw
 }
 
-type GithubProjectActiveDeployment struct {
-	Domain      string                            `json:"domain" api:"required"`
-	PublishedAt int64                             `json:"publishedAt" api:"required"`
-	UID         string                            `json:"uid" api:"required"`
-	JSON        githubProjectActiveDeploymentJSON `json:"-"`
-}
-
-// githubProjectActiveDeploymentJSON contains the JSON metadata for the struct [GithubProjectActiveDeployment]
-type githubProjectActiveDeploymentJSON struct {
-	Domain      apijson.Field
-	PublishedAt apijson.Field
-	UID         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *GithubProjectActiveDeployment) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r githubProjectActiveDeploymentJSON) RawJSON() string {
-	return r.raw
-}
-
 type ScalarDocNewGuideParams struct {
 	AllowedDomains param.Field[[]string] `json:"allowedDomains" api:"required"`
 	AllowedUsers   param.Field[[]string] `json:"allowedUsers" api:"required"`
@@ -246,6 +598,114 @@ type ScalarDocNewGuideParams struct {
 }
 
 func (r ScalarDocNewGuideParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type ScalarDocListProjectsParams struct {
+	Limit param.Field[int64] `query:"limit"`
+}
+
+// URLQuery serializes [ScalarDocListProjectsParams]'s query parameters as `url.Values`.
+func (r ScalarDocListProjectsParams) URLQuery() (v url.Values) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatRepeat,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type ScalarDocNewProjectParams struct {
+	Name                param.Field[string]                                       `json:"name" api:"required"`
+	Provider            param.Field[ScalarDocNewProjectParamsProvider]            `json:"provider" api:"required"`
+	BitbucketRepository param.Field[ScalarDocNewProjectParamsBitbucketRepository] `json:"bitbucketRepository"`
+	Blank               param.Field[bool]                                         `json:"blank"`
+	GithubRepository    param.Field[ScalarDocNewProjectParamsGithubRepository]    `json:"githubRepository"`
+	IsPrivate           param.Field[bool]                                         `json:"isPrivate"`
+	Slug                param.Field[string]                                       `json:"slug"`
+}
+
+func (r ScalarDocNewProjectParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type ScalarDocNewProjectParamsProvider string
+
+const (
+	ScalarDocNewProjectParamsProviderForgejo   ScalarDocNewProjectParamsProvider = "forgejo"
+	ScalarDocNewProjectParamsProviderGithub    ScalarDocNewProjectParamsProvider = "github"
+	ScalarDocNewProjectParamsProviderBitbucket ScalarDocNewProjectParamsProvider = "bitbucket"
+)
+
+func (r ScalarDocNewProjectParamsProvider) IsKnown() bool {
+	switch r {
+	case ScalarDocNewProjectParamsProviderForgejo, ScalarDocNewProjectParamsProviderGithub, ScalarDocNewProjectParamsProviderBitbucket:
+		return true
+	}
+	return false
+}
+
+type ScalarDocNewProjectParamsGithubRepository struct {
+	InstallationID param.Field[int64] `json:"installationId" api:"required"`
+	RepoID         param.Field[int64] `json:"repoId" api:"required"`
+}
+
+func (r ScalarDocNewProjectParamsGithubRepository) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type ScalarDocNewProjectParamsBitbucketRepository struct {
+	RepoUUID      param.Field[string] `json:"repoUuid" api:"required"`
+	WorkspaceUUID param.Field[string] `json:"workspaceUuid" api:"required"`
+}
+
+func (r ScalarDocNewProjectParamsBitbucketRepository) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type ScalarDocUpdateProjectParams struct {
+	AccessGroups     param.Field[[]string]    `json:"accessGroups"`
+	ActiveThemeID    param.Field[string]      `json:"activeThemeId"`
+	AgentEnabled     param.Field[bool]        `json:"agentEnabled"`
+	AnalyticsEnabled param.Field[bool]        `json:"analyticsEnabled"`
+	IsPrivate        param.Field[bool]        `json:"isPrivate"`
+	LoginPortalUID   param.Field[interface{}] `json:"loginPortalUid"`
+	Name             param.Field[string]      `json:"name"`
+}
+
+func (r ScalarDocUpdateProjectParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type ScalarDocPublishProjectParams struct {
+	CommitSha  param.Field[string] `json:"commitSha"`
+	ConfigPath param.Field[string] `json:"configPath"`
+	Preview    param.Field[bool]   `json:"preview"`
+}
+
+func (r ScalarDocPublishProjectParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type ScalarDocListProjectConfigParams struct {
+	Ref param.Field[string] `query:"ref"`
+}
+
+// URLQuery serializes [ScalarDocListProjectConfigParams]'s query parameters as `url.Values`.
+func (r ScalarDocListProjectConfigParams) URLQuery() (v url.Values) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatRepeat,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type ScalarDocUpdateProjectConfigParams struct {
+	Content   param.Field[string] `json:"content" api:"required"`
+	BaseToken param.Field[string] `json:"baseToken"`
+	Message   param.Field[string] `json:"message"`
+	Path      param.Field[string] `json:"path"`
+	Ref       param.Field[string] `json:"ref"`
+}
+
+func (r ScalarDocUpdateProjectConfigParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
@@ -289,4 +749,196 @@ func (r *ScalarDocPublishGuideResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r scalarDocPublishGuideResponseJSON) RawJSON() string {
 	return r.raw
+}
+
+type ScalarDocListProjectsResponse struct {
+	Data    []DocsProject                     `json:"data" api:"required"`
+	HasMore bool                              `json:"hasMore" api:"required"`
+	JSON    scalarDocListProjectsResponseJSON `json:"-"`
+}
+
+// scalarDocListProjectsResponseJSON contains the JSON metadata for the struct [ScalarDocListProjectsResponse]
+type scalarDocListProjectsResponseJSON struct {
+	Data        apijson.Field
+	HasMore     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ScalarDocListProjectsResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r scalarDocListProjectsResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type ScalarDocPublishProjectResponse struct {
+	PublishUID string                              `json:"publishUid" api:"required"`
+	JSON       scalarDocPublishProjectResponseJSON `json:"-"`
+}
+
+// scalarDocPublishProjectResponseJSON contains the JSON metadata for the struct [ScalarDocPublishProjectResponse]
+type scalarDocPublishProjectResponseJSON struct {
+	PublishUID  apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ScalarDocPublishProjectResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r scalarDocPublishProjectResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type ScalarDocListProjectConfigResponse struct {
+	BaseToken string                                 `json:"baseToken" api:"required"`
+	Content   string                                 `json:"content" api:"required"`
+	Path      string                                 `json:"path" api:"required"`
+	Ref       string                                 `json:"ref" api:"required"`
+	JSON      scalarDocListProjectConfigResponseJSON `json:"-"`
+}
+
+// scalarDocListProjectConfigResponseJSON contains the JSON metadata for the struct [ScalarDocListProjectConfigResponse]
+type scalarDocListProjectConfigResponseJSON struct {
+	BaseToken   apijson.Field
+	Content     apijson.Field
+	Path        apijson.Field
+	Ref         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ScalarDocListProjectConfigResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r scalarDocListProjectConfigResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type ScalarDocUpdateProjectConfigResponse struct {
+	BaseToken string                                   `json:"baseToken" api:"required"`
+	CommitSha string                                   `json:"commitSha" api:"required,nullable"`
+	Ref       string                                   `json:"ref" api:"required"`
+	JSON      scalarDocUpdateProjectConfigResponseJSON `json:"-"`
+}
+
+// scalarDocUpdateProjectConfigResponseJSON contains the JSON metadata for the struct [ScalarDocUpdateProjectConfigResponse]
+type scalarDocUpdateProjectConfigResponseJSON struct {
+	BaseToken   apijson.Field
+	CommitSha   apijson.Field
+	Ref         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ScalarDocUpdateProjectConfigResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r scalarDocUpdateProjectConfigResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type ScalarDocListProjectDomainResponse struct {
+	CustomDomain string                                 `json:"customDomain" api:"required,nullable"`
+	ScalarDomain string                                 `json:"scalarDomain" api:"required,nullable"`
+	JSON         scalarDocListProjectDomainResponseJSON `json:"-"`
+}
+
+// scalarDocListProjectDomainResponseJSON contains the JSON metadata for the struct [ScalarDocListProjectDomainResponse]
+type scalarDocListProjectDomainResponseJSON struct {
+	CustomDomain apijson.Field
+	ScalarDomain apijson.Field
+	raw          string
+	ExtraFields  map[string]apijson.Field
+}
+
+func (r *ScalarDocListProjectDomainResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r scalarDocListProjectDomainResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type ScalarDocListProjectDomainStatusResponse struct {
+	Domain   string                                           `json:"domain" api:"required,nullable"`
+	Expected ScalarDocListProjectDomainStatusResponseExpected `json:"expected" api:"required,nullable"`
+	Found    []string                                         `json:"found" api:"required"`
+	Status   ScalarDocListProjectDomainStatusResponseStatus   `json:"status" api:"required"`
+	JSON     scalarDocListProjectDomainStatusResponseJSON     `json:"-"`
+}
+
+// scalarDocListProjectDomainStatusResponseJSON contains the JSON metadata for the struct [ScalarDocListProjectDomainStatusResponse]
+type scalarDocListProjectDomainStatusResponseJSON struct {
+	Domain      apijson.Field
+	Expected    apijson.Field
+	Found       apijson.Field
+	Status      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ScalarDocListProjectDomainStatusResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r scalarDocListProjectDomainStatusResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type ScalarDocListProjectDomainStatusResponseStatus string
+
+const (
+	ScalarDocListProjectDomainStatusResponseStatusVerified      ScalarDocListProjectDomainStatusResponseStatus = "verified"
+	ScalarDocListProjectDomainStatusResponseStatusPending       ScalarDocListProjectDomainStatusResponseStatus = "pending"
+	ScalarDocListProjectDomainStatusResponseStatusMisconfigured ScalarDocListProjectDomainStatusResponseStatus = "misconfigured"
+)
+
+func (r ScalarDocListProjectDomainStatusResponseStatus) IsKnown() bool {
+	switch r {
+	case ScalarDocListProjectDomainStatusResponseStatusVerified, ScalarDocListProjectDomainStatusResponseStatusPending, ScalarDocListProjectDomainStatusResponseStatusMisconfigured:
+		return true
+	}
+	return false
+}
+
+type ScalarDocListProjectDomainStatusResponseExpected struct {
+	Target string                                               `json:"target" api:"required"`
+	Type   ScalarDocListProjectDomainStatusResponseExpectedType `json:"type" api:"required"`
+	JSON   scalarDocListProjectDomainStatusResponseExpectedJSON `json:"-"`
+}
+
+// scalarDocListProjectDomainStatusResponseExpectedJSON contains the JSON metadata for the struct [ScalarDocListProjectDomainStatusResponseExpected]
+type scalarDocListProjectDomainStatusResponseExpectedJSON struct {
+	Target      apijson.Field
+	Type        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ScalarDocListProjectDomainStatusResponseExpected) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r scalarDocListProjectDomainStatusResponseExpectedJSON) RawJSON() string {
+	return r.raw
+}
+
+type ScalarDocListProjectDomainStatusResponseExpectedType string
+
+const (
+	ScalarDocListProjectDomainStatusResponseExpectedTypeCname ScalarDocListProjectDomainStatusResponseExpectedType = "CNAME"
+)
+
+func (r ScalarDocListProjectDomainStatusResponseExpectedType) IsKnown() bool {
+	switch r {
+	case ScalarDocListProjectDomainStatusResponseExpectedTypeCname:
+		return true
+	}
+	return false
 }

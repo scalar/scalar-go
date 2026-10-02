@@ -490,14 +490,6 @@ func (r *RegistryService) DeleteAPIDocumentAccessGroup(ctx context.Context, name
 	return res, err
 }
 
-type AccessGroupParam struct {
-	AccessGroupSlug param.Field[string] `json:"accessGroupSlug" api:"required"`
-}
-
-func (r AccessGroupParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
 type APIDocument struct {
 	Description string                     `json:"description" api:"required"`
 	IsPrivate   bool                       `json:"isPrivate" api:"required"`
@@ -532,6 +524,36 @@ func (r *APIDocument) UnmarshalJSON(data []byte) (err error) {
 
 func (r apiDocumentJSON) RawJSON() string {
 	return r.raw
+}
+
+type AccessGroupParam struct {
+	AccessGroupSlug param.Field[string] `json:"accessGroupSlug" api:"required"`
+}
+
+func (r AccessGroupParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type Method string
+
+const (
+	MethodDelete  Method = "delete"
+	MethodGet     Method = "get"
+	MethodHead    Method = "head"
+	MethodOptions Method = "options"
+	MethodPatch   Method = "patch"
+	MethodPost    Method = "post"
+	MethodPut     Method = "put"
+	MethodQuery   Method = "query"
+	MethodTrace   Method = "trace"
+)
+
+func (r Method) IsKnown() bool {
+	switch r {
+	case MethodDelete, MethodGet, MethodHead, MethodOptions, MethodPatch, MethodPost, MethodPut, MethodQuery, MethodTrace:
+		return true
+	}
+	return false
 }
 
 type RegistryNewAPIDocumentParams struct {

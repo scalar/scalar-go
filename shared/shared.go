@@ -182,7 +182,7 @@ func (r managedDocVersionJSON) RawJSON() string {
 
 type ManagedDocVersionTool struct {
 	EnabledTools []ManagedDocVersionToolsEnabledTool `json:"enabledTools" api:"required"`
-	Method       ManagedDocVersionToolsMethod        `json:"method" api:"required"`
+	Method       Method                              `json:"method" api:"required"`
 	Path         string                              `json:"path" api:"required"`
 	JSON         managedDocVersionToolJSON           `json:"-"`
 }
@@ -202,28 +202,6 @@ func (r *ManagedDocVersionTool) UnmarshalJSON(data []byte) (err error) {
 
 func (r managedDocVersionToolJSON) RawJSON() string {
 	return r.raw
-}
-
-type ManagedDocVersionToolsMethod string
-
-const (
-	ManagedDocVersionToolsMethodDelete  ManagedDocVersionToolsMethod = "delete"
-	ManagedDocVersionToolsMethodGet     ManagedDocVersionToolsMethod = "get"
-	ManagedDocVersionToolsMethodHead    ManagedDocVersionToolsMethod = "head"
-	ManagedDocVersionToolsMethodOptions ManagedDocVersionToolsMethod = "options"
-	ManagedDocVersionToolsMethodPatch   ManagedDocVersionToolsMethod = "patch"
-	ManagedDocVersionToolsMethodPost    ManagedDocVersionToolsMethod = "post"
-	ManagedDocVersionToolsMethodPut     ManagedDocVersionToolsMethod = "put"
-	ManagedDocVersionToolsMethodQuery   ManagedDocVersionToolsMethod = "query"
-	ManagedDocVersionToolsMethodTrace   ManagedDocVersionToolsMethod = "trace"
-)
-
-func (r ManagedDocVersionToolsMethod) IsKnown() bool {
-	switch r {
-	case ManagedDocVersionToolsMethodDelete, ManagedDocVersionToolsMethodGet, ManagedDocVersionToolsMethodHead, ManagedDocVersionToolsMethodOptions, ManagedDocVersionToolsMethodPatch, ManagedDocVersionToolsMethodPost, ManagedDocVersionToolsMethodPut, ManagedDocVersionToolsMethodQuery, ManagedDocVersionToolsMethodTrace:
-		return true
-	}
-	return false
 }
 
 type ManagedDocVersionToolsEnabledTool string
