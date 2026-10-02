@@ -73,7 +73,7 @@ func (r *RegistryService) ListAllAPIDocuments(ctx context.Context, opts ...optio
 //
 // Example:
 //
-//	registry, err := client.Registry.ListAPIDocuments(context.Background(), "namespace")
+//	registry, err := client.Registry.ListAPIDocuments(context.Background(), "acme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -105,11 +105,11 @@ func (r *RegistryService) ListAPIDocuments(ctx context.Context, namespace string
 //
 // Example:
 //
-//	registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
-//		Document: sdk.F[string](""),
-//		Slug:     sdk.F[string](""),
-//		Title:    sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	registry, err := client.Registry.NewAPIDocument(context.Background(), "acme", sdk.RegistryNewAPIDocumentParams{
+//		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+//		Slug:     sdk.F[string]("acme-api"),
+//		Title:    sdk.F[string]("Acme API"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -143,7 +143,7 @@ func (r *RegistryService) NewAPIDocument(ctx context.Context, namespace string, 
 //
 // Example:
 //
-//	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
+//	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "acme", "acme-api", sdk.RegistryUpdateAPIDocumentParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -179,7 +179,7 @@ func (r *RegistryService) UpdateAPIDocument(ctx context.Context, namespace strin
 //
 // Example:
 //
-//	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
+//	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "acme", "acme-api")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -216,7 +216,7 @@ func (r *RegistryService) DeleteAPIDocument(ctx context.Context, namespace strin
 //
 // Example:
 //
-//	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+//	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -259,8 +259,8 @@ func (r *RegistryService) GetAPIDocumentVersion(ctx context.Context, namespace s
 //
 // Example:
 //
-//	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
-//		Document: sdk.F[string](""),
+//	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0", sdk.RegistryUpdateAPIDocumentVersionParams{
+//		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -302,7 +302,7 @@ func (r *RegistryService) UpdateAPIDocumentVersion(ctx context.Context, namespac
 //
 // Example:
 //
-//	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+//	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -343,7 +343,7 @@ func (r *RegistryService) DeleteAPIDocumentVersion(ctx context.Context, namespac
 //
 // Example:
 //
-//	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
+//	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "acme", "acme-api", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -384,9 +384,9 @@ func (r *RegistryService) ListAPIDocumentVersionMetadata(ctx context.Context, na
 //
 // Example:
 //
-//	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
-//		Document: sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentVersionParams{
+//		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -424,9 +424,9 @@ func (r *RegistryService) NewAPIDocumentVersion(ctx context.Context, namespace s
 //
 // Example:
 //
-//	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
+//	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("x"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {
@@ -465,9 +465,9 @@ func (r *RegistryService) NewAPIDocumentAccessGroup(ctx context.Context, namespa
 //
 // Example:
 //
-//	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
+//	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("x"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {
@@ -495,7 +495,7 @@ type APIDocument struct {
 	IsPrivate   bool                       `json:"isPrivate" api:"required"`
 	Namespace   string                     `json:"namespace" api:"required"`
 	Slug        string                     `json:"slug" api:"required"`
-	Tags        interface{}                `json:"tags" api:"required"`
+	Tags        string                     `json:"tags" api:"required"`
 	Title       string                     `json:"title" api:"required"`
 	UID         string                     `json:"uid" api:"required"`
 	Version     string                     `json:"version" api:"required"`

@@ -75,7 +75,7 @@ func (r *AccessGroupService) New(ctx context.Context, body AccessGroupNewParams,
 //
 // Example:
 //
-//	accessGroup, err := client.AccessGroups.Get(context.Background(), "slug")
+//	accessGroup, err := client.AccessGroups.Get(context.Background(), "acme-api")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -107,7 +107,7 @@ func (r *AccessGroupService) Get(ctx context.Context, slug string, opts ...optio
 //
 // Example:
 //
-//	accessGroup, err := client.AccessGroups.Update(context.Background(), "slug", sdk.AccessGroupUpdateParams{})
+//	accessGroup, err := client.AccessGroups.Update(context.Background(), "acme-api", sdk.AccessGroupUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -138,7 +138,7 @@ func (r *AccessGroupService) Update(ctx context.Context, slug string, body Acces
 //
 // Example:
 //
-//	accessGroup, err := client.AccessGroups.Delete(context.Background(), "slug")
+//	accessGroup, err := client.AccessGroups.Delete(context.Background(), "acme-api")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -156,9 +156,9 @@ func (r *AccessGroupService) Delete(ctx context.Context, slug string, opts ...op
 }
 
 type AccessGroupNewParams struct {
-	AllowedDomains param.Field[interface{}] `json:"allowedDomains"`
-	Name           param.Field[string]      `json:"name"`
-	Slug           param.Field[string]      `json:"slug"`
+	AllowedDomains param.Field[string] `json:"allowedDomains"`
+	Name           param.Field[string] `json:"name"`
+	Slug           param.Field[string] `json:"slug"`
 }
 
 func (r AccessGroupNewParams) MarshalJSON() (data []byte, err error) {
@@ -175,8 +175,8 @@ func (r AccessGroupUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 
 type AccessGroupNewResponse struct {
-	AllowedDomains interface{}                `json:"allowedDomains" api:"required"`
-	AllowedEmails  interface{}                `json:"allowedEmails" api:"required"`
+	AllowedDomains string                     `json:"allowedDomains" api:"required"`
+	AllowedEmails  string                     `json:"allowedEmails" api:"required"`
 	Name           string                     `json:"name" api:"required"`
 	Slug           string                     `json:"slug" api:"required"`
 	UID            string                     `json:"uid" api:"required"`
@@ -203,8 +203,8 @@ func (r accessGroupNewResponseJSON) RawJSON() string {
 }
 
 type AccessGroupGetResponse struct {
-	AllowedDomains interface{}                `json:"allowedDomains" api:"required"`
-	AllowedEmails  interface{}                `json:"allowedEmails" api:"required"`
+	AllowedDomains string                     `json:"allowedDomains" api:"required"`
+	AllowedEmails  string                     `json:"allowedEmails" api:"required"`
 	Name           string                     `json:"name" api:"required"`
 	Slug           string                     `json:"slug" api:"required"`
 	UID            string                     `json:"uid" api:"required"`

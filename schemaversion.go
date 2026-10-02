@@ -48,7 +48,7 @@ func NewSchemaVersionService(opts ...option.RequestOption) (r *SchemaVersionServ
 //
 // Example:
 //
-//	version, err := client.Schemas.Version.Get(context.Background(), "namespace", "slug", "semver")
+//	version, err := client.Schemas.Version.Get(context.Background(), "acme", "customer", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -90,7 +90,7 @@ func (r *SchemaVersionService) Get(ctx context.Context, namespace string, slug s
 //
 // Example:
 //
-//	version, err := client.Schemas.Version.Delete(context.Background(), "namespace", "slug", "semver")
+//	version, err := client.Schemas.Version.Delete(context.Background(), "acme", "customer", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -131,9 +131,9 @@ func (r *SchemaVersionService) Delete(ctx context.Context, namespace string, slu
 //
 // Example:
 //
-//	version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
-//		Document: sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	version, err := client.Schemas.Version.New(context.Background(), "acme", "customer", sdk.SchemaVersionNewParams{
+//		Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)

@@ -47,7 +47,7 @@ func NewLoginPortalService(opts ...option.RequestOption) (r *LoginPortalService)
 //
 // Example:
 //
-//	loginPortal, err := client.LoginPortals.Get(context.Background(), "slug")
+//	loginPortal, err := client.LoginPortals.Get(context.Background(), "acme-login")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -79,7 +79,7 @@ func (r *LoginPortalService) Get(ctx context.Context, slug string, opts ...optio
 //
 // Example:
 //
-//	loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{})
+//	loginPortal, err := client.LoginPortals.Update(context.Background(), "acme-login", sdk.LoginPortalUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -110,7 +110,7 @@ func (r *LoginPortalService) Update(ctx context.Context, slug string, body Login
 //
 // Example:
 //
-//	loginPortal, err := client.LoginPortals.Delete(context.Background(), "slug")
+//	loginPortal, err := client.LoginPortals.Delete(context.Background(), "acme-login")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -171,8 +171,8 @@ func (r *LoginPortalService) Delete(ctx context.Context, slug string, opts ...op
 //			FormDescription: sdk.F[string]("Login to access your documentation"),
 //			FormImage:       sdk.F[string](""),
 //		}),
-//		Slug:  sdk.F[string](""),
-//		Title: sdk.F[string](""),
+//		Slug:  sdk.F[string]("acme-login"),
+//		Title: sdk.F[string]("Acme Private Documentation"),
 //	})
 //	if err != nil {
 //		panic(err)

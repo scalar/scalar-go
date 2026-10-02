@@ -51,7 +51,7 @@ func _smokeCase0() {
 }
 
 func _smokeCase1() {
-	registry, err := client.Registry.ListAPIDocuments(context.Background(), "namespace")
+	registry, err := client.Registry.ListAPIDocuments(context.Background(), "acme")
 	if err != nil {
 		panic(err)
 	}
@@ -60,11 +60,11 @@ func _smokeCase1() {
 }
 
 func _smokeCase2() {
-	registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
-		Document: sdk.F[string](""),
-		Slug:     sdk.F[string](""),
-		Title:    sdk.F[string](""),
-		Version:  sdk.F[string]("x"),
+	registry, err := client.Registry.NewAPIDocument(context.Background(), "acme", sdk.RegistryNewAPIDocumentParams{
+		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+		Slug:     sdk.F[string]("acme-api"),
+		Title:    sdk.F[string]("Acme API"),
+		Version:  sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -74,14 +74,14 @@ func _smokeCase2() {
 }
 
 func _smokeCase3() {
-	registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
-		Document:    sdk.F[string](""),
-		Slug:        sdk.F[string](""),
-		Title:       sdk.F[string](""),
-		Version:     sdk.F[string]("x"),
-		Description: sdk.F[string](""),
+	registry, err := client.Registry.NewAPIDocument(context.Background(), "acme", sdk.RegistryNewAPIDocumentParams{
+		Document:    sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+		Slug:        sdk.F[string]("acme-api"),
+		Title:       sdk.F[string]("Acme API"),
+		Version:     sdk.F[string]("1.2.0"),
+		Description: sdk.F[string]("API for managing Acme products and orders."),
 		IsPrivate:   sdk.F[bool](false),
-		Ruleset:     sdk.F[string](""),
+		Ruleset:     sdk.F[string]("extends: [\"spectral:oas\"]"),
 	})
 	if err != nil {
 		panic(err)
@@ -91,7 +91,7 @@ func _smokeCase3() {
 }
 
 func _smokeCase4() {
-	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
+	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "acme", "acme-api", sdk.RegistryUpdateAPIDocumentParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -100,11 +100,11 @@ func _smokeCase4() {
 }
 
 func _smokeCase5() {
-	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{
-		Description: sdk.F[string](""),
+	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "acme", "acme-api", sdk.RegistryUpdateAPIDocumentParams{
+		Description: sdk.F[string]("API for managing Acme products and orders."),
 		IsPrivate:   sdk.F[bool](false),
-		Ruleset:     sdk.F[string](""),
-		Title:       sdk.F[string](""),
+		Ruleset:     sdk.F[string]("extends: [\"spectral:oas\"]"),
+		Title:       sdk.F[string]("Acme API"),
 	})
 	if err != nil {
 		panic(err)
@@ -114,7 +114,7 @@ func _smokeCase5() {
 }
 
 func _smokeCase6() {
-	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
+	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "acme", "acme-api")
 	if err != nil {
 		panic(err)
 	}
@@ -123,7 +123,7 @@ func _smokeCase6() {
 }
 
 func _smokeCase7() {
-	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 	if err != nil {
 		panic(err)
 	}
@@ -132,8 +132,8 @@ func _smokeCase7() {
 }
 
 func _smokeCase8() {
-	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
-		Document: sdk.F[string](""),
+	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0", sdk.RegistryUpdateAPIDocumentVersionParams{
+		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
 	})
 	if err != nil {
 		panic(err)
@@ -143,7 +143,7 @@ func _smokeCase8() {
 }
 
 func _smokeCase9() {
-	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 	if err != nil {
 		panic(err)
 	}
@@ -152,7 +152,7 @@ func _smokeCase9() {
 }
 
 func _smokeCase10() {
-	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
+	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "acme", "acme-api", "1.2.0")
 	if err != nil {
 		panic(err)
 	}
@@ -161,9 +161,9 @@ func _smokeCase10() {
 }
 
 func _smokeCase11() {
-	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
-		Document: sdk.F[string](""),
-		Version:  sdk.F[string]("x"),
+	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentVersionParams{
+		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+		Version:  sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -173,9 +173,9 @@ func _smokeCase11() {
 }
 
 func _smokeCase12() {
-	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
-		Document: sdk.F[string](""),
-		Version:  sdk.F[string]("x"),
+	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentVersionParams{
+		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+		Version:  sdk.F[string]("1.2.0"),
 		Force:    sdk.F[bool](false),
 	})
 	if err != nil {
@@ -186,9 +186,9 @@ func _smokeCase12() {
 }
 
 func _smokeCase13() {
-	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
+	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-			AccessGroupSlug: sdk.F[string]("x"),
+			AccessGroupSlug: sdk.F[string]("acme-api"),
 		},
 	})
 	if err != nil {
@@ -199,9 +199,9 @@ func _smokeCase13() {
 }
 
 func _smokeCase14() {
-	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
+	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-			AccessGroupSlug: sdk.F[string]("x"),
+			AccessGroupSlug: sdk.F[string]("acme-api"),
 		},
 	})
 	if err != nil {
@@ -212,7 +212,7 @@ func _smokeCase14() {
 }
 
 func _smokeCase15() {
-	schema, err := client.Schemas.List(context.Background(), "namespace")
+	schema, err := client.Schemas.List(context.Background(), "acme")
 	if err != nil {
 		panic(err)
 	}
@@ -221,11 +221,11 @@ func _smokeCase15() {
 }
 
 func _smokeCase16() {
-	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
-		Document: sdk.F[string](""),
-		Slug:     sdk.F[string](""),
-		Title:    sdk.F[string](""),
-		Version:  sdk.F[string]("x"),
+	schema, err := client.Schemas.New(context.Background(), "acme", sdk.SchemaNewParams{
+		Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+		Slug:     sdk.F[string]("customer"),
+		Title:    sdk.F[string]("Customer"),
+		Version:  sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -235,12 +235,12 @@ func _smokeCase16() {
 }
 
 func _smokeCase17() {
-	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
-		Document:    sdk.F[string](""),
-		Slug:        sdk.F[string](""),
-		Title:       sdk.F[string](""),
-		Version:     sdk.F[string]("x"),
-		Description: sdk.F[string](""),
+	schema, err := client.Schemas.New(context.Background(), "acme", sdk.SchemaNewParams{
+		Document:    sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+		Slug:        sdk.F[string]("customer"),
+		Title:       sdk.F[string]("Customer"),
+		Version:     sdk.F[string]("1.2.0"),
+		Description: sdk.F[string]("API for managing Acme products and orders."),
 		IsPrivate:   sdk.F[bool](false),
 	})
 	if err != nil {
@@ -251,7 +251,7 @@ func _smokeCase17() {
 }
 
 func _smokeCase18() {
-	schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{})
+	schema, err := client.Schemas.Update(context.Background(), "acme", "customer", sdk.SchemaUpdateParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -260,10 +260,10 @@ func _smokeCase18() {
 }
 
 func _smokeCase19() {
-	schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{
-		Description: sdk.F[string](""),
+	schema, err := client.Schemas.Update(context.Background(), "acme", "customer", sdk.SchemaUpdateParams{
+		Description: sdk.F[string]("API for managing Acme products and orders."),
 		IsPrivate:   sdk.F[bool](false),
-		Title:       sdk.F[string](""),
+		Title:       sdk.F[string]("Customer"),
 	})
 	if err != nil {
 		panic(err)
@@ -273,7 +273,7 @@ func _smokeCase19() {
 }
 
 func _smokeCase20() {
-	schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
+	schema, err := client.Schemas.Delete(context.Background(), "acme", "customer")
 	if err != nil {
 		panic(err)
 	}
@@ -282,7 +282,7 @@ func _smokeCase20() {
 }
 
 func _smokeCase21() {
-	version, err := client.Schemas.Version.Get(context.Background(), "namespace", "slug", "semver")
+	version, err := client.Schemas.Version.Get(context.Background(), "acme", "customer", "1.2.0")
 	if err != nil {
 		panic(err)
 	}
@@ -291,7 +291,7 @@ func _smokeCase21() {
 }
 
 func _smokeCase22() {
-	version, err := client.Schemas.Version.Delete(context.Background(), "namespace", "slug", "semver")
+	version, err := client.Schemas.Version.Delete(context.Background(), "acme", "customer", "1.2.0")
 	if err != nil {
 		panic(err)
 	}
@@ -300,9 +300,9 @@ func _smokeCase22() {
 }
 
 func _smokeCase23() {
-	version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
-		Document: sdk.F[string](""),
-		Version:  sdk.F[string]("x"),
+	version, err := client.Schemas.Version.New(context.Background(), "acme", "customer", sdk.SchemaVersionNewParams{
+		Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+		Version:  sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -312,9 +312,9 @@ func _smokeCase23() {
 }
 
 func _smokeCase24() {
-	version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
-		Document: sdk.F[string](""),
-		Version:  sdk.F[string]("x"),
+	version, err := client.Schemas.Version.New(context.Background(), "acme", "customer", sdk.SchemaVersionNewParams{
+		Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+		Version:  sdk.F[string]("1.2.0"),
 		Force:    sdk.F[bool](false),
 	})
 	if err != nil {
@@ -325,9 +325,9 @@ func _smokeCase24() {
 }
 
 func _smokeCase25() {
-	accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
+	accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "acme", "customer", sdk.SchemaAccessGroupNewParams{
 		AccessGroup: sdk.AccessGroupParam{
-			AccessGroupSlug: sdk.F[string]("x"),
+			AccessGroupSlug: sdk.F[string]("acme-api"),
 		},
 	})
 	if err != nil {
@@ -338,9 +338,9 @@ func _smokeCase25() {
 }
 
 func _smokeCase26() {
-	accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
+	accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "acme", "customer", sdk.SchemaAccessGroupDeleteParams{
 		AccessGroup: sdk.AccessGroupParam{
-			AccessGroupSlug: sdk.F[string]("x"),
+			AccessGroupSlug: sdk.F[string]("acme-api"),
 		},
 	})
 	if err != nil {
@@ -351,7 +351,7 @@ func _smokeCase26() {
 }
 
 func _smokeCase27() {
-	loginPortal, err := client.LoginPortals.Get(context.Background(), "slug")
+	loginPortal, err := client.LoginPortals.Get(context.Background(), "acme-login")
 	if err != nil {
 		panic(err)
 	}
@@ -360,7 +360,7 @@ func _smokeCase27() {
 }
 
 func _smokeCase28() {
-	loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{})
+	loginPortal, err := client.LoginPortals.Update(context.Background(), "acme-login", sdk.LoginPortalUpdateParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -369,8 +369,8 @@ func _smokeCase28() {
 }
 
 func _smokeCase29() {
-	loginPortal, err := client.LoginPortals.Update(context.Background(), "slug", sdk.LoginPortalUpdateParams{
-		Title: sdk.F[string](""),
+	loginPortal, err := client.LoginPortals.Update(context.Background(), "acme-login", sdk.LoginPortalUpdateParams{
+		Title: sdk.F[string]("Acme Private Documentation"),
 	})
 	if err != nil {
 		panic(err)
@@ -380,7 +380,7 @@ func _smokeCase29() {
 }
 
 func _smokeCase30() {
-	loginPortal, err := client.LoginPortals.Delete(context.Background(), "slug")
+	loginPortal, err := client.LoginPortals.Delete(context.Background(), "acme-login")
 	if err != nil {
 		panic(err)
 	}
@@ -419,8 +419,8 @@ func _smokeCase31() {
 			FormDescription: sdk.F[string]("Login to access your documentation"),
 			FormImage:       sdk.F[string](""),
 		}),
-		Slug:  sdk.F[string](""),
-		Title: sdk.F[string](""),
+		Slug:  sdk.F[string]("acme-login"),
+		Title: sdk.F[string]("Acme Private Documentation"),
 	})
 	if err != nil {
 		panic(err)
@@ -449,9 +449,9 @@ func _smokeCase33() {
 
 func _smokeCase34() {
 	accessGroup, err := client.AccessGroups.New(context.Background(), sdk.AccessGroupNewParams{
-		AllowedDomains: sdk.F[interface{}](nil),
-		Name:           sdk.F[string](""),
-		Slug:           sdk.F[string]("x"),
+		AllowedDomains: sdk.F[string]("example.com"),
+		Name:           sdk.F[string]("Engineering"),
+		Slug:           sdk.F[string]("engineering"),
 	})
 	if err != nil {
 		panic(err)
@@ -461,7 +461,7 @@ func _smokeCase34() {
 }
 
 func _smokeCase35() {
-	accessGroup, err := client.AccessGroups.Get(context.Background(), "slug")
+	accessGroup, err := client.AccessGroups.Get(context.Background(), "acme-api")
 	if err != nil {
 		panic(err)
 	}
@@ -470,7 +470,7 @@ func _smokeCase35() {
 }
 
 func _smokeCase36() {
-	accessGroup, err := client.AccessGroups.Update(context.Background(), "slug", sdk.AccessGroupUpdateParams{})
+	accessGroup, err := client.AccessGroups.Update(context.Background(), "acme-api", sdk.AccessGroupUpdateParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -479,9 +479,9 @@ func _smokeCase36() {
 }
 
 func _smokeCase37() {
-	accessGroup, err := client.AccessGroups.Update(context.Background(), "slug", sdk.AccessGroupUpdateParams{
-		Name: sdk.F[string](""),
-		Slug: sdk.F[string]("x"),
+	accessGroup, err := client.AccessGroups.Update(context.Background(), "acme-api", sdk.AccessGroupUpdateParams{
+		Name: sdk.F[string]("Engineering"),
+		Slug: sdk.F[string]("engineering"),
 	})
 	if err != nil {
 		panic(err)
@@ -491,7 +491,7 @@ func _smokeCase37() {
 }
 
 func _smokeCase38() {
-	accessGroup, err := client.AccessGroups.Delete(context.Background(), "slug")
+	accessGroup, err := client.AccessGroups.Delete(context.Background(), "acme-api")
 	if err != nil {
 		panic(err)
 	}
@@ -500,8 +500,8 @@ func _smokeCase38() {
 }
 
 func _smokeCase39() {
-	domain, err := client.AccessGroups.Domains.New(context.Background(), "slug", sdk.AccessGroupDomainNewParams{
-		Domain: sdk.F[string](""),
+	domain, err := client.AccessGroups.Domains.New(context.Background(), "acme-api", sdk.AccessGroupDomainNewParams{
+		Domain: sdk.F[string]("example.com"),
 	})
 	if err != nil {
 		panic(err)
@@ -511,8 +511,8 @@ func _smokeCase39() {
 }
 
 func _smokeCase40() {
-	domain, err := client.AccessGroups.Domains.Delete(context.Background(), "slug", sdk.AccessGroupDomainDeleteParams{
-		Domain: sdk.F[string](""),
+	domain, err := client.AccessGroups.Domains.Delete(context.Background(), "acme-api", sdk.AccessGroupDomainDeleteParams{
+		Domain: sdk.F[string]("example.com"),
 	})
 	if err != nil {
 		panic(err)
@@ -522,7 +522,7 @@ func _smokeCase40() {
 }
 
 func _smokeCase41() {
-	rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
+	rule, err := client.Rules.ListRulesets(context.Background(), "acme")
 	if err != nil {
 		panic(err)
 	}
@@ -531,10 +531,10 @@ func _smokeCase41() {
 }
 
 func _smokeCase42() {
-	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
-		Document: sdk.F[string](""),
-		Slug:     sdk.F[string](""),
-		Title:    sdk.F[string](""),
+	rule, err := client.Rules.NewRuleset(context.Background(), "acme", sdk.RuleNewRulesetParams{
+		Document: sdk.F[string]("extends: [\"spectral:oas\"]\nrules:\n  info-contact: warn\n"),
+		Slug:     sdk.F[string]("acme-rules"),
+		Title:    sdk.F[string]("Acme API Rules"),
 	})
 	if err != nil {
 		panic(err)
@@ -544,11 +544,11 @@ func _smokeCase42() {
 }
 
 func _smokeCase43() {
-	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
-		Document:    sdk.F[string](""),
-		Slug:        sdk.F[string](""),
-		Title:       sdk.F[string](""),
-		Description: sdk.F[string](""),
+	rule, err := client.Rules.NewRuleset(context.Background(), "acme", sdk.RuleNewRulesetParams{
+		Document:    sdk.F[string]("extends: [\"spectral:oas\"]\nrules:\n  info-contact: warn\n"),
+		Slug:        sdk.F[string]("acme-rules"),
+		Title:       sdk.F[string]("Acme API Rules"),
+		Description: sdk.F[string]("API for managing Acme products and orders."),
 		IsPrivate:   sdk.F[bool](false),
 	})
 	if err != nil {
@@ -559,7 +559,7 @@ func _smokeCase43() {
 }
 
 func _smokeCase44() {
-	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{})
+	rule, err := client.Rules.UpdateRuleset(context.Background(), "acme", "acme-rules", sdk.RuleUpdateRulesetParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -568,12 +568,12 @@ func _smokeCase44() {
 }
 
 func _smokeCase45() {
-	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{
-		Description: sdk.F[string](""),
+	rule, err := client.Rules.UpdateRuleset(context.Background(), "acme", "acme-rules", sdk.RuleUpdateRulesetParams{
+		Description: sdk.F[string]("API for managing Acme products and orders."),
 		IsPrivate:   sdk.F[bool](false),
-		Namespace:   sdk.F[string](""),
-		Slug:        sdk.F[string](""),
-		Title:       sdk.F[string](""),
+		Namespace:   sdk.F[string]("acme"),
+		Slug:        sdk.F[string]("acme-rules"),
+		Title:       sdk.F[string]("Acme API Rules"),
 	})
 	if err != nil {
 		panic(err)
@@ -583,7 +583,7 @@ func _smokeCase45() {
 }
 
 func _smokeCase46() {
-	rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug")
+	rule, err := client.Rules.DeleteRuleset(context.Background(), "acme", "acme-rules")
 	if err != nil {
 		panic(err)
 	}
@@ -592,7 +592,7 @@ func _smokeCase46() {
 }
 
 func _smokeCase47() {
-	rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", "slug")
+	rule, err := client.Rules.GetRulesetDocument(context.Background(), "acme", "acme-rules")
 	if err != nil {
 		panic(err)
 	}
@@ -601,9 +601,9 @@ func _smokeCase47() {
 }
 
 func _smokeCase48() {
-	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
+	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "acme", "acme-rules", sdk.RuleNewRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-			AccessGroupSlug: sdk.F[string]("x"),
+			AccessGroupSlug: sdk.F[string]("acme-api"),
 		},
 	})
 	if err != nil {
@@ -614,9 +614,9 @@ func _smokeCase48() {
 }
 
 func _smokeCase49() {
-	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
+	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "acme", "acme-rules", sdk.RuleDeleteRulesetAccessGroupParams{
 		AccessGroup: sdk.AccessGroupParam{
-			AccessGroupSlug: sdk.F[string]("x"),
+			AccessGroupSlug: sdk.F[string]("acme-api"),
 		},
 	})
 	if err != nil {
@@ -637,9 +637,9 @@ func _smokeCase50() {
 
 func _smokeCase51() {
 	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
-		Document: sdk.F[string](""),
-		Name:     sdk.F[string](""),
-		Slug:     sdk.F[string](""),
+		Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
+		Name:     sdk.F[string]("Acme Theme"),
+		Slug:     sdk.F[string]("acme-theme"),
 	})
 	if err != nil {
 		panic(err)
@@ -650,10 +650,10 @@ func _smokeCase51() {
 
 func _smokeCase52() {
 	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
-		Document:    sdk.F[string](""),
-		Name:        sdk.F[string](""),
-		Slug:        sdk.F[string](""),
-		Description: sdk.F[string](""),
+		Document:    sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
+		Name:        sdk.F[string]("Acme Theme"),
+		Slug:        sdk.F[string]("acme-theme"),
+		Description: sdk.F[string]("API for managing Acme products and orders."),
 	})
 	if err != nil {
 		panic(err)
@@ -663,7 +663,7 @@ func _smokeCase52() {
 }
 
 func _smokeCase53() {
-	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
+	theme, err := client.Themes.Update(context.Background(), "acme-theme", sdk.ThemeUpdateParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -672,9 +672,9 @@ func _smokeCase53() {
 }
 
 func _smokeCase54() {
-	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{
-		Description: sdk.F[string](""),
-		Name:        sdk.F[string](""),
+	theme, err := client.Themes.Update(context.Background(), "acme-theme", sdk.ThemeUpdateParams{
+		Description: sdk.F[string]("API for managing Acme products and orders."),
+		Name:        sdk.F[string]("Acme Theme"),
 	})
 	if err != nil {
 		panic(err)
@@ -684,8 +684,8 @@ func _smokeCase54() {
 }
 
 func _smokeCase55() {
-	theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
-		Document: sdk.F[string](""),
+	theme, err := client.Themes.ReplaceDocument(context.Background(), "acme-theme", sdk.ThemeReplaceDocumentParams{
+		Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
 	})
 	if err != nil {
 		panic(err)
@@ -695,7 +695,7 @@ func _smokeCase55() {
 }
 
 func _smokeCase56() {
-	theme, err := client.Themes.Delete(context.Background(), "slug")
+	theme, err := client.Themes.Delete(context.Background(), "acme-theme")
 	if err != nil {
 		panic(err)
 	}
@@ -704,7 +704,7 @@ func _smokeCase56() {
 }
 
 func _smokeCase57() {
-	theme, err := client.Themes.Get(context.Background(), "slug")
+	theme, err := client.Themes.Get(context.Background(), "acme-theme")
 	if err != nil {
 		panic(err)
 	}
@@ -731,7 +731,7 @@ func _smokeCase59() {
 }
 
 func _smokeCase60() {
-	member, err := client.Teams.Members.Update(context.Background(), "uidxx", sdk.TeamMemberUpdateParams{
+	member, err := client.Teams.Members.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.TeamMemberUpdateParams{
 		Role: sdk.F[sdk.Role](sdk.Role("owner")),
 	})
 	if err != nil {
@@ -742,7 +742,7 @@ func _smokeCase60() {
 }
 
 func _smokeCase61() {
-	member, err := client.Teams.Members.Delete(context.Background(), "uidxx")
+	member, err := client.Teams.Members.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 	if err != nil {
 		panic(err)
 	}
@@ -752,7 +752,7 @@ func _smokeCase61() {
 
 func _smokeCase62() {
 	invite, err := client.Teams.Invites.Member(context.Background(), sdk.TeamInviteMemberParams{
-		Email: sdk.F[string]("user@example.com"),
+		Email: sdk.F[string]("alex@example.com"),
 		Role:  sdk.F[sdk.Role](sdk.Role("owner")),
 	})
 	if err != nil {
@@ -763,7 +763,7 @@ func _smokeCase62() {
 }
 
 func _smokeCase63() {
-	invite, err := client.Teams.Invites.Resend(context.Background(), "uidxx")
+	invite, err := client.Teams.Invites.Resend(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 	if err != nil {
 		panic(err)
 	}
@@ -772,7 +772,7 @@ func _smokeCase63() {
 }
 
 func _smokeCase64() {
-	invite, err := client.Teams.Invites.Cancel(context.Background(), "uidxx")
+	invite, err := client.Teams.Invites.Cancel(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 	if err != nil {
 		panic(err)
 	}
@@ -794,7 +794,7 @@ func _smokeCase66() {
 		AllowedDomains: sdk.F[[]string]([]string{}),
 		AllowedUsers:   sdk.F[[]string]([]string{}),
 		IsPrivate:      sdk.F[bool](false),
-		Name:           sdk.F[string](""),
+		Name:           sdk.F[string]("Acme Documentation"),
 	})
 	if err != nil {
 		panic(err)
@@ -808,8 +808,8 @@ func _smokeCase67() {
 		AllowedDomains: sdk.F[[]string]([]string{}),
 		AllowedUsers:   sdk.F[[]string]([]string{}),
 		IsPrivate:      sdk.F[bool](false),
-		Name:           sdk.F[string](""),
-		Slug:           sdk.F[string]("x"),
+		Name:           sdk.F[string]("Acme Documentation"),
+		Slug:           sdk.F[string]("acme-docs"),
 	})
 	if err != nil {
 		panic(err)
@@ -819,7 +819,7 @@ func _smokeCase67() {
 }
 
 func _smokeCase68() {
-	scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "slug")
+	scalarDoc, err := client.ScalarDocs.PublishGuide(context.Background(), "acme-docs")
 	if err != nil {
 		panic(err)
 	}
@@ -838,7 +838,7 @@ func _smokeCase69() {
 
 func _smokeCase70() {
 	scalarDoc, err := client.ScalarDocs.ListProjects(context.Background(), sdk.ScalarDocListProjectsParams{
-		Limit: sdk.F[int64](1),
+		Limit: sdk.F[int64](20),
 	})
 	if err != nil {
 		panic(err)
@@ -849,7 +849,7 @@ func _smokeCase70() {
 
 func _smokeCase71() {
 	scalarDoc, err := client.ScalarDocs.NewProject(context.Background(), sdk.ScalarDocNewProjectParams{
-		Name:     sdk.F[string](""),
+		Name:     sdk.F[string]("Acme Documentation"),
 		Provider: sdk.F[sdk.ScalarDocNewProjectParamsProvider](sdk.ScalarDocNewProjectParamsProvider("forgejo")),
 	})
 	if err != nil {
@@ -861,19 +861,19 @@ func _smokeCase71() {
 
 func _smokeCase72() {
 	scalarDoc, err := client.ScalarDocs.NewProject(context.Background(), sdk.ScalarDocNewProjectParams{
-		Name:     sdk.F[string](""),
+		Name:     sdk.F[string]("Acme Documentation"),
 		Provider: sdk.F[sdk.ScalarDocNewProjectParamsProvider](sdk.ScalarDocNewProjectParamsProvider("forgejo")),
 		BitbucketRepository: sdk.F[sdk.ScalarDocNewProjectParamsBitbucketRepository](sdk.ScalarDocNewProjectParamsBitbucketRepository{
-			WorkspaceUUID: sdk.F[string](""),
-			RepoUUID:      sdk.F[string](""),
+			WorkspaceUUID: sdk.F[string]("{12345678-1234-4234-8234-123456789abc}"),
+			RepoUUID:      sdk.F[string]("{abcdef01-1234-4234-8234-123456789abc}"),
 		}),
-		Blank: sdk.F[bool](false),
+		Blank: sdk.F[bool](true),
 		GithubRepository: sdk.F[sdk.ScalarDocNewProjectParamsGithubRepository](sdk.ScalarDocNewProjectParamsGithubRepository{
-			InstallationID: sdk.F[int64](0),
-			RepoID:         sdk.F[int64](0),
+			InstallationID: sdk.F[int64](84),
+			RepoID:         sdk.F[int64](123456789),
 		}),
 		IsPrivate: sdk.F[bool](false),
-		Slug:      sdk.F[string]("x"),
+		Slug:      sdk.F[string]("acme-docs"),
 	})
 	if err != nil {
 		panic(err)
@@ -883,7 +883,7 @@ func _smokeCase72() {
 }
 
 func _smokeCase73() {
-	scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "slug")
+	scalarDoc, err := client.ScalarDocs.GetProject(context.Background(), "acme-docs")
 	if err != nil {
 		panic(err)
 	}
@@ -892,7 +892,7 @@ func _smokeCase73() {
 }
 
 func _smokeCase74() {
-	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "slug", sdk.ScalarDocUpdateProjectParams{})
+	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -901,14 +901,14 @@ func _smokeCase74() {
 }
 
 func _smokeCase75() {
-	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "slug", sdk.ScalarDocUpdateProjectParams{
-		AccessGroups:     sdk.F[[]string]([]string{"xxxxx"}),
-		ActiveThemeID:    sdk.F[string]("xxxxx"),
-		AgentEnabled:     sdk.F[bool](false),
-		AnalyticsEnabled: sdk.F[bool](false),
+	scalarDoc, err := client.ScalarDocs.UpdateProject(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectParams{
+		AccessGroups:     sdk.F[[]string]([]string{"UakgbKJ5m9gl0JDMbcJqL"}),
+		ActiveThemeID:    sdk.F[string]("TakgbKJ5m9gl0JDMbcJqL"),
+		AgentEnabled:     sdk.F[bool](true),
+		AnalyticsEnabled: sdk.F[bool](true),
 		IsPrivate:        sdk.F[bool](false),
-		LoginPortalUID:   sdk.F[interface{}]("xxxxx"),
-		Name:             sdk.F[string](""),
+		LoginPortalUID:   sdk.F[interface{}]("LakgbKJ5m9gl0JDMbcJqL"),
+		Name:             sdk.F[string]("Acme Documentation"),
 	})
 	if err != nil {
 		panic(err)
@@ -918,7 +918,7 @@ func _smokeCase75() {
 }
 
 func _smokeCase76() {
-	scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "slug")
+	scalarDoc, err := client.ScalarDocs.DeleteProject(context.Background(), "acme-docs")
 	if err != nil {
 		panic(err)
 	}
@@ -927,7 +927,7 @@ func _smokeCase76() {
 }
 
 func _smokeCase77() {
-	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "slug", sdk.ScalarDocPublishProjectParams{})
+	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "acme-docs", sdk.ScalarDocPublishProjectParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -936,9 +936,9 @@ func _smokeCase77() {
 }
 
 func _smokeCase78() {
-	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "slug", sdk.ScalarDocPublishProjectParams{
-		CommitSha:  sdk.F[string](""),
-		ConfigPath: sdk.F[string](""),
+	scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "acme-docs", sdk.ScalarDocPublishProjectParams{
+		CommitSha:  sdk.F[string]("0123456789abcdef0123456789abcdef01234567"),
+		ConfigPath: sdk.F[string]("scalar.config.json"),
 		Preview:    sdk.F[bool](false),
 	})
 	if err != nil {
@@ -949,7 +949,7 @@ func _smokeCase78() {
 }
 
 func _smokeCase79() {
-	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "slug", sdk.ScalarDocListProjectConfigParams{})
+	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocListProjectConfigParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -958,8 +958,8 @@ func _smokeCase79() {
 }
 
 func _smokeCase80() {
-	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "slug", sdk.ScalarDocListProjectConfigParams{
-		Ref: sdk.F[string]("ref"),
+	scalarDoc, err := client.ScalarDocs.ListProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocListProjectConfigParams{
+		Ref: sdk.F[string]("main"),
 	})
 	if err != nil {
 		panic(err)
@@ -969,8 +969,8 @@ func _smokeCase80() {
 }
 
 func _smokeCase81() {
-	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "slug", sdk.ScalarDocUpdateProjectConfigParams{
-		Content: sdk.F[string](""),
+	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectConfigParams{
+		Content: sdk.F[string]("{\"name\":\"Acme Documentation\"}"),
 	})
 	if err != nil {
 		panic(err)
@@ -980,12 +980,12 @@ func _smokeCase81() {
 }
 
 func _smokeCase82() {
-	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "slug", sdk.ScalarDocUpdateProjectConfigParams{
-		Content:   sdk.F[string](""),
-		BaseToken: sdk.F[string](""),
-		Message:   sdk.F[string](""),
-		Path:      sdk.F[string](""),
-		Ref:       sdk.F[string](""),
+	scalarDoc, err := client.ScalarDocs.UpdateProjectConfig(context.Background(), "acme-docs", sdk.ScalarDocUpdateProjectConfigParams{
+		Content:   sdk.F[string]("{\"name\":\"Acme Documentation\"}"),
+		BaseToken: sdk.F[string]("example-edit-token"),
+		Message:   sdk.F[string]("Update documentation configuration"),
+		Path:      sdk.F[string]("scalar.config.json"),
+		Ref:       sdk.F[string]("main"),
 	})
 	if err != nil {
 		panic(err)
@@ -995,7 +995,7 @@ func _smokeCase82() {
 }
 
 func _smokeCase83() {
-	scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "slug")
+	scalarDoc, err := client.ScalarDocs.ListProjectDomain(context.Background(), "acme-docs")
 	if err != nil {
 		panic(err)
 	}
@@ -1004,7 +1004,7 @@ func _smokeCase83() {
 }
 
 func _smokeCase84() {
-	scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "slug")
+	scalarDoc, err := client.ScalarDocs.ListProjectDomainStatus(context.Background(), "acme-docs")
 	if err != nil {
 		panic(err)
 	}
@@ -1023,7 +1023,7 @@ func _smokeCase85() {
 
 func _smokeCase86() {
 	authentication, err := client.Authentication.ExchangePersonalToken(context.Background(), sdk.AuthenticationExchangePersonalTokenParams{
-		PersonalToken: sdk.F[string](""),
+		PersonalToken: sdk.F[string]("scalar_example_personal_token"),
 	})
 	if err != nil {
 		panic(err)
@@ -1052,7 +1052,7 @@ func _smokeCase88() {
 
 func _smokeCase89() {
 	sdk, err := client.Sdks.List(context.Background(), sdk.SdkListParams{
-		Limit: sdk.F[int64](1),
+		Limit: sdk.F[int64](20),
 	})
 	if err != nil {
 		panic(err)
@@ -1063,7 +1063,7 @@ func _smokeCase89() {
 
 func _smokeCase90() {
 	sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
-		APIUID:    sdk.F[string]("xxxxx"),
+		APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 		Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
 	})
 	if err != nil {
@@ -1075,12 +1075,12 @@ func _smokeCase90() {
 
 func _smokeCase91() {
 	sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
-		APIUID:    sdk.F[string]("xxxxx"),
+		APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 		Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
-		ClassName: sdk.F[string](""),
-		Config:    sdk.F[string](""),
-		Slug:      sdk.F[string]("x"),
-		Title:     sdk.F[string](""),
+		ClassName: sdk.F[string]("Acme"),
+		Config:    sdk.F[string]("{\"targets\":{\"typescript\":{\"packageName\":\"@acme/sdk\"}}}"),
+		Slug:      sdk.F[string]("acme-sdk"),
+		Title:     sdk.F[string]("Acme SDK"),
 	})
 	if err != nil {
 		panic(err)
@@ -1090,7 +1090,7 @@ func _smokeCase91() {
 }
 
 func _smokeCase92() {
-	sdk, err := client.Sdks.Get(context.Background(), "uidxx")
+	sdk, err := client.Sdks.Get(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 	if err != nil {
 		panic(err)
 	}
@@ -1099,7 +1099,7 @@ func _smokeCase92() {
 }
 
 func _smokeCase93() {
-	sdk, err := client.Sdks.Update(context.Background(), "uidxx", sdk.SdkUpdateParams{})
+	sdk, err := client.Sdks.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkUpdateParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -1108,13 +1108,13 @@ func _smokeCase93() {
 }
 
 func _smokeCase94() {
-	sdk, err := client.Sdks.Update(context.Background(), "uidxx", sdk.SdkUpdateParams{
-		APIUID:     sdk.F[string]("xxxxx"),
-		APIVersion: sdk.F[string](""),
-		Config:     sdk.F[string](""),
+	sdk, err := client.Sdks.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkUpdateParams{
+		APIUID:     sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
+		APIVersion: sdk.F[string]("1.2.0"),
+		Config:     sdk.F[string]("{\"targets\":{\"typescript\":{\"packageName\":\"@acme/sdk\"}}}"),
 		IsPrivate:  sdk.F[bool](false),
-		Slug:       sdk.F[string]("x"),
-		Title:      sdk.F[string](""),
+		Slug:       sdk.F[string]("acme-sdk"),
+		Title:      sdk.F[string]("Acme SDK"),
 	})
 	if err != nil {
 		panic(err)
@@ -1124,7 +1124,7 @@ func _smokeCase94() {
 }
 
 func _smokeCase95() {
-	sdk, err := client.Sdks.Delete(context.Background(), "uidxx")
+	sdk, err := client.Sdks.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 	if err != nil {
 		panic(err)
 	}
@@ -1133,7 +1133,7 @@ func _smokeCase95() {
 }
 
 func _smokeCase96() {
-	sdk, err := client.Sdks.Build(context.Background(), "uidxx", sdk.SdkBuildParams{})
+	sdk, err := client.Sdks.Build(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkBuildParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -1142,9 +1142,9 @@ func _smokeCase96() {
 }
 
 func _smokeCase97() {
-	sdk, err := client.Sdks.Build(context.Background(), "uidxx", sdk.SdkBuildParams{
+	sdk, err := client.Sdks.Build(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkBuildParams{
 		Languages: sdk.F[[]sdk.SdkBuildParamsLanguage]([]sdk.SdkBuildParamsLanguage{"typescript"}),
-		Version:   sdk.F[string](""),
+		Version:   sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -1154,9 +1154,9 @@ func _smokeCase97() {
 }
 
 func _smokeCase98() {
-	version, err := client.Sdks.Versions.New(context.Background(), "uidxx", sdk.SdkVersionNewParams{
-		APIVersion: sdk.F[string](""),
-		Version:    sdk.F[string](""),
+	version, err := client.Sdks.Versions.New(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkVersionNewParams{
+		APIVersion: sdk.F[string]("1.2.0"),
+		Version:    sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -1166,7 +1166,7 @@ func _smokeCase98() {
 }
 
 func _smokeCase99() {
-	version, err := client.Sdks.Versions.Delete(context.Background(), "uidxx", "version")
+	version, err := client.Sdks.Versions.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "1.2.0")
 	if err != nil {
 		panic(err)
 	}
@@ -1175,10 +1175,10 @@ func _smokeCase99() {
 }
 
 func _smokeCase100() {
-	repository, err := client.Sdks.Repositories.Link(context.Background(), "uidxx", sdk.SdkRepositoryLinkParams{
-		BaseBranch:   sdk.F[string](""),
+	repository, err := client.Sdks.Repositories.Link(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkRepositoryLinkParams{
+		BaseBranch:   sdk.F[string]("main"),
 		Language:     sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
-		RepositoryID: sdk.F[int64](0),
+		RepositoryID: sdk.F[int64](123456789),
 	})
 	if err != nil {
 		panic(err)
@@ -1188,11 +1188,11 @@ func _smokeCase100() {
 }
 
 func _smokeCase101() {
-	repository, err := client.Sdks.Repositories.Link(context.Background(), "uidxx", sdk.SdkRepositoryLinkParams{
-		BaseBranch:     sdk.F[string](""),
+	repository, err := client.Sdks.Repositories.Link(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkRepositoryLinkParams{
+		BaseBranch:     sdk.F[string]("main"),
 		Language:       sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
-		RepositoryID:   sdk.F[int64](0),
-		PrereleaseType: sdk.F[string](""),
+		RepositoryID:   sdk.F[int64](123456789),
+		PrereleaseType: sdk.F[string]("beta"),
 	})
 	if err != nil {
 		panic(err)
@@ -1202,7 +1202,7 @@ func _smokeCase101() {
 }
 
 func _smokeCase102() {
-	repository, err := client.Sdks.Repositories.Unlink(context.Background(), "uidxx", "typescript")
+	repository, err := client.Sdks.Repositories.Unlink(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript")
 	if err != nil {
 		panic(err)
 	}
@@ -1211,8 +1211,8 @@ func _smokeCase102() {
 }
 
 func _smokeCase103() {
-	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "uidxx", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
-		PublishOnMerge: sdk.F[bool](false),
+	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
+		PublishOnMerge: sdk.F[bool](true),
 	})
 	if err != nil {
 		panic(err)
@@ -1222,11 +1222,11 @@ func _smokeCase103() {
 }
 
 func _smokeCase104() {
-	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "uidxx", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
-		PublishOnMerge: sdk.F[bool](false),
+	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
+		PublishOnMerge: sdk.F[bool](true),
 		Access:         sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAccess](sdk.SdkRepositoryUpdatePublishingParamsAccess("public")),
 		AuthMethod:     sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAuthMethod](sdk.SdkRepositoryUpdatePublishingParamsAuthMethod("oidc")),
-		Tag:            sdk.F[string](""),
+		Tag:            sdk.F[string]("latest"),
 	})
 	if err != nil {
 		panic(err)
@@ -1246,7 +1246,7 @@ func _smokeCase105() {
 
 func _smokeCase106() {
 	server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
-		Name: sdk.F[string]("x"),
+		Name: sdk.F[string]("Acme MCP"),
 	})
 	if err != nil {
 		panic(err)
@@ -1257,10 +1257,10 @@ func _smokeCase106() {
 
 func _smokeCase107() {
 	server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
-		Name:        sdk.F[string]("x"),
-		ProjectUIDs: sdk.F[[]string]([]string{""}),
-		Slug:        sdk.F[string]("x"),
-		VersionUIDs: sdk.F[[]string]([]string{""}),
+		Name:        sdk.F[string]("Acme MCP"),
+		ProjectUIDs: sdk.F[[]string]([]string{"PakgbKJ5m9gl0JDMbcJqL"}),
+		Slug:        sdk.F[string]("acme-mcp"),
+		VersionUIDs: sdk.F[[]string]([]string{"VakgbKJ5m9gl0JDMbcJqL"}),
 	})
 	if err != nil {
 		panic(err)
@@ -1270,7 +1270,7 @@ func _smokeCase107() {
 }
 
 func _smokeCase108() {
-	server, err := client.Mcp.Servers.Get(context.Background(), "id")
+	server, err := client.Mcp.Servers.Get(context.Background(), "42")
 	if err != nil {
 		panic(err)
 	}
@@ -1279,7 +1279,7 @@ func _smokeCase108() {
 }
 
 func _smokeCase109() {
-	server, err := client.Mcp.Servers.Update(context.Background(), "id", sdk.McpServerUpdateParams{})
+	server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -1288,12 +1288,12 @@ func _smokeCase109() {
 }
 
 func _smokeCase110() {
-	server, err := client.Mcp.Servers.Update(context.Background(), "id", sdk.McpServerUpdateParams{
-		AutoAddOperations: sdk.F[bool](false),
-		DocsPages:         sdk.F[[]string]([]string{""}),
-		Name:              sdk.F[string]("x"),
-		Operations:        sdk.F[[]string]([]string{""}),
-		Slug:              sdk.F[string]("x"),
+	server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{
+		AutoAddOperations: sdk.F[bool](true),
+		DocsPages:         sdk.F[[]string]([]string{"getting-started"}),
+		Name:              sdk.F[string]("Acme MCP"),
+		Operations:        sdk.F[[]string]([]string{"42"}),
+		Slug:              sdk.F[string]("acme-mcp"),
 	})
 	if err != nil {
 		panic(err)
@@ -1303,7 +1303,7 @@ func _smokeCase110() {
 }
 
 func _smokeCase111() {
-	server, err := client.Mcp.Servers.Delete(context.Background(), "id")
+	server, err := client.Mcp.Servers.Delete(context.Background(), "42")
 	if err != nil {
 		panic(err)
 	}
@@ -1312,7 +1312,7 @@ func _smokeCase111() {
 }
 
 func _smokeCase112() {
-	installation, err := client.Mcp.Servers.Installations.List(context.Background(), "id")
+	installation, err := client.Mcp.Servers.Installations.List(context.Background(), "42")
 	if err != nil {
 		panic(err)
 	}
@@ -1321,9 +1321,9 @@ func _smokeCase112() {
 }
 
 func _smokeCase113() {
-	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "id", sdk.McpServerInstallationNewParams{
+	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
 		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-		Name:         sdk.F[string]("x"),
+		Name:         sdk.F[string]("Acme MCP"),
 	})
 	if err != nil {
 		panic(err)
@@ -1333,10 +1333,10 @@ func _smokeCase113() {
 }
 
 func _smokeCase114() {
-	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "id", sdk.McpServerInstallationNewParams{
+	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
 		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-		Name:         sdk.F[string]("x"),
-		Slug:         sdk.F[string]("x"),
+		Name:         sdk.F[string]("Acme MCP"),
+		Slug:         sdk.F[string]("acme-mcp"),
 	})
 	if err != nil {
 		panic(err)
@@ -1346,7 +1346,7 @@ func _smokeCase114() {
 }
 
 func _smokeCase115() {
-	installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "id", "installationId")
+	installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "42", "84")
 	if err != nil {
 		panic(err)
 	}
@@ -1355,7 +1355,7 @@ func _smokeCase115() {
 }
 
 func _smokeCase116() {
-	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "id", "installationId", sdk.McpServerInstallationUpdateParams{})
+	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{})
 	if err != nil {
 		panic(err)
 	}
@@ -1364,13 +1364,13 @@ func _smokeCase116() {
 }
 
 func _smokeCase117() {
-	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "id", "installationId", sdk.McpServerInstallationUpdateParams{
+	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{
 		DocumentAuth:   sdk.F[map[string]interface{}](map[string]interface{}{}),
 		IsPrivate:      sdk.F[bool](false),
-		LoginPortalUID: sdk.F[string](""),
-		McpVersion:     sdk.F[string](""),
-		Name:           sdk.F[string]("x"),
-		Slug:           sdk.F[string]("x"),
+		LoginPortalUID: sdk.F[string]("LakgbKJ5m9gl0JDMbcJqL"),
+		McpVersion:     sdk.F[string]("1.2.0"),
+		Name:           sdk.F[string]("Acme MCP"),
+		Slug:           sdk.F[string]("acme-mcp"),
 	})
 	if err != nil {
 		panic(err)
@@ -1380,7 +1380,7 @@ func _smokeCase117() {
 }
 
 func _smokeCase118() {
-	installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "id", "installationId")
+	installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
 	if err != nil {
 		panic(err)
 	}
@@ -1389,8 +1389,8 @@ func _smokeCase118() {
 }
 
 func _smokeCase119() {
-	installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationNewAccessGroupParams{
-		AccessGroupUID: sdk.F[string]("xxxxx"),
+	installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationNewAccessGroupParams{
+		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 	})
 	if err != nil {
 		panic(err)
@@ -1400,8 +1400,8 @@ func _smokeCase119() {
 }
 
 func _smokeCase120() {
-	installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "id", "installationId", sdk.McpServerInstallationDeleteAccessGroupParams{
-		AccessGroupUID: sdk.F[string]("xxxxx"),
+	installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationDeleteAccessGroupParams{
+		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 	})
 	if err != nil {
 		panic(err)

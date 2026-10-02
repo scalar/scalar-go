@@ -47,8 +47,8 @@ func NewAccessGroupDomainService(opts ...option.RequestOption) (r *AccessGroupDo
 //
 // Example:
 //
-//	domain, err := client.AccessGroups.Domains.New(context.Background(), "slug", sdk.AccessGroupDomainNewParams{
-//		Domain: sdk.F[string](""),
+//	domain, err := client.AccessGroups.Domains.New(context.Background(), "acme-api", sdk.AccessGroupDomainNewParams{
+//		Domain: sdk.F[string]("example.com"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -81,8 +81,8 @@ func (r *AccessGroupDomainService) New(ctx context.Context, slug string, body Ac
 //
 // Example:
 //
-//	domain, err := client.AccessGroups.Domains.Delete(context.Background(), "slug", sdk.AccessGroupDomainDeleteParams{
-//		Domain: sdk.F[string](""),
+//	domain, err := client.AccessGroups.Domains.Delete(context.Background(), "acme-api", sdk.AccessGroupDomainDeleteParams{
+//		Domain: sdk.F[string]("example.com"),
 //	})
 //	if err != nil {
 //		panic(err)

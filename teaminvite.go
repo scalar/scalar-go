@@ -47,7 +47,7 @@ func NewTeamInviteService(opts ...option.RequestOption) (r *TeamInviteService) {
 // Example:
 //
 //	invite, err := client.Teams.Invites.Member(context.Background(), sdk.TeamInviteMemberParams{
-//		Email: sdk.F[string]("user@example.com"),
+//		Email: sdk.F[string]("alex@example.com"),
 //		Role:  sdk.F[sdk.Role](sdk.Role("owner")),
 //	})
 //	if err != nil {
@@ -76,7 +76,7 @@ func (r *TeamInviteService) Member(ctx context.Context, body TeamInviteMemberPar
 //
 // Example:
 //
-//	invite, err := client.Teams.Invites.Resend(context.Background(), "uidxx")
+//	invite, err := client.Teams.Invites.Resend(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -107,7 +107,7 @@ func (r *TeamInviteService) Resend(ctx context.Context, uid string, opts ...opti
 //
 // Example:
 //
-//	invite, err := client.Teams.Invites.Cancel(context.Background(), "uidxx")
+//	invite, err := client.Teams.Invites.Cancel(context.Background(), "UakgbKJ5m9gl0JDMbcJqL")
 //	if err != nil {
 //		panic(err)
 //	}

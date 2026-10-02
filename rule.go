@@ -47,7 +47,7 @@ func NewRuleService(opts ...option.RequestOption) (r *RuleService) {
 //
 // Example:
 //
-//	rule, err := client.Rules.ListRulesets(context.Background(), "namespace")
+//	rule, err := client.Rules.ListRulesets(context.Background(), "acme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -79,10 +79,10 @@ func (r *RuleService) ListRulesets(ctx context.Context, namespace string, opts .
 //
 // Example:
 //
-//	rule, err := client.Rules.NewRuleset(context.Background(), "namespace", sdk.RuleNewRulesetParams{
-//		Document: sdk.F[string](""),
-//		Slug:     sdk.F[string](""),
-//		Title:    sdk.F[string](""),
+//	rule, err := client.Rules.NewRuleset(context.Background(), "acme", sdk.RuleNewRulesetParams{
+//		Document: sdk.F[string]("extends: [\"spectral:oas\"]\nrules:\n  info-contact: warn\n"),
+//		Slug:     sdk.F[string]("acme-rules"),
+//		Title:    sdk.F[string]("Acme API Rules"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -116,7 +116,7 @@ func (r *RuleService) NewRuleset(ctx context.Context, namespace string, body Rul
 //
 // Example:
 //
-//	rule, err := client.Rules.UpdateRuleset(context.Background(), "namespace", "slug", sdk.RuleUpdateRulesetParams{})
+//	rule, err := client.Rules.UpdateRuleset(context.Background(), "acme", "acme-rules", sdk.RuleUpdateRulesetParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -152,7 +152,7 @@ func (r *RuleService) UpdateRuleset(ctx context.Context, namespace string, slug 
 //
 // Example:
 //
-//	rule, err := client.Rules.DeleteRuleset(context.Background(), "namespace", "slug")
+//	rule, err := client.Rules.DeleteRuleset(context.Background(), "acme", "acme-rules")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -188,7 +188,7 @@ func (r *RuleService) DeleteRuleset(ctx context.Context, namespace string, slug 
 //
 // Example:
 //
-//	rule, err := client.Rules.GetRulesetDocument(context.Background(), "namespace", "slug")
+//	rule, err := client.Rules.GetRulesetDocument(context.Background(), "acme", "acme-rules")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -226,9 +226,9 @@ func (r *RuleService) GetRulesetDocument(ctx context.Context, namespace string, 
 //
 // Example:
 //
-//	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleNewRulesetAccessGroupParams{
+//	rule, err := client.Rules.NewRulesetAccessGroup(context.Background(), "acme", "acme-rules", sdk.RuleNewRulesetAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("x"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {
@@ -267,9 +267,9 @@ func (r *RuleService) NewRulesetAccessGroup(ctx context.Context, namespace strin
 //
 // Example:
 //
-//	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "namespace", "slug", sdk.RuleDeleteRulesetAccessGroupParams{
+//	rule, err := client.Rules.DeleteRulesetAccessGroup(context.Background(), "acme", "acme-rules", sdk.RuleDeleteRulesetAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("x"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {

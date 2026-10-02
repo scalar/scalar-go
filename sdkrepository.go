@@ -47,10 +47,10 @@ func NewSdkRepositoryService(opts ...option.RequestOption) (r *SdkRepositoryServ
 //
 // Example:
 //
-//	repository, err := client.Sdks.Repositories.Link(context.Background(), "uidxx", sdk.SdkRepositoryLinkParams{
-//		BaseBranch:   sdk.F[string](""),
+//	repository, err := client.Sdks.Repositories.Link(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkRepositoryLinkParams{
+//		BaseBranch:   sdk.F[string]("main"),
 //		Language:     sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
-//		RepositoryID: sdk.F[int64](0),
+//		RepositoryID: sdk.F[int64](123456789),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -83,7 +83,7 @@ func (r *SdkRepositoryService) Link(ctx context.Context, uid string, body SdkRep
 //
 // Example:
 //
-//	repository, err := client.Sdks.Repositories.Unlink(context.Background(), "uidxx", "typescript")
+//	repository, err := client.Sdks.Repositories.Unlink(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -120,8 +120,8 @@ func (r *SdkRepositoryService) Unlink(ctx context.Context, uid string, language 
 //
 // Example:
 //
-//	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "uidxx", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
-//		PublishOnMerge: sdk.F[bool](false),
+//	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
+//		PublishOnMerge: sdk.F[bool](true),
 //	})
 //	if err != nil {
 //		panic(err)

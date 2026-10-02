@@ -75,7 +75,7 @@ func (r *McpServerService) List(ctx context.Context, opts ...option.RequestOptio
 // Example:
 //
 //	server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
-//		Name: sdk.F[string]("x"),
+//		Name: sdk.F[string]("Acme MCP"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -103,7 +103,7 @@ func (r *McpServerService) New(ctx context.Context, body McpServerNewParams, opt
 //
 // Example:
 //
-//	server, err := client.Mcp.Servers.Get(context.Background(), "id")
+//	server, err := client.Mcp.Servers.Get(context.Background(), "42")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -135,7 +135,7 @@ func (r *McpServerService) Get(ctx context.Context, id string, opts ...option.Re
 //
 // Example:
 //
-//	server, err := client.Mcp.Servers.Update(context.Background(), "id", sdk.McpServerUpdateParams{})
+//	server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -166,7 +166,7 @@ func (r *McpServerService) Update(ctx context.Context, id string, body McpServer
 //
 // Example:
 //
-//	server, err := client.Mcp.Servers.Delete(context.Background(), "id")
+//	server, err := client.Mcp.Servers.Delete(context.Background(), "42")
 //	if err != nil {
 //		panic(err)
 //	}

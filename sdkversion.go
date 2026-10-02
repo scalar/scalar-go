@@ -47,9 +47,9 @@ func NewSdkVersionService(opts ...option.RequestOption) (r *SdkVersionService) {
 //
 // Example:
 //
-//	version, err := client.Sdks.Versions.New(context.Background(), "uidxx", sdk.SdkVersionNewParams{
-//		APIVersion: sdk.F[string](""),
-//		Version:    sdk.F[string](""),
+//	version, err := client.Sdks.Versions.New(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkVersionNewParams{
+//		APIVersion: sdk.F[string]("1.2.0"),
+//		Version:    sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -82,7 +82,7 @@ func (r *SdkVersionService) New(ctx context.Context, uid string, body SdkVersion
 //
 // Example:
 //
-//	version, err := client.Sdks.Versions.Delete(context.Background(), "uidxx", "version")
+//	version, err := client.Sdks.Versions.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}

@@ -47,9 +47,9 @@ func NewSchemaAccessGroupService(opts ...option.RequestOption) (r *SchemaAccessG
 //
 // Example:
 //
-//	accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupNewParams{
+//	accessGroup, err := client.Schemas.AccessGroup.New(context.Background(), "acme", "customer", sdk.SchemaAccessGroupNewParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("x"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {
@@ -88,9 +88,9 @@ func (r *SchemaAccessGroupService) New(ctx context.Context, namespace string, sl
 //
 // Example:
 //
-//	accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "namespace", "slug", sdk.SchemaAccessGroupDeleteParams{
+//	accessGroup, err := client.Schemas.AccessGroup.Delete(context.Background(), "acme", "customer", sdk.SchemaAccessGroupDeleteParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("x"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {

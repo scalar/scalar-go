@@ -74,9 +74,9 @@ func (r *ThemeService) List(ctx context.Context, opts ...option.RequestOption) (
 // Example:
 //
 //	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
-//		Document: sdk.F[string](""),
-//		Name:     sdk.F[string](""),
-//		Slug:     sdk.F[string](""),
+//		Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
+//		Name:     sdk.F[string]("Acme Theme"),
+//		Slug:     sdk.F[string]("acme-theme"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -105,7 +105,7 @@ func (r *ThemeService) New(ctx context.Context, body ThemeNewParams, opts ...opt
 //
 // Example:
 //
-//	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
+//	theme, err := client.Themes.Update(context.Background(), "acme-theme", sdk.ThemeUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -137,8 +137,8 @@ func (r *ThemeService) Update(ctx context.Context, slug string, body ThemeUpdate
 //
 // Example:
 //
-//	theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
-//		Document: sdk.F[string](""),
+//	theme, err := client.Themes.ReplaceDocument(context.Background(), "acme-theme", sdk.ThemeReplaceDocumentParams{
+//		Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -170,7 +170,7 @@ func (r *ThemeService) ReplaceDocument(ctx context.Context, slug string, body Th
 //
 // Example:
 //
-//	theme, err := client.Themes.Delete(context.Background(), "slug")
+//	theme, err := client.Themes.Delete(context.Background(), "acme-theme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -201,7 +201,7 @@ func (r *ThemeService) Delete(ctx context.Context, slug string, opts ...option.R
 //
 // Example:
 //
-//	theme, err := client.Themes.Get(context.Background(), "slug")
+//	theme, err := client.Themes.Get(context.Background(), "acme-theme")
 //	if err != nil {
 //		panic(err)
 //	}
