@@ -7,15 +7,15 @@ import (
 )
 
 type Value400 struct {
-	Message string       `json:"message" api:"required"`
 	Code    string       `json:"code" api:"required"`
+	Message string       `json:"message" api:"required"`
 	JSON    value400JSON `json:"-"`
 }
 
 // value400JSON contains the JSON metadata for the struct [Value400]
 type value400JSON struct {
-	Message     apijson.Field
 	Code        apijson.Field
+	Message     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -29,15 +29,15 @@ func (r value400JSON) RawJSON() string {
 }
 
 type Value401 struct {
-	Message string       `json:"message" api:"required"`
 	Code    string       `json:"code" api:"required"`
+	Message string       `json:"message" api:"required"`
 	JSON    value401JSON `json:"-"`
 }
 
 // value401JSON contains the JSON metadata for the struct [Value401]
 type value401JSON struct {
-	Message     apijson.Field
 	Code        apijson.Field
+	Message     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -51,15 +51,15 @@ func (r value401JSON) RawJSON() string {
 }
 
 type Value403 struct {
-	Message string       `json:"message" api:"required"`
 	Code    string       `json:"code" api:"required"`
+	Message string       `json:"message" api:"required"`
 	JSON    value403JSON `json:"-"`
 }
 
 // value403JSON contains the JSON metadata for the struct [Value403]
 type value403JSON struct {
-	Message     apijson.Field
 	Code        apijson.Field
+	Message     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -73,15 +73,15 @@ func (r value403JSON) RawJSON() string {
 }
 
 type Value404 struct {
-	Message string       `json:"message" api:"required"`
 	Code    string       `json:"code" api:"required"`
+	Message string       `json:"message" api:"required"`
 	JSON    value404JSON `json:"-"`
 }
 
 // value404JSON contains the JSON metadata for the struct [Value404]
 type value404JSON struct {
-	Message     apijson.Field
 	Code        apijson.Field
+	Message     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -95,15 +95,15 @@ func (r value404JSON) RawJSON() string {
 }
 
 type Value422 struct {
-	Message string       `json:"message" api:"required"`
 	Code    string       `json:"code" api:"required"`
+	Message string       `json:"message" api:"required"`
 	JSON    value422JSON `json:"-"`
 }
 
 // value422JSON contains the JSON metadata for the struct [Value422]
 type value422JSON struct {
-	Message     apijson.Field
 	Code        apijson.Field
+	Message     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -117,15 +117,15 @@ func (r value422JSON) RawJSON() string {
 }
 
 type Value500 struct {
-	Message string       `json:"message" api:"required"`
 	Code    string       `json:"code" api:"required"`
+	Message string       `json:"message" api:"required"`
 	JSON    value500JSON `json:"-"`
 }
 
 // value500JSON contains the JSON metadata for the struct [Value500]
 type value500JSON struct {
-	Message     apijson.Field
 	Code        apijson.Field
+	Message     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -143,33 +143,33 @@ type Nanoid = string
 type Namespace = string
 
 type ManagedDocVersion struct {
-	UID         string                       `json:"uid" api:"required"`
-	CreatedAt   float64                      `json:"createdAt" api:"required"`
-	Version     string                       `json:"version" api:"required"`
-	Upgraded    bool                         `json:"upgraded" api:"required"`
-	EmbedStatus ManagedDocVersionEmbedStatus `json:"embedStatus" api:"required,nullable"`
-	Tags        []string                     `json:"tags" api:"required"`
-	Tools       []ManagedDocVersionTool      `json:"tools"`
-	YamlSha     string                       `json:"yamlSha"`
-	JsonSha     string                       `json:"jsonSha"`
-	VersionSha  string                       `json:"versionSha"`
-	JSON        managedDocVersionJSON        `json:"-"`
+	CreatedAt     float64                      `json:"createdAt" api:"required"`
+	EmbedStatus   ManagedDocVersionEmbedStatus `json:"embedStatus" api:"required,nullable"`
+	EndpointCount int64                        `json:"endpointCount" api:"required,nullable"`
+	Tags          []string                     `json:"tags" api:"required"`
+	UID           string                       `json:"uid" api:"required"`
+	Upgraded      bool                         `json:"upgraded" api:"required"`
+	Version       string                       `json:"version" api:"required"`
+	JsonSha       string                       `json:"jsonSha"`
+	Tools         []ManagedDocVersionTool      `json:"tools"`
+	YamlSha       string                       `json:"yamlSha"`
+	JSON          managedDocVersionJSON        `json:"-"`
 }
 
 // managedDocVersionJSON contains the JSON metadata for the struct [ManagedDocVersion]
 type managedDocVersionJSON struct {
-	UID         apijson.Field
-	CreatedAt   apijson.Field
-	Version     apijson.Field
-	Upgraded    apijson.Field
-	EmbedStatus apijson.Field
-	Tags        apijson.Field
-	Tools       apijson.Field
-	YamlSha     apijson.Field
-	JsonSha     apijson.Field
-	VersionSha  apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	CreatedAt     apijson.Field
+	EmbedStatus   apijson.Field
+	EndpointCount apijson.Field
+	Tags          apijson.Field
+	UID           apijson.Field
+	Upgraded      apijson.Field
+	Version       apijson.Field
+	JsonSha       apijson.Field
+	Tools         apijson.Field
+	YamlSha       apijson.Field
+	raw           string
+	ExtraFields   map[string]apijson.Field
 }
 
 func (r *ManagedDocVersion) UnmarshalJSON(data []byte) (err error) {
@@ -181,17 +181,17 @@ func (r managedDocVersionJSON) RawJSON() string {
 }
 
 type ManagedDocVersionTool struct {
-	Path         string                              `json:"path" api:"required"`
-	Method       ManagedDocVersionToolsMethod        `json:"method" api:"required"`
 	EnabledTools []ManagedDocVersionToolsEnabledTool `json:"enabledTools" api:"required"`
+	Method       Method                              `json:"method" api:"required"`
+	Path         string                              `json:"path" api:"required"`
 	JSON         managedDocVersionToolJSON           `json:"-"`
 }
 
 // managedDocVersionToolJSON contains the JSON metadata for the struct [ManagedDocVersionTool]
 type managedDocVersionToolJSON struct {
-	Path         apijson.Field
-	Method       apijson.Field
 	EnabledTools apijson.Field
+	Method       apijson.Field
+	Path         apijson.Field
 	raw          string
 	ExtraFields  map[string]apijson.Field
 }
@@ -202,27 +202,6 @@ func (r *ManagedDocVersionTool) UnmarshalJSON(data []byte) (err error) {
 
 func (r managedDocVersionToolJSON) RawJSON() string {
 	return r.raw
-}
-
-type ManagedDocVersionToolsMethod string
-
-const (
-	ManagedDocVersionToolsMethodDelete  ManagedDocVersionToolsMethod = "delete"
-	ManagedDocVersionToolsMethodGet     ManagedDocVersionToolsMethod = "get"
-	ManagedDocVersionToolsMethodHead    ManagedDocVersionToolsMethod = "head"
-	ManagedDocVersionToolsMethodOptions ManagedDocVersionToolsMethod = "options"
-	ManagedDocVersionToolsMethodPatch   ManagedDocVersionToolsMethod = "patch"
-	ManagedDocVersionToolsMethodPost    ManagedDocVersionToolsMethod = "post"
-	ManagedDocVersionToolsMethodPut     ManagedDocVersionToolsMethod = "put"
-	ManagedDocVersionToolsMethodTrace   ManagedDocVersionToolsMethod = "trace"
-)
-
-func (r ManagedDocVersionToolsMethod) IsKnown() bool {
-	switch r {
-	case ManagedDocVersionToolsMethodDelete, ManagedDocVersionToolsMethodGet, ManagedDocVersionToolsMethodHead, ManagedDocVersionToolsMethodOptions, ManagedDocVersionToolsMethodPatch, ManagedDocVersionToolsMethodPost, ManagedDocVersionToolsMethodPut, ManagedDocVersionToolsMethodTrace:
-		return true
-	}
-	return false
 }
 
 type ManagedDocVersionToolsEnabledTool string

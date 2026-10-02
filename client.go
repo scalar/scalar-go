@@ -21,12 +21,15 @@ type Client struct {
 	Registry       *RegistryService
 	Schemas        *SchemaService
 	LoginPortals   *LoginPortalService
+	AccessGroups   *AccessGroupService
 	Rules          *RuleService
 	Themes         *ThemeService
 	Teams          *TeamService
 	ScalarDocs     *ScalarDocService
 	Namespaces     *NamespaceService
 	Authentication *AuthenticationService
+	Sdks           *SdkService
+	Mcp            *McpService
 }
 
 // DefaultClientOptions read from the environment. This should be used to initialize
@@ -38,6 +41,9 @@ func DefaultClientOptions() []option.RequestOption {
 	}
 	if o, ok := os.LookupEnv("BEARER_AUTH"); ok {
 		defaults = append(defaults, option.WithBearerAuth(o))
+	}
+	if o, ok := os.LookupEnv("SCALAR_OAUTH_TOKEN"); ok {
+		defaults = append(defaults, option.WithOAuth2(o))
 	}
 	if o, ok := os.LookupEnv("SCALAR_CUSTOM_HEADERS"); ok {
 		for _, line := range strings.Split(o, "\n") {
@@ -62,12 +68,15 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r.Registry = NewRegistryService(opts...)
 	r.Schemas = NewSchemaService(opts...)
 	r.LoginPortals = NewLoginPortalService(opts...)
+	r.AccessGroups = NewAccessGroupService(opts...)
 	r.Rules = NewRuleService(opts...)
 	r.Themes = NewThemeService(opts...)
 	r.Teams = NewTeamService(opts...)
 	r.ScalarDocs = NewScalarDocService(opts...)
 	r.Namespaces = NewNamespaceService(opts...)
 	r.Authentication = NewAuthenticationService(opts...)
+	r.Sdks = NewSdkService(opts...)
+	r.Mcp = NewMcpService(opts...)
 
 	return
 }

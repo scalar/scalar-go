@@ -73,7 +73,7 @@ func (r *RegistryService) ListAllAPIDocuments(ctx context.Context, opts ...optio
 //
 // Example:
 //
-//	registry, err := client.Registry.ListAPIDocuments(context.Background(), "namespace")
+//	registry, err := client.Registry.ListAPIDocuments(context.Background(), "acme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -105,11 +105,11 @@ func (r *RegistryService) ListAPIDocuments(ctx context.Context, namespace string
 //
 // Example:
 //
-//	registry, err := client.Registry.NewAPIDocument(context.Background(), "namespace", sdk.RegistryNewAPIDocumentParams{
-//		Document: sdk.F[string](""),
-//		Slug:     sdk.F[string](""),
-//		Title:    sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	registry, err := client.Registry.NewAPIDocument(context.Background(), "acme", sdk.RegistryNewAPIDocumentParams{
+//		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+//		Slug:     sdk.F[string]("acme-api"),
+//		Title:    sdk.F[string]("Acme API"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -143,7 +143,7 @@ func (r *RegistryService) NewAPIDocument(ctx context.Context, namespace string, 
 //
 // Example:
 //
-//	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "namespace", "slug", sdk.RegistryUpdateAPIDocumentParams{})
+//	registry, err := client.Registry.UpdateAPIDocument(context.Background(), "acme", "acme-api", sdk.RegistryUpdateAPIDocumentParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -179,7 +179,7 @@ func (r *RegistryService) UpdateAPIDocument(ctx context.Context, namespace strin
 //
 // Example:
 //
-//	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "namespace", "slug")
+//	registry, err := client.Registry.DeleteAPIDocument(context.Background(), "acme", "acme-api")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -216,7 +216,7 @@ func (r *RegistryService) DeleteAPIDocument(ctx context.Context, namespace strin
 //
 // Example:
 //
-//	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+//	registry, err := client.Registry.GetAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -259,8 +259,8 @@ func (r *RegistryService) GetAPIDocumentVersion(ctx context.Context, namespace s
 //
 // Example:
 //
-//	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "namespace", "slug", "semver", sdk.RegistryUpdateAPIDocumentVersionParams{
-//		Document: sdk.F[string](""),
+//	registry, err := client.Registry.UpdateAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0", sdk.RegistryUpdateAPIDocumentVersionParams{
+//		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -302,7 +302,7 @@ func (r *RegistryService) UpdateAPIDocumentVersion(ctx context.Context, namespac
 //
 // Example:
 //
-//	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "namespace", "slug", "semver")
+//	registry, err := client.Registry.DeleteAPIDocumentVersion(context.Background(), "acme", "acme-api", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -343,7 +343,7 @@ func (r *RegistryService) DeleteAPIDocumentVersion(ctx context.Context, namespac
 //
 // Example:
 //
-//	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "namespace", "slug", "semver")
+//	registry, err := client.Registry.ListAPIDocumentVersionMetadata(context.Background(), "acme", "acme-api", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -384,9 +384,9 @@ func (r *RegistryService) ListAPIDocumentVersionMetadata(ctx context.Context, na
 //
 // Example:
 //
-//	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentVersionParams{
-//		Document: sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	registry, err := client.Registry.NewAPIDocumentVersion(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentVersionParams{
+//		Document: sdk.F[string]("{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Acme API\",\"version\":\"1.2.0\"},\"paths\":{}}"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -424,9 +424,9 @@ func (r *RegistryService) NewAPIDocumentVersion(ctx context.Context, namespace s
 //
 // Example:
 //
-//	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryNewAPIDocumentAccessGroupParams{
+//	registry, err := client.Registry.NewAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryNewAPIDocumentAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {
@@ -465,9 +465,9 @@ func (r *RegistryService) NewAPIDocumentAccessGroup(ctx context.Context, namespa
 //
 // Example:
 //
-//	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "namespace", "slug", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
+//	registry, err := client.Registry.DeleteAPIDocumentAccessGroup(context.Background(), "acme", "acme-api", sdk.RegistryDeleteAPIDocumentAccessGroupParams{
 //		AccessGroup: sdk.AccessGroupParam{
-//			AccessGroupSlug: sdk.F[string]("xxx"),
+//			AccessGroupSlug: sdk.F[string]("acme-api"),
 //		},
 //	})
 //	if err != nil {
@@ -490,37 +490,29 @@ func (r *RegistryService) DeleteAPIDocumentAccessGroup(ctx context.Context, name
 	return res, err
 }
 
-type AccessGroupParam struct {
-	AccessGroupSlug param.Field[string] `json:"accessGroupSlug" api:"required"`
-}
-
-func (r AccessGroupParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
 type APIDocument struct {
+	Description string                     `json:"description" api:"required"`
+	IsPrivate   bool                       `json:"isPrivate" api:"required"`
+	Namespace   string                     `json:"namespace" api:"required"`
+	Slug        string                     `json:"slug" api:"required"`
+	Tags        string                     `json:"tags" api:"required"`
+	Title       string                     `json:"title" api:"required"`
 	UID         string                     `json:"uid" api:"required"`
 	Version     string                     `json:"version" api:"required"`
-	Title       string                     `json:"title" api:"required"`
-	Slug        string                     `json:"slug" api:"required"`
-	Description string                     `json:"description" api:"required"`
-	Namespace   string                     `json:"namespace" api:"required"`
-	IsPrivate   bool                       `json:"isPrivate" api:"required"`
-	Tags        interface{}                `json:"tags" api:"required"`
 	Versions    []shared.ManagedDocVersion `json:"versions" api:"required"`
 	JSON        apiDocumentJSON            `json:"-"`
 }
 
 // apiDocumentJSON contains the JSON metadata for the struct [APIDocument]
 type apiDocumentJSON struct {
+	Description apijson.Field
+	IsPrivate   apijson.Field
+	Namespace   apijson.Field
+	Slug        apijson.Field
+	Tags        apijson.Field
+	Title       apijson.Field
 	UID         apijson.Field
 	Version     apijson.Field
-	Title       apijson.Field
-	Slug        apijson.Field
-	Description apijson.Field
-	Namespace   apijson.Field
-	IsPrivate   apijson.Field
-	Tags        apijson.Field
 	Versions    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -532,6 +524,36 @@ func (r *APIDocument) UnmarshalJSON(data []byte) (err error) {
 
 func (r apiDocumentJSON) RawJSON() string {
 	return r.raw
+}
+
+type AccessGroupParam struct {
+	AccessGroupSlug param.Field[string] `json:"accessGroupSlug" api:"required"`
+}
+
+func (r AccessGroupParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type Method string
+
+const (
+	MethodDelete  Method = "delete"
+	MethodGet     Method = "get"
+	MethodHead    Method = "head"
+	MethodOptions Method = "options"
+	MethodPatch   Method = "patch"
+	MethodPost    Method = "post"
+	MethodPut     Method = "put"
+	MethodQuery   Method = "query"
+	MethodTrace   Method = "trace"
+)
+
+func (r Method) IsKnown() bool {
+	switch r {
+	case MethodDelete, MethodGet, MethodHead, MethodOptions, MethodPatch, MethodPost, MethodPut, MethodQuery, MethodTrace:
+		return true
+	}
+	return false
 }
 
 type RegistryNewAPIDocumentParams struct {
@@ -560,8 +582,7 @@ func (r RegistryUpdateAPIDocumentParams) MarshalJSON() (data []byte, err error) 
 }
 
 type RegistryUpdateAPIDocumentVersionParams struct {
-	Document            param.Field[string] `json:"document" api:"required"`
-	LastKnownVersionSha param.Field[string] `json:"lastKnownVersionSha"`
+	Document param.Field[string] `json:"document" api:"required"`
 }
 
 func (r RegistryUpdateAPIDocumentVersionParams) MarshalJSON() (data []byte, err error) {
@@ -569,10 +590,9 @@ func (r RegistryUpdateAPIDocumentVersionParams) MarshalJSON() (data []byte, err 
 }
 
 type RegistryNewAPIDocumentVersionParams struct {
-	Document            param.Field[string] `json:"document" api:"required"`
-	Version             param.Field[string] `json:"version" api:"required"`
-	Force               param.Field[bool]   `json:"force"`
-	LastKnownVersionSha param.Field[string] `json:"lastKnownVersionSha"`
+	Document param.Field[string] `json:"document" api:"required"`
+	Version  param.Field[string] `json:"version" api:"required"`
+	Force    param.Field[bool]   `json:"force"`
 }
 
 func (r RegistryNewAPIDocumentVersionParams) MarshalJSON() (data []byte, err error) {
@@ -596,23 +616,21 @@ func (r RegistryDeleteAPIDocumentAccessGroupParams) MarshalJSON() (data []byte, 
 }
 
 type RegistryNewAPIDocumentResponse struct {
+	JsonSha    string                             `json:"jsonSha" api:"required"`
+	Title      string                             `json:"title" api:"required"`
 	UID        string                             `json:"uid" api:"required"`
 	VersionUID string                             `json:"versionUid" api:"required"`
-	Title      string                             `json:"title" api:"required"`
-	JsonSha    string                             `json:"jsonSha" api:"required"`
 	YamlSha    string                             `json:"yamlSha" api:"required"`
-	VersionSha string                             `json:"versionSha" api:"required"`
 	JSON       registryNewAPIDocumentResponseJSON `json:"-"`
 }
 
 // registryNewAPIDocumentResponseJSON contains the JSON metadata for the struct [RegistryNewAPIDocumentResponse]
 type registryNewAPIDocumentResponseJSON struct {
+	JsonSha     apijson.Field
+	Title       apijson.Field
 	UID         apijson.Field
 	VersionUID  apijson.Field
-	Title       apijson.Field
-	JsonSha     apijson.Field
 	YamlSha     apijson.Field
-	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -626,17 +644,15 @@ func (r registryNewAPIDocumentResponseJSON) RawJSON() string {
 }
 
 type RegistryUpdateAPIDocumentVersionResponse struct {
-	JsonSha    string                                       `json:"jsonSha" api:"required"`
-	YamlSha    string                                       `json:"yamlSha" api:"required"`
-	VersionSha string                                       `json:"versionSha" api:"required"`
-	JSON       registryUpdateAPIDocumentVersionResponseJSON `json:"-"`
+	JsonSha string                                       `json:"jsonSha" api:"required"`
+	YamlSha string                                       `json:"yamlSha" api:"required"`
+	JSON    registryUpdateAPIDocumentVersionResponseJSON `json:"-"`
 }
 
 // registryUpdateAPIDocumentVersionResponseJSON contains the JSON metadata for the struct [RegistryUpdateAPIDocumentVersionResponse]
 type registryUpdateAPIDocumentVersionResponseJSON struct {
 	JsonSha     apijson.Field
 	YamlSha     apijson.Field
-	VersionSha  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

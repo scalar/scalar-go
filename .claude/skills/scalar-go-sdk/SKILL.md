@@ -29,6 +29,7 @@ client := sdk.NewClient()
 Provide credentials using the options below. Environment variables are read automatically when the target runtime supports them:
 
 - `option.WithBearerAuth` (env: `BEARER_AUTH`) — Credential for the BearerAuth client option.
+- `option.WithOAuth2` (env: `SCALAR_OAUTH_TOKEN`) — Credential for the OAuth2 client option.
 
 ## Calling operations
 

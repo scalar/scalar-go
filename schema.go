@@ -51,7 +51,7 @@ func NewSchemaService(opts ...option.RequestOption) (r *SchemaService) {
 //
 // Example:
 //
-//	schema, err := client.Schemas.List(context.Background(), "namespace")
+//	schema, err := client.Schemas.List(context.Background(), "acme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -83,11 +83,11 @@ func (r *SchemaService) List(ctx context.Context, namespace string, opts ...opti
 //
 // Example:
 //
-//	schema, err := client.Schemas.New(context.Background(), "namespace", sdk.SchemaNewParams{
-//		Document: sdk.F[string](""),
-//		Slug:     sdk.F[string](""),
-//		Title:    sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	schema, err := client.Schemas.New(context.Background(), "acme", sdk.SchemaNewParams{
+//		Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+//		Slug:     sdk.F[string]("customer"),
+//		Title:    sdk.F[string]("Customer"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -121,7 +121,7 @@ func (r *SchemaService) New(ctx context.Context, namespace string, body SchemaNe
 //
 // Example:
 //
-//	schema, err := client.Schemas.Update(context.Background(), "namespace", "slug", sdk.SchemaUpdateParams{})
+//	schema, err := client.Schemas.Update(context.Background(), "acme", "customer", sdk.SchemaUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -157,7 +157,7 @@ func (r *SchemaService) Update(ctx context.Context, namespace string, slug strin
 //
 // Example:
 //
-//	schema, err := client.Schemas.Delete(context.Background(), "namespace", "slug")
+//	schema, err := client.Schemas.Delete(context.Background(), "acme", "customer")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -179,24 +179,24 @@ func (r *SchemaService) Delete(ctx context.Context, namespace string, slug strin
 }
 
 type Schema struct {
-	UID         string          `json:"uid" api:"required"`
-	Title       string          `json:"title" api:"required"`
-	Description string          `json:"description" api:"required"`
-	Slug        string          `json:"slug" api:"required"`
-	Namespace   string          `json:"namespace" api:"required"`
-	IsPrivate   bool            `json:"isPrivate" api:"required"`
-	Versions    []SchemaVersion `json:"versions" api:"required"`
-	JSON        schemaJSON      `json:"-"`
+	Description string                 `json:"description" api:"required"`
+	IsPrivate   bool                   `json:"isPrivate" api:"required"`
+	Namespace   string                 `json:"namespace" api:"required"`
+	Slug        string                 `json:"slug" api:"required"`
+	Title       string                 `json:"title" api:"required"`
+	UID         string                 `json:"uid" api:"required"`
+	Versions    []ManagedSchemaVersion `json:"versions" api:"required"`
+	JSON        schemaJSON             `json:"-"`
 }
 
 // schemaJSON contains the JSON metadata for the struct [Schema]
 type schemaJSON struct {
-	UID         apijson.Field
-	Title       apijson.Field
 	Description apijson.Field
-	Slug        apijson.Field
-	Namespace   apijson.Field
 	IsPrivate   apijson.Field
+	Namespace   apijson.Field
+	Slug        apijson.Field
+	Title       apijson.Field
+	UID         apijson.Field
 	Versions    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -207,6 +207,36 @@ func (r *Schema) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r schemaJSON) RawJSON() string {
+	return r.raw
+}
+
+type ManagedSchemaVersion struct {
+	CreatedAt int64                    `json:"createdAt" api:"required"`
+	UID       string                   `json:"uid" api:"required"`
+	UpdatedAt int64                    `json:"updatedAt" api:"required"`
+	Version   string                   `json:"version" api:"required"`
+	JsonSha   string                   `json:"jsonSha"`
+	YamlSha   string                   `json:"yamlSha"`
+	JSON      managedSchemaVersionJSON `json:"-"`
+}
+
+// managedSchemaVersionJSON contains the JSON metadata for the struct [ManagedSchemaVersion]
+type managedSchemaVersionJSON struct {
+	CreatedAt   apijson.Field
+	UID         apijson.Field
+	UpdatedAt   apijson.Field
+	Version     apijson.Field
+	JsonSha     apijson.Field
+	YamlSha     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ManagedSchemaVersion) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r managedSchemaVersionJSON) RawJSON() string {
 	return r.raw
 }
 
@@ -231,30 +261,4 @@ type SchemaUpdateParams struct {
 
 func (r SchemaUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
-}
-
-type SchemaVersion struct {
-	UID       string            `json:"uid" api:"required"`
-	CreatedAt int64             `json:"createdAt" api:"required"`
-	UpdatedAt int64             `json:"updatedAt" api:"required"`
-	Version   string            `json:"version" api:"required"`
-	JSON      schemaVersionJSON `json:"-"`
-}
-
-// schemaVersionJSON contains the JSON metadata for the struct [SchemaVersion]
-type schemaVersionJSON struct {
-	UID         apijson.Field
-	CreatedAt   apijson.Field
-	UpdatedAt   apijson.Field
-	Version     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *SchemaVersion) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r schemaVersionJSON) RawJSON() string {
-	return r.raw
 }
