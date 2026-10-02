@@ -19,7 +19,7 @@ import (
 // Smoke test: calls every generated operation once to confirm the SDK can reach each endpoint.
 // Run it from this repo with `go run tests/smoke-test.go`. The generator also runs this file
 // against a mock server and reads the JSON report produced via SCALAR_SMOKE_REPORT.
-var client = sdk.NewClient(option.WithBearerAuth("test"), option.WithHeader("Authorization", "Bearer test"), option.WithHeader("Authorization", "Bearer test"), option.WithMaxRetries(2), option.WithRequestTimeout(10*time.Second))
+var client = sdk.NewClient(option.WithBearerAuth("test"), option.WithOAuth2("test"), option.WithHeader("Authorization", "Bearer test"), option.WithHeader("Authorization", "Bearer test"), option.WithMaxRetries(2), option.WithRequestTimeout(10*time.Second))
 
 type smokeResult struct {
 	Operation  string `json:"operation"`
@@ -1410,78 +1410,6 @@ func _smokeCase120() {
 	fmt.Println(installation)
 }
 
-func _smokeCase121() {
-	oAuth, err := client.OAuth.OauthAuthorize(context.Background())
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(oAuth)
-}
-
-func _smokeCase122() {
-	oAuth, err := client.OAuth.OauthToken(context.Background(), sdk.OAuthOauthTokenParams{
-		GrantType: sdk.F[string](""),
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(oAuth)
-}
-
-func _smokeCase123() {
-	oAuth, err := client.OAuth.OauthToken(context.Background(), sdk.OAuthOauthTokenParams{
-		GrantType:    sdk.F[string](""),
-		ClientID:     sdk.F[string](""),
-		ClientSecret: sdk.F[string](""),
-		Code:         sdk.F[string](""),
-		CodeVerifier: sdk.F[string](""),
-		RedirectURI:  sdk.F[string](""),
-		RefreshToken: sdk.F[string](""),
-		Scope:        sdk.F[string](""),
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(oAuth)
-}
-
-func _smokeCase124() {
-	oAuth, err := client.OAuth.OauthRevoke(context.Background(), sdk.OAuthOauthRevokeParams{
-		Token: sdk.F[string](""),
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(oAuth)
-}
-
-func _smokeCase125() {
-	oAuth, err := client.OAuth.OauthRevoke(context.Background(), sdk.OAuthOauthRevokeParams{
-		Token:         sdk.F[string](""),
-		ClientID:      sdk.F[string](""),
-		ClientSecret:  sdk.F[string](""),
-		TokenTypeHint: sdk.F[string](""),
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(oAuth)
-}
-
-func _smokeCase126() {
-	oAuth, err := client.OAuth.OauthAuthorizationServerMetadata(context.Background())
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(oAuth)
-}
-
 var cases = []smokeCase{
 	{
 		Operation: "listAllApiDocuments",
@@ -2388,52 +2316,6 @@ var cases = []smokeCase{
 		Method:    "DELETE",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}/access-group",
 		Run:       _smokeCase120,
-	},
-
-	{
-		Operation: "oauthAuthorize",
-		Method:    "GET",
-		Path:      "/v1/oauth/authorize",
-		Run:       _smokeCase121,
-	},
-
-	{
-		Operation: "oauthToken",
-		Method:    "POST",
-		Path:      "/v1/oauth/token",
-		Label:     "required params",
-		Run:       _smokeCase122,
-	},
-
-	{
-		Operation: "oauthToken",
-		Method:    "POST",
-		Path:      "/v1/oauth/token",
-		Label:     "all params",
-		Run:       _smokeCase123,
-	},
-
-	{
-		Operation: "oauthRevoke",
-		Method:    "POST",
-		Path:      "/v1/oauth/revoke",
-		Label:     "required params",
-		Run:       _smokeCase124,
-	},
-
-	{
-		Operation: "oauthRevoke",
-		Method:    "POST",
-		Path:      "/v1/oauth/revoke",
-		Label:     "all params",
-		Run:       _smokeCase125,
-	},
-
-	{
-		Operation: "oauthAuthorizationServerMetadata",
-		Method:    "GET",
-		Path:      "/.well-known/oauth-authorization-server",
-		Run:       _smokeCase126,
 	},
 }
 

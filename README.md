@@ -71,6 +71,7 @@ Pass credentials to the generated client constructor. Environment variables are 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
 | `option.WithBearerAuth` | `string \| provider` | - | Credential for the BearerAuth client option. Defaults to BEARER_AUTH. |
+| `option.WithOAuth2` | `string \| provider` | - | Credential for the OAuth2 client option. Defaults to SCALAR_OAUTH_TOKEN. |
 
 Declared schemes:
 
@@ -117,6 +118,7 @@ client := sdk.NewClient(
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
 | `option.WithBearerAuth` | `func(string) option.RequestOption` | `os.Getenv("BEARER_AUTH")` | Credential for the BearerAuth client option. |
+| `option.WithOAuth2` | `func(string) option.RequestOption` | `os.Getenv("SCALAR_OAUTH_TOKEN")` | Credential for the OAuth2 client option. |
 | `option.WithEnvironmentProduction` | `func() option.RequestOption` | - | Select the production API environment. |
 | `option.WithBaseURL` | `func(string) option.RequestOption` | `os.Getenv("SCALAR_BASE_URL")` | Override the default API base URL. |
 | `option.WithRequestTimeout` | `func(time.Duration) option.RequestOption` | - | Maximum time to wait for each request attempt. |

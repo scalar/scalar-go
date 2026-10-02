@@ -30,7 +30,6 @@ type Client struct {
 	Authentication *AuthenticationService
 	Sdks           *SdkService
 	Mcp            *McpService
-	OAuth          *OAuthService
 }
 
 // DefaultClientOptions read from the environment. This should be used to initialize
@@ -42,6 +41,9 @@ func DefaultClientOptions() []option.RequestOption {
 	}
 	if o, ok := os.LookupEnv("BEARER_AUTH"); ok {
 		defaults = append(defaults, option.WithBearerAuth(o))
+	}
+	if o, ok := os.LookupEnv("SCALAR_OAUTH_TOKEN"); ok {
+		defaults = append(defaults, option.WithOAuth2(o))
 	}
 	if o, ok := os.LookupEnv("SCALAR_CUSTOM_HEADERS"); ok {
 		for _, line := range strings.Split(o, "\n") {
@@ -75,7 +77,6 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r.Authentication = NewAuthenticationService(opts...)
 	r.Sdks = NewSdkService(opts...)
 	r.Mcp = NewMcpService(opts...)
-	r.OAuth = NewOAuthService(opts...)
 
 	return
 }

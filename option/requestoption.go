@@ -271,3 +271,11 @@ func WithBearerAuth(value string) RequestOption {
 		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.BearerAuth)))
 	})
 }
+
+// WithOAuth2 returns a RequestOption that sets the client setting "OAuth2".
+func WithOAuth2(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.OAuth2 = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.OAuth2)))
+	})
+}
