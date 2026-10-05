@@ -70,8 +70,8 @@ Pass credentials to the generated client constructor. Environment variables are 
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `option.WithBearerAuth` | `string \| provider` | - | Credential for the BearerAuth client option. Defaults to BEARER_AUTH. |
-| `option.WithOAuth2` | `string \| provider` | - | Credential for the OAuth2 client option. Defaults to SCALAR_OAUTH_TOKEN. |
+| `option.WithBearerAuth` | `func(string) option.RequestOption` | - | Credential for the BearerAuth client option. Defaults to BEARER_AUTH. |
+| `option.WithOAuth2` | `func(string) option.RequestOption` | - | Credential for the OAuth2 client option. Defaults to SCALAR_OAUTH_TOKEN. |
 
 Declared schemes:
 
@@ -89,7 +89,7 @@ registry, err := client.Registry.ListAllAPIDocuments(context.Background())
 if err != nil {
 	var apiErr *sdk.Error
 	if errors.As(err, &apiErr) {
-		fmt.Println(apiErr.StatusCode, apiErr.RawJSON())
+		fmt.Println(apiErr.StatusCode, apiErr.JSON.RawJSON())
 	}
 	panic(err)
 }
@@ -148,7 +148,7 @@ Generated clients support request timeouts and retry temporary failures such as 
 ## Helpers
 
 - Pass `option.WithResponseInto(&raw)` to capture the underlying `*http.Response` for a request.
-- Use the generated `String`, `Int`, `Bool`, `Float`, `Time`, `Opt`, and `Ptr` helpers when setting optional params.
+- Use the generated `F`, `Null`, `Raw`, `Int`, `String`, `Float`, `Bool`, and `FileParam` helpers when setting optional params.
 
 <br />
 
