@@ -182,7 +182,7 @@ func (r managedDocVersionJSON) RawJSON() string {
 
 type ManagedDocVersionTool struct {
 	EnabledTools []ManagedDocVersionToolsEnabledTool `json:"enabledTools" api:"required"`
-	Method       Method                              `json:"method" api:"required"`
+	Method       string                              `json:"method" api:"required"`
 	Path         string                              `json:"path" api:"required"`
 	JSON         managedDocVersionToolJSON           `json:"-"`
 }

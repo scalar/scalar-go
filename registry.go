@@ -534,28 +534,6 @@ func (r AccessGroupParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type Method string
-
-const (
-	MethodDelete  Method = "delete"
-	MethodGet     Method = "get"
-	MethodHead    Method = "head"
-	MethodOptions Method = "options"
-	MethodPatch   Method = "patch"
-	MethodPost    Method = "post"
-	MethodPut     Method = "put"
-	MethodQuery   Method = "query"
-	MethodTrace   Method = "trace"
-)
-
-func (r Method) IsKnown() bool {
-	switch r {
-	case MethodDelete, MethodGet, MethodHead, MethodOptions, MethodPatch, MethodPost, MethodPut, MethodQuery, MethodTrace:
-		return true
-	}
-	return false
-}
-
 type RegistryNewAPIDocumentParams struct {
 	Document    param.Field[string] `json:"document" api:"required"`
 	Slug        param.Field[string] `json:"slug" api:"required"`
