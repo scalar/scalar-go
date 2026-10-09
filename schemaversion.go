@@ -14,7 +14,6 @@ import (
 	"github.com/scalar/scalar-go/internal/param"
 	"github.com/scalar/scalar-go/internal/requestconfig"
 	"github.com/scalar/scalar-go/option"
-	"github.com/scalar/scalar-go/shared"
 )
 
 // SchemaVersionService contains methods and other services that help with interacting
@@ -49,7 +48,7 @@ func NewSchemaVersionService(opts ...option.RequestOption) (r *SchemaVersionServ
 //
 // Example:
 //
-//	version, err := client.Schemas.Version.Get(context.Background(), "namespace", "slug", "semver")
+//	version, err := client.Schemas.Version.Get(context.Background(), "acme", "customer", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -91,7 +90,7 @@ func (r *SchemaVersionService) Get(ctx context.Context, namespace string, slug s
 //
 // Example:
 //
-//	version, err := client.Schemas.Version.Delete(context.Background(), "namespace", "slug", "semver")
+//	version, err := client.Schemas.Version.Delete(context.Background(), "acme", "customer", "1.2.0")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -128,20 +127,20 @@ func (r *SchemaVersionService) Delete(ctx context.Context, namespace string, slu
 //
 // Returns:
 //
-//	*shared.UID: Default Response
+//	*SchemaVersionNewResponse: Default Response
 //
 // Example:
 //
-//	version, err := client.Schemas.Version.New(context.Background(), "namespace", "slug", sdk.SchemaVersionNewParams{
-//		Document: sdk.F[string](""),
-//		Version:  sdk.F[string]("x"),
+//	version, err := client.Schemas.Version.New(context.Background(), "acme", "customer", sdk.SchemaVersionNewParams{
+//		Document: sdk.F[string]("{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"examples\":[\"Acme\"]}}}"),
+//		Version:  sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
 //	}
 //
 //	fmt.Println(version)
-func (r *SchemaVersionService) New(ctx context.Context, namespace string, slug string, body SchemaVersionNewParams, opts ...option.RequestOption) (res *shared.UID, err error) {
+func (r *SchemaVersionService) New(ctx context.Context, namespace string, slug string, body SchemaVersionNewParams, opts ...option.RequestOption) (res *SchemaVersionNewResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if namespace == "" {
 		err = errors.New("missing required namespace parameter")
@@ -159,8 +158,29 @@ func (r *SchemaVersionService) New(ctx context.Context, namespace string, slug s
 type SchemaVersionNewParams struct {
 	Document param.Field[string] `json:"document" api:"required"`
 	Version  param.Field[string] `json:"version" api:"required"`
+	Force    param.Field[bool]   `json:"force"`
 }
 
 func (r SchemaVersionNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
+}
+
+type SchemaVersionNewResponse struct {
+	UID  string                       `json:"uid" api:"required"`
+	JSON schemaVersionNewResponseJSON `json:"-"`
+}
+
+// schemaVersionNewResponseJSON contains the JSON metadata for the struct [SchemaVersionNewResponse]
+type schemaVersionNewResponseJSON struct {
+	UID         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *SchemaVersionNewResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r schemaVersionNewResponseJSON) RawJSON() string {
+	return r.raw
 }

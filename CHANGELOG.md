@@ -1,5 +1,54 @@
 # Changelog
 
+## [0.6.0](https://github.com/scalar/scalar-go/compare/v0.5.0...v0.6.0) (2026-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** Schema `method` changed from `enum(delete | get | head | …)` to `string`.
+* **api:** Configuration of `oauth2` auth scheme `OAuth2` changed.
+* **api:** 10 breaking changes to the SDK surface.
+    - Removed operation `oAuth.oauthAuthorize` (`GET /v1/oauth/authorize`).
+    - Removed operation `oAuth.oauthToken` (`POST /v1/oauth/token`).
+    - Removed operation `oAuth.oauthRevoke` (`POST /v1/oauth/revoke`).
+    - Removed operation `oAuth.oauthAuthorizationServerMetadata` (`GET /.well-known/oauth-authorization-server`).
+    - Removed schema `oauth_token`.
+    - Removed schema `oauth_scope`.
+    - Removed schema `oauth_error`.
+    - Removed schema `oauth_token_request`.
+    - Removed schema `oauth_revoke_request`.
+    - Removed schema `oauth_authorization_server_metadata`.
+* **api:** 4 breaking changes to the SDK surface.
+    - Property `api_document.tags` type changed from `unknown` to `string`.
+    - Property `managed_doc_version.tools` type changed from `Array<object>` to `Array<object>`.
+    - Property `github_project.accessGroups` type changed from `unknown` to `string`.
+    - Property `docs_project.accessGroups` type changed from `unknown` to `string`.
+* **api:** 10 breaking changes to the SDK surface.
+    - Removed body field `lastKnownVersionSha` from `registry.updateApiDocumentVersion`.
+    - Removed body field `lastKnownVersionSha` from `registry.createApiDocumentVersion`.
+    - Response of `schemas.version.create` changed from `uid` to `none`.
+    - Schema `slug` shape changed.
+    - Schema `namespace` shape changed.
+    - Added required property `managed_doc_version.endpointCount`.
+    - Removed optional property `managed_doc_version.versionSha`.
+    - Schema `method` shape changed.
+    - Added required property `github_project.userInfoHookUrl`.
+    - Added required property `github_project.analyticsEnabled`.
+
+### Features
+
+* **api:** add operation accessGroups.create (+66 more changes) ([2525329](https://github.com/scalar/scalar-go/commit/2525329c943198e1beafb9724983cbf493472e89))
+* **api:** remove operation oAuth.oauthAuthorize (+9 more changes) ([72b0fac](https://github.com/scalar/scalar-go/commit/72b0fac3c970a9d224c55bd908c0c9854d09509d))
+* **api:** update auth scheme OAuth2 (+1 more change) ([2051889](https://github.com/scalar/scalar-go/commit/2051889577d555128ed32c9e005e0263b7984b1f))
+* **api:** update property api_document.tags (+3 more changes) ([c520e7d](https://github.com/scalar/scalar-go/commit/c520e7db126836c265c2a8cc59b4a0a7f5ea11c8))
+* **api:** update schema method ([a9f6eef](https://github.com/scalar/scalar-go/commit/a9f6eef404efad655b9986d29a265ca830270067))
+* **api:** update SDK surface (15 changes) ([adfaf35](https://github.com/scalar/scalar-go/commit/adfaf358d7cdad8539e30d1743d1fd1f3c4eb40d))
+
+
+### Chores
+
+* **api:** update generated SDK content ([db06c1c](https://github.com/scalar/scalar-go/commit/db06c1cc66c872ceb784e2379d44f3a1da85921a))
+
 ## [0.5.0](https://github.com/scalar/scalar-go/compare/v0.4.0...v0.5.0) (2026-09-15)
 
 

@@ -74,9 +74,9 @@ func (r *ThemeService) List(ctx context.Context, opts ...option.RequestOption) (
 // Example:
 //
 //	theme, err := client.Themes.New(context.Background(), sdk.ThemeNewParams{
-//		Document: sdk.F[string](""),
-//		Name:     sdk.F[string](""),
-//		Slug:     sdk.F[string](""),
+//		Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
+//		Name:     sdk.F[string]("Acme Theme"),
+//		Slug:     sdk.F[string]("acme-theme"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -105,7 +105,7 @@ func (r *ThemeService) New(ctx context.Context, body ThemeNewParams, opts ...opt
 //
 // Example:
 //
-//	theme, err := client.Themes.Update(context.Background(), "slug", sdk.ThemeUpdateParams{})
+//	theme, err := client.Themes.Update(context.Background(), "acme-theme", sdk.ThemeUpdateParams{})
 //	if err != nil {
 //		panic(err)
 //	}
@@ -137,8 +137,8 @@ func (r *ThemeService) Update(ctx context.Context, slug string, body ThemeUpdate
 //
 // Example:
 //
-//	theme, err := client.Themes.ReplaceDocument(context.Background(), "slug", sdk.ThemeReplaceDocumentParams{
-//		Document: sdk.F[string](""),
+//	theme, err := client.Themes.ReplaceDocument(context.Background(), "acme-theme", sdk.ThemeReplaceDocumentParams{
+//		Document: sdk.F[string](":root { --scalar-color-1: #1f2937; }"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -170,7 +170,7 @@ func (r *ThemeService) ReplaceDocument(ctx context.Context, slug string, body Th
 //
 // Example:
 //
-//	theme, err := client.Themes.Delete(context.Background(), "slug")
+//	theme, err := client.Themes.Delete(context.Background(), "acme-theme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -201,7 +201,7 @@ func (r *ThemeService) Delete(ctx context.Context, slug string, opts ...option.R
 //
 // Example:
 //
-//	theme, err := client.Themes.Get(context.Background(), "slug")
+//	theme, err := client.Themes.Get(context.Background(), "acme-theme")
 //	if err != nil {
 //		panic(err)
 //	}
@@ -220,19 +220,19 @@ func (r *ThemeService) Get(ctx context.Context, slug string, opts ...option.Requ
 }
 
 type Theme struct {
-	UID         string    `json:"uid" api:"required"`
-	Name        string    `json:"name" api:"required"`
 	Description string    `json:"description" api:"required"`
+	Name        string    `json:"name" api:"required"`
 	Slug        string    `json:"slug" api:"required"`
+	UID         string    `json:"uid" api:"required"`
 	JSON        themeJSON `json:"-"`
 }
 
 // themeJSON contains the JSON metadata for the struct [Theme]
 type themeJSON struct {
-	UID         apijson.Field
-	Name        apijson.Field
 	Description apijson.Field
+	Name        apijson.Field
 	Slug        apijson.Field
+	UID         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

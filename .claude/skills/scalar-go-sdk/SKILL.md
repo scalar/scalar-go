@@ -29,6 +29,7 @@ client := sdk.NewClient()
 Provide credentials using the options below. Environment variables are read automatically when the target runtime supports them:
 
 - `option.WithBearerAuth` (env: `BEARER_AUTH`) — Credential for the BearerAuth client option.
+- `option.WithOAuth2` (env: `SCALAR_OAUTH_TOKEN`) — Credential for the OAuth2 client option.
 
 ## Calling operations
 
@@ -69,7 +70,7 @@ registry, err := client.Registry.ListAllAPIDocuments(context.Background())
 if err != nil {
 	var apiErr *sdk.Error
 	if errors.As(err, &apiErr) {
-		fmt.Println(apiErr.StatusCode, apiErr.RawJSON())
+		fmt.Println(apiErr.StatusCode, apiErr.JSON.RawJSON())
 	}
 	panic(err)
 }
