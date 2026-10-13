@@ -434,51 +434,53 @@ func (r *ScalarDocService) ListProjectDomainStatus(ctx context.Context, slug str
 }
 
 type GithubProject struct {
-	AccessGroups     string                  `json:"accessGroups" api:"required"`
-	ActiveDeployment ActiveDeployment        `json:"activeDeployment" api:"required,nullable"`
-	ActiveThemeID    string                  `json:"activeThemeId" api:"required"`
-	AgentEnabled     bool                    `json:"agentEnabled" api:"required"`
-	AnalyticsEnabled bool                    `json:"analyticsEnabled" api:"required"`
-	CreatedAt        int64                   `json:"createdAt" api:"required"`
-	IsPrivate        bool                    `json:"isPrivate" api:"required"`
-	LastPublished    int64                   `json:"lastPublished" api:"required,nullable"`
-	LastPublishedUID string                  `json:"lastPublishedUid" api:"required,nullable"`
-	LoginPortalUID   string                  `json:"loginPortalUid" api:"required"`
-	Name             string                  `json:"name" api:"required"`
-	PublishMessage   string                  `json:"publishMessage" api:"required"`
-	PublishStatus    string                  `json:"publishStatus" api:"required"`
-	Slug             string                  `json:"slug" api:"required"`
-	UID              string                  `json:"uid" api:"required"`
-	UpdatedAt        int64                   `json:"updatedAt" api:"required"`
-	UserInfoHookURL  string                  `json:"userInfoHookUrl" api:"required"`
-	Repository       GithubProjectRepository `json:"repository" api:"nullable"`
-	TypesenseID      float64                 `json:"typesenseId"`
-	JSON             githubProjectJSON       `json:"-"`
+	AccessGroups          string                  `json:"accessGroups" api:"required"`
+	ActiveDeployment      ActiveDeployment        `json:"activeDeployment" api:"required,nullable"`
+	ActiveThemeID         string                  `json:"activeThemeId" api:"required"`
+	AgentEnabled          bool                    `json:"agentEnabled" api:"required"`
+	AnalyticsEnabled      bool                    `json:"analyticsEnabled" api:"required"`
+	CreatedAt             int64                   `json:"createdAt" api:"required"`
+	IsPrivate             bool                    `json:"isPrivate" api:"required"`
+	LastPublished         int64                   `json:"lastPublished" api:"required,nullable"`
+	LastPublishedUID      string                  `json:"lastPublishedUid" api:"required,nullable"`
+	LoginPortalUID        string                  `json:"loginPortalUid" api:"required"`
+	Name                  string                  `json:"name" api:"required"`
+	PublishMessage        string                  `json:"publishMessage" api:"required"`
+	PublishStatus         string                  `json:"publishStatus" api:"required"`
+	Slug                  string                  `json:"slug" api:"required"`
+	UID                   string                  `json:"uid" api:"required"`
+	UpdatedAt             int64                   `json:"updatedAt" api:"required"`
+	UserInfoHookURL       string                  `json:"userInfoHookUrl" api:"required"`
+	Repository            GithubProjectRepository `json:"repository" api:"nullable"`
+	TypesenseID           float64                 `json:"typesenseId"`
+	UserInfoHookSecretUID string                  `json:"userInfoHookSecretUid" api:"nullable"`
+	JSON                  githubProjectJSON       `json:"-"`
 }
 
 // githubProjectJSON contains the JSON metadata for the struct [GithubProject]
 type githubProjectJSON struct {
-	AccessGroups     apijson.Field
-	ActiveDeployment apijson.Field
-	ActiveThemeID    apijson.Field
-	AgentEnabled     apijson.Field
-	AnalyticsEnabled apijson.Field
-	CreatedAt        apijson.Field
-	IsPrivate        apijson.Field
-	LastPublished    apijson.Field
-	LastPublishedUID apijson.Field
-	LoginPortalUID   apijson.Field
-	Name             apijson.Field
-	PublishMessage   apijson.Field
-	PublishStatus    apijson.Field
-	Slug             apijson.Field
-	UID              apijson.Field
-	UpdatedAt        apijson.Field
-	UserInfoHookURL  apijson.Field
-	Repository       apijson.Field
-	TypesenseID      apijson.Field
-	raw              string
-	ExtraFields      map[string]apijson.Field
+	AccessGroups          apijson.Field
+	ActiveDeployment      apijson.Field
+	ActiveThemeID         apijson.Field
+	AgentEnabled          apijson.Field
+	AnalyticsEnabled      apijson.Field
+	CreatedAt             apijson.Field
+	IsPrivate             apijson.Field
+	LastPublished         apijson.Field
+	LastPublishedUID      apijson.Field
+	LoginPortalUID        apijson.Field
+	Name                  apijson.Field
+	PublishMessage        apijson.Field
+	PublishStatus         apijson.Field
+	Slug                  apijson.Field
+	UID                   apijson.Field
+	UpdatedAt             apijson.Field
+	UserInfoHookURL       apijson.Field
+	Repository            apijson.Field
+	TypesenseID           apijson.Field
+	UserInfoHookSecretUID apijson.Field
+	raw                   string
+	ExtraFields           map[string]apijson.Field
 }
 
 func (r *GithubProject) UnmarshalJSON(data []byte) (err error) {

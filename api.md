@@ -110,7 +110,6 @@ Complete reference of every operation, grouped by resource. See [the README](./R
     - [Delete an MCP server](#delete-an-mcp-server)
     - [`Mcp Servers Installations`](#mcp-servers-installations)
       - [List installations](#list-installations)
-      - [Create an installation](#create-an-installation)
       - [Get an installation](#get-an-installation)
       - [Update an installation](#update-an-installation)
       - [Delete an installation](#delete-an-installation)
@@ -1734,30 +1733,9 @@ if err != nil {
 fmt.Println(installation)
 ```
 
-##### Create an installation
-
-Create an installation of an MCP server. `documentAuth` holds the credentials the server presents to the upstream API and is never returned.
-
-| Direction | Type |
-| --- | --- |
-| Request | [`McpServerInstallationNewParams`](./mcpserverinstallation.go) |
-| Response | [`McpInstallation`](./mcpserver.go) |
-
-```go
-installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
-	DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-	Name:         sdk.F[string]("Acme MCP"),
-})
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
-```
-
 ##### Get an installation
 
-Get a single installation of an MCP server.
+Get a single installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |
@@ -1774,7 +1752,7 @@ fmt.Println(installation)
 
 ##### Update an installation
 
-Update an installation. Set `isPrivate` and add access groups to put it behind a login.
+Update an installation. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |
@@ -1792,7 +1770,7 @@ fmt.Println(installation)
 
 ##### Delete an installation
 
-Delete an installation of an MCP server.
+Delete an installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 ```go
 installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
@@ -1805,7 +1783,7 @@ fmt.Println(installation)
 
 ##### Add an access group
 
-Let an access group reach a private installation.
+Let an access group reach a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |
@@ -1824,7 +1802,7 @@ fmt.Println(installation)
 
 ##### Remove an access group
 
-Stop an access group reaching a private installation.
+Stop an access group reaching a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |

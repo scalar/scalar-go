@@ -63,42 +63,7 @@ func (r *McpServerInstallationService) List(ctx context.Context, id string, opts
 	return res, err
 }
 
-// Create an installation of an MCP server. `documentAuth` holds the credentials the server presents to the upstream API and is never returned.
-//
-// Parameters:
-//
-//	ctx: Context for the request.
-//	id: Path parameter.
-//	body: McpServerInstallationNewParams request parameters.
-//	opts: Options to apply to this request.
-//
-// Returns:
-//
-//	*McpInstallation: Default Response
-//
-// Example:
-//
-//	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
-//		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-//		Name:         sdk.F[string]("Acme MCP"),
-//	})
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	fmt.Println(installation)
-func (r *McpServerInstallationService) New(ctx context.Context, id string, body McpServerInstallationNewParams, opts ...option.RequestOption) (res *McpInstallation, err error) {
-	opts = slices.Concat(r.Options, opts)
-	if id == "" {
-		err = errors.New("missing required id parameter")
-		return nil, err
-	}
-	path := fmt.Sprintf("v1/mcp/servers/%s/installations", url.PathEscape(id))
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return res, err
-}
-
-// Get a single installation of an MCP server.
+// Get a single installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
 //
 // Parameters:
 //
@@ -119,6 +84,8 @@ func (r *McpServerInstallationService) New(ctx context.Context, id string, body 
 //	}
 //
 //	fmt.Println(installation)
+//
+// Deprecated: this method is deprecated.
 func (r *McpServerInstallationService) Get(ctx context.Context, id string, installationID string, opts ...option.RequestOption) (res *McpInstallation, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
@@ -134,7 +101,7 @@ func (r *McpServerInstallationService) Get(ctx context.Context, id string, insta
 	return res, err
 }
 
-// Update an installation. Set `isPrivate` and add access groups to put it behind a login.
+// Update an installation. Deprecated: address the environment by slug with the `/environments/:environment` form.
 //
 // Parameters:
 //
@@ -156,6 +123,8 @@ func (r *McpServerInstallationService) Get(ctx context.Context, id string, insta
 //	}
 //
 //	fmt.Println(installation)
+//
+// Deprecated: this method is deprecated.
 func (r *McpServerInstallationService) Update(ctx context.Context, id string, installationID string, body McpServerInstallationUpdateParams, opts ...option.RequestOption) (res *McpInstallation, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
@@ -171,7 +140,7 @@ func (r *McpServerInstallationService) Update(ctx context.Context, id string, in
 	return res, err
 }
 
-// Delete an installation of an MCP server.
+// Delete an installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
 //
 // Parameters:
 //
@@ -192,6 +161,8 @@ func (r *McpServerInstallationService) Update(ctx context.Context, id string, in
 //	}
 //
 //	fmt.Println(installation)
+//
+// Deprecated: this method is deprecated.
 func (r *McpServerInstallationService) Delete(ctx context.Context, id string, installationID string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
@@ -207,7 +178,7 @@ func (r *McpServerInstallationService) Delete(ctx context.Context, id string, in
 	return res, err
 }
 
-// Let an access group reach a private installation.
+// Let an access group reach a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
 //
 // Parameters:
 //
@@ -231,6 +202,8 @@ func (r *McpServerInstallationService) Delete(ctx context.Context, id string, in
 //	}
 //
 //	fmt.Println(installation)
+//
+// Deprecated: this method is deprecated.
 func (r *McpServerInstallationService) NewAccessGroup(ctx context.Context, id string, installationID string, body McpServerInstallationNewAccessGroupParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
@@ -246,7 +219,7 @@ func (r *McpServerInstallationService) NewAccessGroup(ctx context.Context, id st
 	return res, err
 }
 
-// Stop an access group reaching a private installation.
+// Stop an access group reaching a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
 //
 // Parameters:
 //
@@ -270,6 +243,8 @@ func (r *McpServerInstallationService) NewAccessGroup(ctx context.Context, id st
 //	}
 //
 //	fmt.Println(installation)
+//
+// Deprecated: this method is deprecated.
 func (r *McpServerInstallationService) DeleteAccessGroup(ctx context.Context, id string, installationID string, body McpServerInstallationDeleteAccessGroupParams, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
@@ -287,7 +262,6 @@ func (r *McpServerInstallationService) DeleteAccessGroup(ctx context.Context, id
 
 type McpInstallationListItem struct {
 	ID         string                      `json:"id" api:"required"`
-	IsPrivate  bool                        `json:"isPrivate" api:"required"`
 	McpVersion string                      `json:"mcpVersion" api:"required,nullable"`
 	Name       string                      `json:"name" api:"required"`
 	Slug       string                      `json:"slug" api:"required"`
@@ -297,7 +271,6 @@ type McpInstallationListItem struct {
 // mcpInstallationListItemJSON contains the JSON metadata for the struct [McpInstallationListItem]
 type mcpInstallationListItemJSON struct {
 	ID          apijson.Field
-	IsPrivate   apijson.Field
 	McpVersion  apijson.Field
 	Name        apijson.Field
 	Slug        apijson.Field
@@ -313,23 +286,12 @@ func (r mcpInstallationListItemJSON) RawJSON() string {
 	return r.raw
 }
 
-type McpServerInstallationNewParams struct {
-	DocumentAuth param.Field[map[string]interface{}] `json:"documentAuth" api:"required"`
-	Name         param.Field[string]                 `json:"name" api:"required"`
-	Slug         param.Field[string]                 `json:"slug"`
-}
-
-func (r McpServerInstallationNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
 type McpServerInstallationUpdateParams struct {
-	DocumentAuth   param.Field[map[string]interface{}] `json:"documentAuth"`
-	IsPrivate      param.Field[bool]                   `json:"isPrivate"`
-	LoginPortalUID param.Field[string]                 `json:"loginPortalUid"`
-	McpVersion     param.Field[string]                 `json:"mcpVersion"`
-	Name           param.Field[string]                 `json:"name"`
-	Slug           param.Field[string]                 `json:"slug"`
+	McpVersion param.Field[string] `json:"mcpVersion"`
+	Name       param.Field[string] `json:"name"`
+	// The environment’s current slug. An environment cannot be renamed, so any other
+	// slug is refused.
+	Slug param.Field[string] `json:"slug"`
 }
 
 func (r McpServerInstallationUpdateParams) MarshalJSON() (data []byte, err error) {
