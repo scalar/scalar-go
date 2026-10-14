@@ -449,7 +449,7 @@ func _smokeCase33() {
 
 func _smokeCase34() {
 	accessGroup, err := client.AccessGroups.New(context.Background(), sdk.AccessGroupNewParams{
-		AllowedDomains: sdk.F[string]("example.com"),
+		AllowedDomains: sdk.F[interface{}]("example.com"),
 		Name:           sdk.F[string]("Engineering"),
 		Slug:           sdk.F[string]("engineering"),
 	})

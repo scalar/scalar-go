@@ -434,7 +434,7 @@ func (r *ScalarDocService) ListProjectDomainStatus(ctx context.Context, slug str
 }
 
 type GithubProject struct {
-	AccessGroups          string                  `json:"accessGroups" api:"required"`
+	AccessGroups          interface{}             `json:"accessGroups" api:"required"`
 	ActiveDeployment      ActiveDeployment        `json:"activeDeployment" api:"required,nullable"`
 	ActiveThemeID         string                  `json:"activeThemeId" api:"required"`
 	AgentEnabled          bool                    `json:"agentEnabled" api:"required"`
@@ -492,7 +492,7 @@ func (r githubProjectJSON) RawJSON() string {
 }
 
 type DocsProject struct {
-	AccessGroups     string          `json:"accessGroups" api:"required"`
+	AccessGroups     interface{}     `json:"accessGroups" api:"required"`
 	ActiveThemeID    string          `json:"activeThemeId" api:"required"`
 	AgentEnabled     bool            `json:"agentEnabled" api:"required"`
 	AnalyticsEnabled bool            `json:"analyticsEnabled" api:"required"`
