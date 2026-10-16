@@ -449,7 +449,7 @@ func _smokeCase33() {
 
 func _smokeCase34() {
 	accessGroup, err := client.AccessGroups.New(context.Background(), sdk.AccessGroupNewParams{
-		AllowedDomains: sdk.F[string]("example.com"),
+		AllowedDomains: sdk.F[interface{}]("example.com"),
 		Name:           sdk.F[string]("Engineering"),
 		Slug:           sdk.F[string]("engineering"),
 	})
@@ -1289,11 +1289,10 @@ func _smokeCase109() {
 
 func _smokeCase110() {
 	server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{
-		AutoAddOperations: sdk.F[bool](true),
-		DocsPages:         sdk.F[[]string]([]string{"getting-started"}),
-		Name:              sdk.F[string]("Acme MCP"),
-		Operations:        sdk.F[[]string]([]string{"42"}),
-		Slug:              sdk.F[string]("acme-mcp"),
+		DocsPages:  sdk.F[[]string]([]string{"getting-started"}),
+		Name:       sdk.F[string]("Acme MCP"),
+		Operations: sdk.F[[]string]([]string{"42"}),
+		Slug:       sdk.F[string]("acme-mcp"),
 	})
 	if err != nil {
 		panic(err)
@@ -1321,31 +1320,6 @@ func _smokeCase112() {
 }
 
 func _smokeCase113() {
-	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
-		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-		Name:         sdk.F[string]("Acme MCP"),
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(installation)
-}
-
-func _smokeCase114() {
-	installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
-		DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-		Name:         sdk.F[string]("Acme MCP"),
-		Slug:         sdk.F[string]("acme-mcp"),
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(installation)
-}
-
-func _smokeCase115() {
 	installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "42", "84")
 	if err != nil {
 		panic(err)
@@ -1354,7 +1328,7 @@ func _smokeCase115() {
 	fmt.Println(installation)
 }
 
-func _smokeCase116() {
+func _smokeCase114() {
 	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{})
 	if err != nil {
 		panic(err)
@@ -1363,14 +1337,11 @@ func _smokeCase116() {
 	fmt.Println(installation)
 }
 
-func _smokeCase117() {
+func _smokeCase115() {
 	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{
-		DocumentAuth:   sdk.F[map[string]interface{}](map[string]interface{}{}),
-		IsPrivate:      sdk.F[bool](false),
-		LoginPortalUID: sdk.F[string]("LakgbKJ5m9gl0JDMbcJqL"),
-		McpVersion:     sdk.F[string]("1.2.0"),
-		Name:           sdk.F[string]("Acme MCP"),
-		Slug:           sdk.F[string]("acme-mcp"),
+		McpVersion: sdk.F[string]("1.2.0"),
+		Name:       sdk.F[string]("Acme MCP"),
+		Slug:       sdk.F[string]("staging"),
 	})
 	if err != nil {
 		panic(err)
@@ -1379,7 +1350,7 @@ func _smokeCase117() {
 	fmt.Println(installation)
 }
 
-func _smokeCase118() {
+func _smokeCase116() {
 	installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
 	if err != nil {
 		panic(err)
@@ -1388,7 +1359,7 @@ func _smokeCase118() {
 	fmt.Println(installation)
 }
 
-func _smokeCase119() {
+func _smokeCase117() {
 	installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationNewAccessGroupParams{
 		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 	})
@@ -1399,7 +1370,7 @@ func _smokeCase119() {
 	fmt.Println(installation)
 }
 
-func _smokeCase120() {
+func _smokeCase118() {
 	installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationDeleteAccessGroupParams{
 		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 	})
@@ -2259,34 +2230,18 @@ var cases = []smokeCase{
 	},
 
 	{
-		Operation: "create",
-		Method:    "POST",
-		Path:      "/v1/mcp/servers/{id}/installations",
-		Label:     "required params",
+		Operation: "retrieve",
+		Method:    "GET",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
 		Run:       _smokeCase113,
 	},
 
 	{
-		Operation: "create",
-		Method:    "POST",
-		Path:      "/v1/mcp/servers/{id}/installations",
-		Label:     "all params",
-		Run:       _smokeCase114,
-	},
-
-	{
-		Operation: "retrieve",
-		Method:    "GET",
-		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
-		Run:       _smokeCase115,
-	},
-
-	{
 		Operation: "update",
 		Method:    "PATCH",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
 		Label:     "required params",
-		Run:       _smokeCase116,
+		Run:       _smokeCase114,
 	},
 
 	{
@@ -2294,28 +2249,28 @@ var cases = []smokeCase{
 		Method:    "PATCH",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
 		Label:     "all params",
-		Run:       _smokeCase117,
+		Run:       _smokeCase115,
 	},
 
 	{
 		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
-		Run:       _smokeCase118,
+		Run:       _smokeCase116,
 	},
 
 	{
 		Operation: "createAccessGroup",
 		Method:    "POST",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}/access-group",
-		Run:       _smokeCase119,
+		Run:       _smokeCase117,
 	},
 
 	{
 		Operation: "deleteAccessGroup",
 		Method:    "DELETE",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}/access-group",
-		Run:       _smokeCase120,
+		Run:       _smokeCase118,
 	},
 }
 

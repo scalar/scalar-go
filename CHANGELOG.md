@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.7.0](https://github.com/scalar/scalar-go/compare/v0.6.0...v0.7.0) (2026-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** 3 breaking changes to the SDK surface.
+    - Property `api_document.tags` type changed from `string` to `unknown`.
+    - Property `github_project.accessGroups` type changed from `string` to `unknown`.
+    - Property `docs_project.accessGroups` type changed from `string` to `unknown`.
+* **api:** 8 breaking changes to the SDK surface.
+    - Removed body field `autoAddOperations` from `mcp.servers.update`.
+    - Removed body field `isPrivate` from `mcp.servers.installations.update`.
+    - Removed body field `loginPortalUid` from `mcp.servers.installations.update`.
+    - Removed body field `documentAuth` from `mcp.servers.installations.update`.
+    - Removed operation `mcp.servers.installations.create` (`POST /v1/mcp/servers/{id}/installations`).
+    - Removed required property `mcp_server.autoAddOperations`.
+    - Removed required property `mcp_installation.isPrivate`.
+    - Removed required property `mcp_installation_list_item.isPrivate`.
+
+### Features
+
+* **api:** update property api_document.tags (+3 more changes) ([ec121d5](https://github.com/scalar/scalar-go/commit/ec121d5410383836af1a7c815b78a40515e2f993))
+* **api:** update SDK surface (14 changes) ([0b55348](https://github.com/scalar/scalar-go/commit/0b553483c983cbd5f01642a9067b30a2cd49d72b))
+
+
+### Chores
+
+* **api:** regenerate SDK ([9c1d224](https://github.com/scalar/scalar-go/commit/9c1d22451672290739d17eac7693801f72a83788))
+
 ## [0.6.0](https://github.com/scalar/scalar-go/compare/v0.5.0...v0.6.0) (2026-10-09)
 
 
