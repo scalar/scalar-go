@@ -1225,8 +1225,11 @@ func _smokeCase104() {
 	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
 		PublishOnMerge: sdk.F[bool](true),
 		Access:         sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAccess](sdk.SdkRepositoryUpdatePublishingParamsAccess("public")),
+		ArtifactID:     sdk.F[string]("scalar-galaxy"),
 		AuthMethod:     sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAuthMethod](sdk.SdkRepositoryUpdatePublishingParamsAuthMethod("oidc")),
+		Registry:       sdk.F[string]("npm"),
 		Tag:            sdk.F[string]("latest"),
+		TapRepo:        sdk.F[string]("scalar/homebrew-tap"),
 	})
 	if err != nil {
 		panic(err)
