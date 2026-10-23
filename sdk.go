@@ -361,7 +361,7 @@ type SdkListParams struct {
 // URLQuery serializes [SdkListParams]'s query parameters as `url.Values`.
 func (r SdkListParams) URLQuery() (v url.Values) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatRepeat,
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }

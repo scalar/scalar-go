@@ -610,7 +610,7 @@ type ScalarDocListProjectsParams struct {
 // URLQuery serializes [ScalarDocListProjectsParams]'s query parameters as `url.Values`.
 func (r ScalarDocListProjectsParams) URLQuery() (v url.Values) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatRepeat,
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
@@ -694,7 +694,7 @@ type ScalarDocListProjectConfigParams struct {
 // URLQuery serializes [ScalarDocListProjectConfigParams]'s query parameters as `url.Values`.
 func (r ScalarDocListProjectConfigParams) URLQuery() (v url.Values) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatRepeat,
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
