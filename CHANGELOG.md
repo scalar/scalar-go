@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.7.0](https://github.com/scalar/scalar-go/compare/v0.6.0...v0.7.0) (2026-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** Added required property `github_project.chatInsightsEnabled`.
+* **api:** 3 breaking changes to the SDK surface.
+    - Property `api_document.tags` type changed from `string` to `unknown`.
+    - Property `github_project.accessGroups` type changed from `string` to `unknown`.
+    - Property `docs_project.accessGroups` type changed from `string` to `unknown`.
+* **api:** 8 breaking changes to the SDK surface.
+    - Removed body field `autoAddOperations` from `mcp.servers.update`.
+    - Removed body field `isPrivate` from `mcp.servers.installations.update`.
+    - Removed body field `loginPortalUid` from `mcp.servers.installations.update`.
+    - Removed body field `documentAuth` from `mcp.servers.installations.update`.
+    - Removed operation `mcp.servers.installations.create` (`POST /v1/mcp/servers/{id}/installations`).
+    - Removed required property `mcp_server.autoAddOperations`.
+    - Removed required property `mcp_installation.isPrivate`.
+    - Removed required property `mcp_installation_list_item.isPrivate`.
+
+### Features
+
+* **api:** add property github_project.chatInsightsEnabled ([0a7aab0](https://github.com/scalar/scalar-go/commit/0a7aab02096d31e4571cf028fd0528a0c6238bd8))
+* **api:** update property api_document.tags (+3 more changes) ([ec121d5](https://github.com/scalar/scalar-go/commit/ec121d5410383836af1a7c815b78a40515e2f993))
+* **api:** update SDK surface (14 changes) ([0b55348](https://github.com/scalar/scalar-go/commit/0b553483c983cbd5f01642a9067b30a2cd49d72b))
+* **api:** update SDK surface (4 changes) ([9e3ece1](https://github.com/scalar/scalar-go/commit/9e3ece1459136b359e1ac0b760873ea150ae4092))
+
+
+### Chores
+
+* **api:** regenerate SDK ([145f559](https://github.com/scalar/scalar-go/commit/145f5596a1045b0d4297c17fbfa8a155e6d079b3))
+* **api:** regenerate SDK ([9c1d224](https://github.com/scalar/scalar-go/commit/9c1d22451672290739d17eac7693801f72a83788))
+* **api:** update generated SDK content ([13b4be3](https://github.com/scalar/scalar-go/commit/13b4be32a1ddb5a70f16b6185f7a26be77ff1408))
+
 ## [0.6.0](https://github.com/scalar/scalar-go/compare/v0.5.0...v0.6.0) (2026-10-09)
 
 
