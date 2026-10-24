@@ -439,6 +439,7 @@ type GithubProject struct {
 	ActiveThemeID         string                  `json:"activeThemeId" api:"required"`
 	AgentEnabled          bool                    `json:"agentEnabled" api:"required"`
 	AnalyticsEnabled      bool                    `json:"analyticsEnabled" api:"required"`
+	ChatInsightsEnabled   bool                    `json:"chatInsightsEnabled" api:"required"`
 	CreatedAt             int64                   `json:"createdAt" api:"required"`
 	IsPrivate             bool                    `json:"isPrivate" api:"required"`
 	LastPublished         int64                   `json:"lastPublished" api:"required,nullable"`
@@ -464,6 +465,7 @@ type githubProjectJSON struct {
 	ActiveThemeID         apijson.Field
 	AgentEnabled          apijson.Field
 	AnalyticsEnabled      apijson.Field
+	ChatInsightsEnabled   apijson.Field
 	CreatedAt             apijson.Field
 	IsPrivate             apijson.Field
 	LastPublished         apijson.Field
