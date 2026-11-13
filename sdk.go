@@ -38,7 +38,7 @@ func NewSdkService(opts ...option.RequestOption) (r *SdkService) {
 	return
 }
 
-// List every SDK on the team.
+// List every SDK on the team with the languages its config declares, each with its version labels highest first, the current version label per language (`current`), and the `currentVersion` and `latestVersion` tags.
 //
 // Parameters:
 //
@@ -95,7 +95,7 @@ func (r *SdkService) New(ctx context.Context, body SdkNewParams, opts ...option.
 	return res, err
 }
 
-// Get a single SDK by its uid.
+// Get a single SDK by its uid with the languages its config declares, its version labels highest first, the current version label per language (`current`), and the `currentVersion` and `latestVersion` tags.
 //
 // Parameters:
 //
@@ -189,7 +189,7 @@ func (r *SdkService) Delete(ctx context.Context, uid string, opts ...option.Requ
 	return res, err
 }
 
-// Start a build. Omit `version` to build the current work — the open draft, else the latest version — and the resolved version comes back in the response.
+// Start a build with the SDK's saved config. Every input is optional: `version` is the version of the linked API description to build (default: its latest version), `customCodeRef` the branch, tag or commit each language merges as custom code (default: each language's `scalar-next` branch), and `languages` the languages to build (default: every language the config declares). The response names the version built. A 503 means the custom code could not be read from GitHub and nothing was built; try again.
 //
 // Parameters:
 //
@@ -223,32 +223,34 @@ func (r *SdkService) Build(ctx context.Context, uid string, body SdkBuildParams,
 
 type Sdk struct {
 	APIUID         string             `json:"apiUid" api:"required,nullable"`
+	Current        map[string]string  `json:"current" api:"required"`
 	CurrentVersion string             `json:"currentVersion" api:"required"`
 	Description    string             `json:"description" api:"required"`
 	IsPrivate      bool               `json:"isPrivate" api:"required"`
+	LatestVersion  string             `json:"latestVersion" api:"required,nullable"`
 	Namespace      string             `json:"namespace" api:"required"`
 	Slug           string             `json:"slug" api:"required"`
 	Targets        []SdkTargetSummary `json:"targets" api:"required"`
 	Title          string             `json:"title" api:"required"`
 	UID            string             `json:"uid" api:"required"`
 	Versions       []SdkVersion       `json:"versions" api:"required"`
-	APIVersion     string             `json:"apiVersion" api:"nullable"`
 	JSON           sdkJSON            `json:"-"`
 }
 
 // sdkJSON contains the JSON metadata for the struct [Sdk]
 type sdkJSON struct {
 	APIUID         apijson.Field
+	Current        apijson.Field
 	CurrentVersion apijson.Field
 	Description    apijson.Field
 	IsPrivate      apijson.Field
+	LatestVersion  apijson.Field
 	Namespace      apijson.Field
 	Slug           apijson.Field
 	Targets        apijson.Field
 	Title          apijson.Field
 	UID            apijson.Field
 	Versions       apijson.Field
-	APIVersion     apijson.Field
 	raw            string
 	ExtraFields    map[string]apijson.Field
 }
@@ -310,23 +312,17 @@ func (r SdkTargetSummaryLanguage) IsKnown() bool {
 }
 
 type SdkVersion struct {
-	APIVersion  string               `json:"apiVersion" api:"required"`
-	Languages   []SdkVersionLanguage `json:"languages" api:"required"`
-	Status      SdkVersionStatus     `json:"status" api:"required"`
-	Version     string               `json:"version" api:"required"`
-	CreatedAt   int64                `json:"createdAt"`
-	PublishedAt int64                `json:"publishedAt"`
-	JSON        sdkVersionJSON       `json:"-"`
+	CreatedAt int64                `json:"createdAt" api:"required"`
+	Languages []SdkVersionLanguage `json:"languages" api:"required"`
+	Version   string               `json:"version" api:"required"`
+	JSON      sdkVersionJSON       `json:"-"`
 }
 
 // sdkVersionJSON contains the JSON metadata for the struct [SdkVersion]
 type sdkVersionJSON struct {
-	APIVersion  apijson.Field
-	Languages   apijson.Field
-	Status      apijson.Field
-	Version     apijson.Field
 	CreatedAt   apijson.Field
-	PublishedAt apijson.Field
+	Languages   apijson.Field
+	Version     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -337,21 +333,6 @@ func (r *SdkVersion) UnmarshalJSON(data []byte) (err error) {
 
 func (r sdkVersionJSON) RawJSON() string {
 	return r.raw
-}
-
-type SdkVersionStatus string
-
-const (
-	SdkVersionStatusDraft     SdkVersionStatus = "draft"
-	SdkVersionStatusPublished SdkVersionStatus = "published"
-)
-
-func (r SdkVersionStatus) IsKnown() bool {
-	switch r {
-	case SdkVersionStatusDraft, SdkVersionStatusPublished:
-		return true
-	}
-	return false
 }
 
 type SdkListParams struct {
@@ -406,12 +387,13 @@ func (r SdkNewParamsLanguage) IsKnown() bool {
 }
 
 type SdkUpdateParams struct {
-	APIUID     param.Field[string] `json:"apiUid"`
-	APIVersion param.Field[string] `json:"apiVersion"`
-	Config     param.Field[string] `json:"config"`
-	IsPrivate  param.Field[bool]   `json:"isPrivate"`
-	Slug       param.Field[string] `json:"slug"`
-	Title      param.Field[string] `json:"title"`
+	APIUID param.Field[string] `json:"apiUid"`
+	// Removed. A request that carries it is refused with a 400.
+	APIVersion param.Field[interface{}] `json:"apiVersion"`
+	Config     param.Field[string]      `json:"config"`
+	IsPrivate  param.Field[bool]        `json:"isPrivate"`
+	Slug       param.Field[string]      `json:"slug"`
+	Title      param.Field[string]      `json:"title"`
 }
 
 func (r SdkUpdateParams) MarshalJSON() (data []byte, err error) {
@@ -419,8 +401,9 @@ func (r SdkUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 
 type SdkBuildParams struct {
-	Languages param.Field[[]SdkBuildParamsLanguage] `json:"languages"`
-	Version   param.Field[string]                   `json:"version"`
+	CustomCodeRef param.Field[string]                   `json:"customCodeRef"`
+	Languages     param.Field[[]SdkBuildParamsLanguage] `json:"languages"`
+	Version       param.Field[string]                   `json:"version"`
 }
 
 func (r SdkBuildParams) MarshalJSON() (data []byte, err error) {
