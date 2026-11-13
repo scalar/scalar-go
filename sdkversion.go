@@ -32,7 +32,7 @@ func NewSdkVersionService(opts ...option.RequestOption) (r *SdkVersionService) {
 	return
 }
 
-// Create a new SDK version against a specific API version.
+// Create a version label from a version of the SDK's API document and start its build. The label is the document version, and it becomes `latestVersion` when it is the highest.
 //
 // Parameters:
 //
@@ -48,8 +48,7 @@ func NewSdkVersionService(opts ...option.RequestOption) (r *SdkVersionService) {
 // Example:
 //
 //	version, err := client.Sdks.Versions.New(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkVersionNewParams{
-//		APIVersion: sdk.F[string]("1.2.0"),
-//		Version:    sdk.F[string]("1.2.0"),
+//		Version: sdk.F[string]("1.2.0"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -67,7 +66,7 @@ func (r *SdkVersionService) New(ctx context.Context, uid string, body SdkVersion
 	return res, err
 }
 
-// Permanently delete one version of an SDK.
+// Permanently delete one version label of an SDK and its builds. A label that is the current build of any language promoting manually is refused with 409 and nothing is deleted; promote or roll back to another build for that language first. Each other language whose current build was of that label moves to the active build of the highest remaining label that has one for the language, and has no current build when none has; `currentVersion` shows the result. Each language that moved to another build syncs it to its linked repository unless the repository already holds it. When it was `latestVersion`, that tag moves to the highest remaining label holding an active build. An SDK's last version cannot be deleted.
 //
 // Parameters:
 //
@@ -104,8 +103,9 @@ func (r *SdkVersionService) Delete(ctx context.Context, uid string, version stri
 }
 
 type SdkVersionNewParams struct {
-	APIVersion param.Field[string] `json:"apiVersion" api:"required"`
-	Version    param.Field[string] `json:"version" api:"required"`
+	Version param.Field[string] `json:"version" api:"required"`
+	// Removed. A request that carries it is refused with a 400.
+	APIVersion param.Field[interface{}] `json:"apiVersion"`
 }
 
 func (r SdkVersionNewParams) MarshalJSON() (data []byte, err error) {

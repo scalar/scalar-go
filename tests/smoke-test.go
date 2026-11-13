@@ -1110,7 +1110,7 @@ func _smokeCase93() {
 func _smokeCase94() {
 	sdk, err := client.Sdks.Update(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkUpdateParams{
 		APIUID:     sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
-		APIVersion: sdk.F[string]("1.2.0"),
+		APIVersion: sdk.F[interface{}](nil),
 		Config:     sdk.F[string]("{\"targets\":{\"typescript\":{\"packageName\":\"@acme/sdk\"}}}"),
 		IsPrivate:  sdk.F[bool](false),
 		Slug:       sdk.F[string]("acme-sdk"),
@@ -1143,8 +1143,9 @@ func _smokeCase96() {
 
 func _smokeCase97() {
 	sdk, err := client.Sdks.Build(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkBuildParams{
-		Languages: sdk.F[[]sdk.SdkBuildParamsLanguage]([]sdk.SdkBuildParamsLanguage{"typescript"}),
-		Version:   sdk.F[string]("1.2.0"),
+		CustomCodeRef: sdk.F[string]("scalar-next"),
+		Languages:     sdk.F[[]sdk.SdkBuildParamsLanguage]([]sdk.SdkBuildParamsLanguage{"typescript"}),
+		Version:       sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -1155,8 +1156,7 @@ func _smokeCase97() {
 
 func _smokeCase98() {
 	version, err := client.Sdks.Versions.New(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkVersionNewParams{
-		APIVersion: sdk.F[string]("1.2.0"),
-		Version:    sdk.F[string]("1.2.0"),
+		Version: sdk.F[string]("1.2.0"),
 	})
 	if err != nil {
 		panic(err)
@@ -1166,7 +1166,10 @@ func _smokeCase98() {
 }
 
 func _smokeCase99() {
-	version, err := client.Sdks.Versions.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "1.2.0")
+	version, err := client.Sdks.Versions.New(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkVersionNewParams{
+		Version:    sdk.F[string]("1.2.0"),
+		APIVersion: sdk.F[interface{}](nil),
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -1175,6 +1178,15 @@ func _smokeCase99() {
 }
 
 func _smokeCase100() {
+	version, err := client.Sdks.Versions.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "1.2.0")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(version)
+}
+
+func _smokeCase101() {
 	repository, err := client.Sdks.Repositories.Link(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkRepositoryLinkParams{
 		BaseBranch:   sdk.F[string]("main"),
 		Language:     sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
@@ -1187,7 +1199,7 @@ func _smokeCase100() {
 	fmt.Println(repository)
 }
 
-func _smokeCase101() {
+func _smokeCase102() {
 	repository, err := client.Sdks.Repositories.Link(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkRepositoryLinkParams{
 		BaseBranch:     sdk.F[string]("main"),
 		Language:       sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
@@ -1201,7 +1213,7 @@ func _smokeCase101() {
 	fmt.Println(repository)
 }
 
-func _smokeCase102() {
+func _smokeCase103() {
 	repository, err := client.Sdks.Repositories.Unlink(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript")
 	if err != nil {
 		panic(err)
@@ -1210,7 +1222,7 @@ func _smokeCase102() {
 	fmt.Println(repository)
 }
 
-func _smokeCase103() {
+func _smokeCase104() {
 	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
 		PublishOnMerge: sdk.F[bool](true),
 	})
@@ -1221,7 +1233,7 @@ func _smokeCase103() {
 	fmt.Println(repository)
 }
 
-func _smokeCase104() {
+func _smokeCase105() {
 	repository, err := client.Sdks.Repositories.UpdatePublishing(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "typescript", sdk.SdkRepositoryUpdatePublishingParams{
 		PublishOnMerge: sdk.F[bool](true),
 		Access:         sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAccess](sdk.SdkRepositoryUpdatePublishingParamsAccess("public")),
@@ -1238,7 +1250,7 @@ func _smokeCase104() {
 	fmt.Println(repository)
 }
 
-func _smokeCase105() {
+func _smokeCase106() {
 	server, err := client.Mcp.Servers.List(context.Background())
 	if err != nil {
 		panic(err)
@@ -1247,7 +1259,7 @@ func _smokeCase105() {
 	fmt.Println(server)
 }
 
-func _smokeCase106() {
+func _smokeCase107() {
 	server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
 		Name: sdk.F[string]("Acme MCP"),
 	})
@@ -1258,7 +1270,7 @@ func _smokeCase106() {
 	fmt.Println(server)
 }
 
-func _smokeCase107() {
+func _smokeCase108() {
 	server, err := client.Mcp.Servers.New(context.Background(), sdk.McpServerNewParams{
 		Name:        sdk.F[string]("Acme MCP"),
 		ProjectUIDs: sdk.F[[]string]([]string{"PakgbKJ5m9gl0JDMbcJqL"}),
@@ -1272,7 +1284,7 @@ func _smokeCase107() {
 	fmt.Println(server)
 }
 
-func _smokeCase108() {
+func _smokeCase109() {
 	server, err := client.Mcp.Servers.Get(context.Background(), "42")
 	if err != nil {
 		panic(err)
@@ -1281,7 +1293,7 @@ func _smokeCase108() {
 	fmt.Println(server)
 }
 
-func _smokeCase109() {
+func _smokeCase110() {
 	server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{})
 	if err != nil {
 		panic(err)
@@ -1290,7 +1302,7 @@ func _smokeCase109() {
 	fmt.Println(server)
 }
 
-func _smokeCase110() {
+func _smokeCase111() {
 	server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{
 		DocsPages:  sdk.F[[]string]([]string{"getting-started"}),
 		Name:       sdk.F[string]("Acme MCP"),
@@ -1304,7 +1316,7 @@ func _smokeCase110() {
 	fmt.Println(server)
 }
 
-func _smokeCase111() {
+func _smokeCase112() {
 	server, err := client.Mcp.Servers.Delete(context.Background(), "42")
 	if err != nil {
 		panic(err)
@@ -1313,7 +1325,7 @@ func _smokeCase111() {
 	fmt.Println(server)
 }
 
-func _smokeCase112() {
+func _smokeCase113() {
 	installation, err := client.Mcp.Servers.Installations.List(context.Background(), "42")
 	if err != nil {
 		panic(err)
@@ -1322,7 +1334,7 @@ func _smokeCase112() {
 	fmt.Println(installation)
 }
 
-func _smokeCase113() {
+func _smokeCase114() {
 	installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "42", "84")
 	if err != nil {
 		panic(err)
@@ -1331,7 +1343,7 @@ func _smokeCase113() {
 	fmt.Println(installation)
 }
 
-func _smokeCase114() {
+func _smokeCase115() {
 	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{})
 	if err != nil {
 		panic(err)
@@ -1340,7 +1352,7 @@ func _smokeCase114() {
 	fmt.Println(installation)
 }
 
-func _smokeCase115() {
+func _smokeCase116() {
 	installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{
 		McpVersion: sdk.F[string]("1.2.0"),
 		Name:       sdk.F[string]("Acme MCP"),
@@ -1353,7 +1365,7 @@ func _smokeCase115() {
 	fmt.Println(installation)
 }
 
-func _smokeCase116() {
+func _smokeCase117() {
 	installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
 	if err != nil {
 		panic(err)
@@ -1362,7 +1374,7 @@ func _smokeCase116() {
 	fmt.Println(installation)
 }
 
-func _smokeCase117() {
+func _smokeCase118() {
 	installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationNewAccessGroupParams{
 		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 	})
@@ -1373,7 +1385,7 @@ func _smokeCase117() {
 	fmt.Println(installation)
 }
 
-func _smokeCase118() {
+func _smokeCase119() {
 	installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationDeleteAccessGroupParams{
 		AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 	})
@@ -2123,21 +2135,22 @@ var cases = []smokeCase{
 		Operation: "create",
 		Method:    "POST",
 		Path:      "/v1/sdks/{uid}/versions",
+		Label:     "required params",
 		Run:       _smokeCase98,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/versions",
+		Label:     "all params",
+		Run:       _smokeCase99,
 	},
 
 	{
 		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/sdks/{uid}/versions/{version}",
-		Run:       _smokeCase99,
-	},
-
-	{
-		Operation: "link",
-		Method:    "POST",
-		Path:      "/v1/sdks/{uid}/repositories",
-		Label:     "required params",
 		Run:       _smokeCase100,
 	},
 
@@ -2145,22 +2158,22 @@ var cases = []smokeCase{
 		Operation: "link",
 		Method:    "POST",
 		Path:      "/v1/sdks/{uid}/repositories",
-		Label:     "all params",
+		Label:     "required params",
 		Run:       _smokeCase101,
+	},
+
+	{
+		Operation: "link",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/repositories",
+		Label:     "all params",
+		Run:       _smokeCase102,
 	},
 
 	{
 		Operation: "unlink",
 		Method:    "DELETE",
 		Path:      "/v1/sdks/{uid}/repositories/{language}",
-		Run:       _smokeCase102,
-	},
-
-	{
-		Operation: "updatePublishing",
-		Method:    "POST",
-		Path:      "/v1/sdks/{uid}/repositories/{language}/publishing",
-		Label:     "required params",
 		Run:       _smokeCase103,
 	},
 
@@ -2168,22 +2181,22 @@ var cases = []smokeCase{
 		Operation: "updatePublishing",
 		Method:    "POST",
 		Path:      "/v1/sdks/{uid}/repositories/{language}/publishing",
-		Label:     "all params",
+		Label:     "required params",
 		Run:       _smokeCase104,
+	},
+
+	{
+		Operation: "updatePublishing",
+		Method:    "POST",
+		Path:      "/v1/sdks/{uid}/repositories/{language}/publishing",
+		Label:     "all params",
+		Run:       _smokeCase105,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/mcp/servers",
-		Run:       _smokeCase105,
-	},
-
-	{
-		Operation: "create",
-		Method:    "POST",
-		Path:      "/v1/mcp/servers",
-		Label:     "required params",
 		Run:       _smokeCase106,
 	},
 
@@ -2191,22 +2204,22 @@ var cases = []smokeCase{
 		Operation: "create",
 		Method:    "POST",
 		Path:      "/v1/mcp/servers",
-		Label:     "all params",
+		Label:     "required params",
 		Run:       _smokeCase107,
+	},
+
+	{
+		Operation: "create",
+		Method:    "POST",
+		Path:      "/v1/mcp/servers",
+		Label:     "all params",
+		Run:       _smokeCase108,
 	},
 
 	{
 		Operation: "retrieve",
 		Method:    "GET",
 		Path:      "/v1/mcp/servers/{id}",
-		Run:       _smokeCase108,
-	},
-
-	{
-		Operation: "update",
-		Method:    "PATCH",
-		Path:      "/v1/mcp/servers/{id}",
-		Label:     "required params",
 		Run:       _smokeCase109,
 	},
 
@@ -2214,36 +2227,36 @@ var cases = []smokeCase{
 		Operation: "update",
 		Method:    "PATCH",
 		Path:      "/v1/mcp/servers/{id}",
-		Label:     "all params",
+		Label:     "required params",
 		Run:       _smokeCase110,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/mcp/servers/{id}",
+		Label:     "all params",
+		Run:       _smokeCase111,
 	},
 
 	{
 		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/mcp/servers/{id}",
-		Run:       _smokeCase111,
+		Run:       _smokeCase112,
 	},
 
 	{
 		Operation: "list",
 		Method:    "GET",
 		Path:      "/v1/mcp/servers/{id}/installations",
-		Run:       _smokeCase112,
+		Run:       _smokeCase113,
 	},
 
 	{
 		Operation: "retrieve",
 		Method:    "GET",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
-		Run:       _smokeCase113,
-	},
-
-	{
-		Operation: "update",
-		Method:    "PATCH",
-		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
-		Label:     "required params",
 		Run:       _smokeCase114,
 	},
 
@@ -2251,29 +2264,37 @@ var cases = []smokeCase{
 		Operation: "update",
 		Method:    "PATCH",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
-		Label:     "all params",
+		Label:     "required params",
 		Run:       _smokeCase115,
+	},
+
+	{
+		Operation: "update",
+		Method:    "PATCH",
+		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
+		Label:     "all params",
+		Run:       _smokeCase116,
 	},
 
 	{
 		Operation: "delete",
 		Method:    "DELETE",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}",
-		Run:       _smokeCase116,
+		Run:       _smokeCase117,
 	},
 
 	{
 		Operation: "createAccessGroup",
 		Method:    "POST",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}/access-group",
-		Run:       _smokeCase117,
+		Run:       _smokeCase118,
 	},
 
 	{
 		Operation: "deleteAccessGroup",
 		Method:    "DELETE",
 		Path:      "/v1/mcp/servers/{id}/installations/{installationId}/access-group",
-		Run:       _smokeCase118,
+		Run:       _smokeCase119,
 	},
 }
 
