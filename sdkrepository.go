@@ -185,7 +185,9 @@ type SdkRepositoryUpdatePublishingParams struct {
 	Access         param.Field[SdkRepositoryUpdatePublishingParamsAccess]     `json:"access"`
 	ArtifactID     param.Field[string]                                        `json:"artifactId"`
 	AuthMethod     param.Field[SdkRepositoryUpdatePublishingParamsAuthMethod] `json:"authMethod"`
+	Cask           param.Field[bool]                                          `json:"cask"`
 	Registry       param.Field[string]                                        `json:"registry"`
+	ReplaceFormula param.Field[bool]                                          `json:"replaceFormula"`
 	Tag            param.Field[string]                                        `json:"tag"`
 	TapRepo        param.Field[string]                                        `json:"tapRepo"`
 }

@@ -77,7 +77,9 @@ func TestScalarSmokeSdkRepositoryService(t *testing.T) {
 				Access:         sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAccess](sdk.SdkRepositoryUpdatePublishingParamsAccess("public")),
 				ArtifactID:     sdk.F[string]("scalar-galaxy"),
 				AuthMethod:     sdk.F[sdk.SdkRepositoryUpdatePublishingParamsAuthMethod](sdk.SdkRepositoryUpdatePublishingParamsAuthMethod("oidc")),
+				Cask:           sdk.F[bool](true),
 				Registry:       sdk.F[string]("npm"),
+				ReplaceFormula: sdk.F[bool](false),
 				Tag:            sdk.F[string]("latest"),
 				TapRepo:        sdk.F[string]("scalar/homebrew-tap"),
 			})
