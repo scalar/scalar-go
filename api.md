@@ -110,7 +110,6 @@ Complete reference of every operation, grouped by resource. See [the README](./R
     - [Delete an MCP server](#delete-an-mcp-server)
     - [`Mcp Servers Installations`](#mcp-servers-installations)
       - [List installations](#list-installations)
-      - [Create an installation](#create-an-installation)
       - [Get an installation](#get-an-installation)
       - [Update an installation](#update-an-installation)
       - [Delete an installation](#delete-an-installation)
@@ -1425,7 +1424,7 @@ SDKs
 
 ### List all SDKs
 
-List every SDK on the team.
+List every SDK on the team. `targets` are the languages its config declares, which the next build builds. `current` (the version label per language a request without a version serves) and each version label’s `languages`, highest label first, are what is served, and can include a language a later config dropped: a version keeps the languages its builds produced. Also returns the `currentVersion` and `latestVersion` tags.
 
 | Direction | Type |
 | --- | --- |
@@ -1464,7 +1463,7 @@ fmt.Println(sdk)
 
 ### Get an SDK
 
-Get a single SDK by its uid.
+Get a single SDK by its uid. `targets` are the languages its config declares, which the next build builds. `current` (the version label per language a request without a version serves) and each version label’s `languages`, highest label first, are what is served, and can include a language a later config dropped: a version keeps the languages its builds produced. Also returns the `currentVersion` and `latestVersion` tags.
 
 | Direction | Type |
 | --- | --- |
@@ -1511,7 +1510,7 @@ fmt.Println(sdk)
 
 ### Build an SDK
 
-Start a build. Omit `version` to build the current work — the open draft, else the latest version — and the resolved version comes back in the response.
+Start a build with the SDK's saved config. Every input is optional: `version` is the version of the linked API description to build (default: its latest version), `customCodeRef` the branch, tag or commit each language merges as custom code (default: each language's `scalar-next` branch), and `languages` the languages to build (default: every language the config declares). The response names the version built. A 503 means the custom code could not be read from GitHub and nothing was built; try again.
 
 | Direction | Type |
 | --- | --- |
@@ -1533,7 +1532,7 @@ SDKs
 
 #### Create an SDK version
 
-Create a new SDK version against a specific API version.
+Create a version label from a version of the SDK's API document and start its build. The label is the document version, and it becomes `latestVersion` when it is the highest.
 
 | Direction | Type |
 | --- | --- |
@@ -1541,8 +1540,7 @@ Create a new SDK version against a specific API version.
 
 ```go
 version, err := client.Sdks.Versions.New(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", sdk.SdkVersionNewParams{
-	APIVersion: sdk.F[string]("1.2.0"),
-	Version:    sdk.F[string]("1.2.0"),
+	Version: sdk.F[string]("1.2.0"),
 })
 if err != nil {
 	panic(err)
@@ -1553,7 +1551,7 @@ fmt.Println(version)
 
 #### Delete an SDK version
 
-Permanently delete one version of an SDK.
+Permanently delete one version label of an SDK and its builds. A label that is the current build of any language promoting manually is refused with 409 and nothing is deleted; promote or roll back to another build for that language first. Each other language whose current build was of that label moves to the active build of the highest remaining label that has one for the language, and has no current build when none has; `currentVersion` shows the result. Each language that moved to another build syncs it to its linked repository unless the repository already holds it. When it was `latestVersion`, that tag moves to the highest remaining label holding an active build. An SDK's last version cannot be deleted.
 
 ```go
 version, err := client.Sdks.Versions.Delete(context.Background(), "UakgbKJ5m9gl0JDMbcJqL", "1.2.0")
@@ -1734,30 +1732,9 @@ if err != nil {
 fmt.Println(installation)
 ```
 
-##### Create an installation
-
-Create an installation of an MCP server. `documentAuth` holds the credentials the server presents to the upstream API and is never returned.
-
-| Direction | Type |
-| --- | --- |
-| Request | [`McpServerInstallationNewParams`](./mcpserverinstallation.go) |
-| Response | [`McpInstallation`](./mcpserver.go) |
-
-```go
-installation, err := client.Mcp.Servers.Installations.New(context.Background(), "42", sdk.McpServerInstallationNewParams{
-	DocumentAuth: sdk.F[map[string]interface{}](map[string]interface{}{}),
-	Name:         sdk.F[string]("Acme MCP"),
-})
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
-```
-
 ##### Get an installation
 
-Get a single installation of an MCP server.
+Get a single installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |
@@ -1774,7 +1751,7 @@ fmt.Println(installation)
 
 ##### Update an installation
 
-Update an installation. Set `isPrivate` and add access groups to put it behind a login.
+Update an installation. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |
@@ -1792,7 +1769,7 @@ fmt.Println(installation)
 
 ##### Delete an installation
 
-Delete an installation of an MCP server.
+Delete an installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 ```go
 installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
@@ -1805,7 +1782,7 @@ fmt.Println(installation)
 
 ##### Add an access group
 
-Let an access group reach a private installation.
+Let an access group reach a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |
@@ -1824,7 +1801,7 @@ fmt.Println(installation)
 
 ##### Remove an access group
 
-Stop an access group reaching a private installation.
+Stop an access group reaching a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
 
 | Direction | Type |
 | --- | --- |

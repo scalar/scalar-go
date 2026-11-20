@@ -184,25 +184,23 @@ func (r *McpServerService) Delete(ctx context.Context, id string, opts ...option
 }
 
 type McpServer struct {
-	ID                string        `json:"id" api:"required"`
-	AutoAddOperations bool          `json:"autoAddOperations" api:"required"`
-	CreatedAt         string        `json:"createdAt" api:"required"`
-	Name              string        `json:"name" api:"required"`
-	Slug              string        `json:"slug" api:"required"`
-	UpdatedAt         string        `json:"updatedAt" api:"required"`
-	JSON              mcpServerJSON `json:"-"`
+	ID        string        `json:"id" api:"required"`
+	CreatedAt string        `json:"createdAt" api:"required"`
+	Name      string        `json:"name" api:"required"`
+	Slug      string        `json:"slug" api:"required"`
+	UpdatedAt string        `json:"updatedAt" api:"required"`
+	JSON      mcpServerJSON `json:"-"`
 }
 
 // mcpServerJSON contains the JSON metadata for the struct [McpServer]
 type mcpServerJSON struct {
-	ID                apijson.Field
-	AutoAddOperations apijson.Field
-	CreatedAt         apijson.Field
-	Name              apijson.Field
-	Slug              apijson.Field
-	UpdatedAt         apijson.Field
-	raw               string
-	ExtraFields       map[string]apijson.Field
+	ID          apijson.Field
+	CreatedAt   apijson.Field
+	Name        apijson.Field
+	Slug        apijson.Field
+	UpdatedAt   apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
 }
 
 func (r *McpServer) UnmarshalJSON(data []byte) (err error) {
@@ -217,7 +215,6 @@ type McpInstallation struct {
 	ID                         string              `json:"id" api:"required"`
 	AccessGroups               []string            `json:"accessGroups" api:"required"`
 	CredentialRedactionEnabled bool                `json:"credentialRedactionEnabled" api:"required"`
-	IsPrivate                  bool                `json:"isPrivate" api:"required"`
 	LoginPortalUID             string              `json:"loginPortalUid" api:"required,nullable"`
 	McpServerID                string              `json:"mcpServerId" api:"required"`
 	McpVersion                 string              `json:"mcpVersion" api:"required,nullable"`
@@ -232,7 +229,6 @@ type mcpInstallationJSON struct {
 	ID                         apijson.Field
 	AccessGroups               apijson.Field
 	CredentialRedactionEnabled apijson.Field
-	IsPrivate                  apijson.Field
 	LoginPortalUID             apijson.Field
 	McpServerID                apijson.Field
 	McpVersion                 apijson.Field
@@ -263,11 +259,10 @@ func (r McpServerNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type McpServerUpdateParams struct {
-	AutoAddOperations param.Field[bool]     `json:"autoAddOperations"`
-	DocsPages         param.Field[[]string] `json:"docsPages"`
-	Name              param.Field[string]   `json:"name"`
-	Operations        param.Field[[]string] `json:"operations"`
-	Slug              param.Field[string]   `json:"slug"`
+	DocsPages  param.Field[[]string] `json:"docsPages"`
+	Name       param.Field[string]   `json:"name"`
+	Operations param.Field[[]string] `json:"operations"`
+	Slug       param.Field[string]   `json:"slug"`
 }
 
 func (r McpServerUpdateParams) MarshalJSON() (data []byte, err error) {
