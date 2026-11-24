@@ -105,16 +105,6 @@ Complete reference of every operation, grouped by resource. See [the README](./R
   - [`Mcp Servers`](#mcp-servers)
     - [List all MCP servers](#list-all-mcp-servers)
     - [Create an MCP server](#create-an-mcp-server)
-    - [Get an MCP server](#get-an-mcp-server)
-    - [Update an MCP server](#update-an-mcp-server)
-    - [Delete an MCP server](#delete-an-mcp-server)
-    - [`Mcp Servers Installations`](#mcp-servers-installations)
-      - [List installations](#list-installations)
-      - [Get an installation](#get-an-installation)
-      - [Update an installation](#update-an-installation)
-      - [Delete an installation](#delete-an-installation)
-      - [Add an access group](#add-an-access-group)
-      - [Remove an access group](#remove-an-access-group)
 
 ## Setup
 
@@ -1628,11 +1618,11 @@ MCP
 
 #### List all MCP servers
 
-List every MCP server on the team.
+List every MCP server on the team, each with its environments and the version tag a request that names no version gets there.
 
 | Direction | Type |
 | --- | --- |
-| Response | [`[]McpServer`](./mcpserver.go) |
+| Response | [`[]McpServerListItem`](./mcpserver.go) |
 
 ```go
 server, err := client.Mcp.Servers.List(context.Background())
@@ -1645,7 +1635,7 @@ fmt.Println(server)
 
 #### Create an MCP server
 
-Create an MCP server over one or more API document versions. The response carries the server and its first installation.
+Create an MCP server linking the API documents of the named versions and the named docs projects. The server builds from each linked document’s versions, not only the version named.
 
 | Direction | Type |
 | --- | --- |
@@ -1661,159 +1651,4 @@ if err != nil {
 }
 
 fmt.Println(server)
-```
-
-#### Get an MCP server
-
-Get a single MCP server by its id.
-
-| Direction | Type |
-| --- | --- |
-| Response | [`McpServer`](./mcpserver.go) |
-
-```go
-server, err := client.Mcp.Servers.Get(context.Background(), "42")
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(server)
-```
-
-#### Update an MCP server
-
-Update MCP server metadata and which tools it exposes.
-
-| Direction | Type |
-| --- | --- |
-| Request | [`McpServerUpdateParams`](./mcpserver.go) |
-| Response | [`McpServer`](./mcpserver.go) |
-
-```go
-server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{})
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(server)
-```
-
-#### Delete an MCP server
-
-Delete an MCP server and every installation it serves.
-
-```go
-server, err := client.Mcp.Servers.Delete(context.Background(), "42")
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(server)
-```
-
-#### `Mcp Servers Installations`
-
-MCP
-
-##### List installations
-
-List the installations of an MCP server. An installation is what an MCP client connects to.
-
-| Direction | Type |
-| --- | --- |
-| Response | [`[]McpInstallationListItem`](./mcpserverinstallation.go) |
-
-```go
-installation, err := client.Mcp.Servers.Installations.List(context.Background(), "42")
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
-```
-
-##### Get an installation
-
-Get a single installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
-
-| Direction | Type |
-| --- | --- |
-| Response | [`McpInstallation`](./mcpserver.go) |
-
-```go
-installation, err := client.Mcp.Servers.Installations.Get(context.Background(), "42", "84")
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
-```
-
-##### Update an installation
-
-Update an installation. Deprecated: address the environment by slug with the `/environments/:environment` form.
-
-| Direction | Type |
-| --- | --- |
-| Request | [`McpServerInstallationUpdateParams`](./mcpserverinstallation.go) |
-| Response | [`McpInstallation`](./mcpserver.go) |
-
-```go
-installation, err := client.Mcp.Servers.Installations.Update(context.Background(), "42", "84", sdk.McpServerInstallationUpdateParams{})
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
-```
-
-##### Delete an installation
-
-Delete an installation of an MCP server. Deprecated: address the environment by slug with the `/environments/:environment` form.
-
-```go
-installation, err := client.Mcp.Servers.Installations.Delete(context.Background(), "42", "84")
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
-```
-
-##### Add an access group
-
-Let an access group reach a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
-
-| Direction | Type |
-| --- | --- |
-| Request | [`McpServerInstallationNewAccessGroupParams`](./mcpserverinstallation.go) |
-
-```go
-installation, err := client.Mcp.Servers.Installations.NewAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationNewAccessGroupParams{
-	AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
-})
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
-```
-
-##### Remove an access group
-
-Stop an access group reaching a private installation. Requires a team admin. Deprecated: address the environment by slug with the `/environments/:environment` form.
-
-| Direction | Type |
-| --- | --- |
-| Request | [`McpServerInstallationDeleteAccessGroupParams`](./mcpserverinstallation.go) |
-
-```go
-installation, err := client.Mcp.Servers.Installations.DeleteAccessGroup(context.Background(), "42", "84", sdk.McpServerInstallationDeleteAccessGroupParams{
-	AccessGroupUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
-})
-if err != nil {
-	panic(err)
-}
-
-fmt.Println(installation)
 ```
