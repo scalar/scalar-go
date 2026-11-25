@@ -65,7 +65,7 @@ func (r *SdkService) List(ctx context.Context, query SdkListParams, opts ...opti
 	return res, err
 }
 
-// Create an SDK from an API document, targeting one or more languages.
+// Create an SDK from an existing API document on the team. Its current version must have content. Send languages or a config declaring targets; omit languages to derive them from config. SDK and target counts must fit the team plan. Config is a JSON string.
 //
 // Parameters:
 //
@@ -80,8 +80,7 @@ func (r *SdkService) List(ctx context.Context, query SdkListParams, opts ...opti
 // Example:
 //
 //	sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
-//		APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
-//		Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
+//		APIUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 //	})
 //	if err != nil {
 //		panic(err)
@@ -126,7 +125,7 @@ func (r *SdkService) Get(ctx context.Context, uid string, opts ...option.Request
 	return res, err
 }
 
-// Update SDK metadata, its linked API, or its config.
+// Update SDK metadata, its linked API, or its JSON-string config. Targets using native GitHub delivery need separate repositories; delivery writes each package at the repository root. Sharing a repository across language targets in this SDK and using reserved promote branches are rejected before config saves.
 //
 // Parameters:
 //
@@ -348,10 +347,11 @@ func (r SdkListParams) URLQuery() (v url.Values) {
 }
 
 type SdkNewParams struct {
-	APIUID    param.Field[string]                 `json:"apiUid" api:"required"`
-	Languages param.Field[[]SdkNewParamsLanguage] `json:"languages" api:"required"`
-	ClassName param.Field[string]                 `json:"className"`
-	Config    param.Field[string]                 `json:"config"`
+	APIUID    param.Field[string] `json:"apiUid" api:"required"`
+	ClassName param.Field[string] `json:"className"`
+	Config    param.Field[string] `json:"config"`
+	// Languages to create. Defaults to the targets declared by config.
+	Languages param.Field[[]SdkNewParamsLanguage] `json:"languages"`
 	Slug      param.Field[string]                 `json:"slug"`
 	Title     param.Field[string]                 `json:"title"`
 }
