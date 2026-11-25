@@ -4,10 +4,7 @@ package sdk
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"net/http"
-	"net/url"
 	"slices"
 
 	"github.com/scalar/scalar-go/internal/apijson"
@@ -20,8 +17,7 @@ import (
 // with the API. You should not instantiate this service directly, and instead use
 // the [NewMcpServerService] method instead.
 type McpServerService struct {
-	Options       []option.RequestOption
-	Installations *McpServerInstallationService
+	Options []option.RequestOption
 }
 
 // NewMcpServerService generates a new service that applies the given options to each request.
@@ -30,11 +26,10 @@ type McpServerService struct {
 func NewMcpServerService(opts ...option.RequestOption) (r *McpServerService) {
 	r = &McpServerService{}
 	r.Options = opts
-	r.Installations = NewMcpServerInstallationService(opts...)
 	return
 }
 
-// List every MCP server on the team.
+// List every MCP server on the team, each with its environments and the version tag a request that names no version gets there.
 //
 // Parameters:
 //
@@ -43,7 +38,7 @@ func NewMcpServerService(opts ...option.RequestOption) (r *McpServerService) {
 //
 // Returns:
 //
-//	*[]McpServer: Default Response
+//	*[]McpServerListItem: Default Response
 //
 // Example:
 //
@@ -53,14 +48,14 @@ func NewMcpServerService(opts ...option.RequestOption) (r *McpServerService) {
 //	}
 //
 //	fmt.Println(server)
-func (r *McpServerService) List(ctx context.Context, opts ...option.RequestOption) (res *[]McpServer, err error) {
+func (r *McpServerService) List(ctx context.Context, opts ...option.RequestOption) (res *[]McpServerListItem, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/mcp/servers"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
 }
 
-// Create an MCP server over one or more API document versions. The response carries the server and its first installation.
+// Create an MCP server linking the API documents of the named versions and the named docs projects. The server builds from each linked document’s versions, not only the version named.
 //
 // Parameters:
 //
@@ -89,120 +84,28 @@ func (r *McpServerService) New(ctx context.Context, body McpServerNewParams, opt
 	return res, err
 }
 
-// Get a single MCP server by its id.
-//
-// Parameters:
-//
-//	ctx: Context for the request.
-//	id: Path parameter.
-//	opts: Options to apply to this request.
-//
-// Returns:
-//
-//	*McpServer: Default Response
-//
-// Example:
-//
-//	server, err := client.Mcp.Servers.Get(context.Background(), "42")
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	fmt.Println(server)
-func (r *McpServerService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *McpServer, err error) {
-	opts = slices.Concat(r.Options, opts)
-	if id == "" {
-		err = errors.New("missing required id parameter")
-		return nil, err
-	}
-	path := fmt.Sprintf("v1/mcp/servers/%s", url.PathEscape(id))
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return res, err
-}
-
-// Update MCP server metadata and which tools it exposes.
-//
-// Parameters:
-//
-//	ctx: Context for the request.
-//	id: Path parameter.
-//	body: McpServerUpdateParams request parameters.
-//	opts: Options to apply to this request.
-//
-// Returns:
-//
-//	*McpServer: Default Response
-//
-// Example:
-//
-//	server, err := client.Mcp.Servers.Update(context.Background(), "42", sdk.McpServerUpdateParams{})
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	fmt.Println(server)
-func (r *McpServerService) Update(ctx context.Context, id string, body McpServerUpdateParams, opts ...option.RequestOption) (res *McpServer, err error) {
-	opts = slices.Concat(r.Options, opts)
-	if id == "" {
-		err = errors.New("missing required id parameter")
-		return nil, err
-	}
-	path := fmt.Sprintf("v1/mcp/servers/%s", url.PathEscape(id))
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return res, err
-}
-
-// Delete an MCP server and every installation it serves.
-//
-// Parameters:
-//
-//	ctx: Context for the request.
-//	id: Path parameter.
-//	opts: Options to apply to this request.
-//
-// Returns:
-//
-//	*map[string]interface{}: Default Response
-//
-// Example:
-//
-//	server, err := client.Mcp.Servers.Delete(context.Background(), "42")
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	fmt.Println(server)
-func (r *McpServerService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *map[string]interface{}, err error) {
-	opts = slices.Concat(r.Options, opts)
-	if id == "" {
-		err = errors.New("missing required id parameter")
-		return nil, err
-	}
-	path := fmt.Sprintf("v1/mcp/servers/%s", url.PathEscape(id))
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return res, err
-}
-
 type McpServer struct {
-	ID                string        `json:"id" api:"required"`
-	AutoAddOperations bool          `json:"autoAddOperations" api:"required"`
-	CreatedAt         string        `json:"createdAt" api:"required"`
-	Name              string        `json:"name" api:"required"`
-	Slug              string        `json:"slug" api:"required"`
-	UpdatedAt         string        `json:"updatedAt" api:"required"`
-	JSON              mcpServerJSON `json:"-"`
+	CreatedAt int64         `json:"createdAt" api:"required"`
+	Domain    string        `json:"domain" api:"required,nullable"`
+	Name      string        `json:"name" api:"required"`
+	Namespace string        `json:"namespace" api:"required"`
+	Slug      string        `json:"slug" api:"required"`
+	UID       string        `json:"uid" api:"required"`
+	UpdatedAt int64         `json:"updatedAt" api:"required"`
+	JSON      mcpServerJSON `json:"-"`
 }
 
 // mcpServerJSON contains the JSON metadata for the struct [McpServer]
 type mcpServerJSON struct {
-	ID                apijson.Field
-	AutoAddOperations apijson.Field
-	CreatedAt         apijson.Field
-	Name              apijson.Field
-	Slug              apijson.Field
-	UpdatedAt         apijson.Field
-	raw               string
-	ExtraFields       map[string]apijson.Field
+	CreatedAt   apijson.Field
+	Domain      apijson.Field
+	Name        apijson.Field
+	Namespace   apijson.Field
+	Slug        apijson.Field
+	UID         apijson.Field
+	UpdatedAt   apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
 }
 
 func (r *McpServer) UnmarshalJSON(data []byte) (err error) {
@@ -213,41 +116,37 @@ func (r mcpServerJSON) RawJSON() string {
 	return r.raw
 }
 
-type McpInstallation struct {
-	ID                         string              `json:"id" api:"required"`
-	AccessGroups               []string            `json:"accessGroups" api:"required"`
-	CredentialRedactionEnabled bool                `json:"credentialRedactionEnabled" api:"required"`
-	IsPrivate                  bool                `json:"isPrivate" api:"required"`
-	LoginPortalUID             string              `json:"loginPortalUid" api:"required,nullable"`
-	McpServerID                string              `json:"mcpServerId" api:"required"`
-	McpVersion                 string              `json:"mcpVersion" api:"required,nullable"`
-	Name                       string              `json:"name" api:"required"`
-	PiiRedactionEnabled        bool                `json:"piiRedactionEnabled" api:"required"`
-	Slug                       string              `json:"slug" api:"required"`
-	JSON                       mcpInstallationJSON `json:"-"`
+type McpServerListItem struct {
+	CreatedAt    int64                          `json:"createdAt" api:"required"`
+	Domain       string                         `json:"domain" api:"required,nullable"`
+	Environments []McpServerListItemEnvironment `json:"environments" api:"required"`
+	Name         string                         `json:"name" api:"required"`
+	Namespace    string                         `json:"namespace" api:"required"`
+	Slug         string                         `json:"slug" api:"required"`
+	UID          string                         `json:"uid" api:"required"`
+	UpdatedAt    int64                          `json:"updatedAt" api:"required"`
+	JSON         mcpServerListItemJSON          `json:"-"`
 }
 
-// mcpInstallationJSON contains the JSON metadata for the struct [McpInstallation]
-type mcpInstallationJSON struct {
-	ID                         apijson.Field
-	AccessGroups               apijson.Field
-	CredentialRedactionEnabled apijson.Field
-	IsPrivate                  apijson.Field
-	LoginPortalUID             apijson.Field
-	McpServerID                apijson.Field
-	McpVersion                 apijson.Field
-	Name                       apijson.Field
-	PiiRedactionEnabled        apijson.Field
-	Slug                       apijson.Field
-	raw                        string
-	ExtraFields                map[string]apijson.Field
+// mcpServerListItemJSON contains the JSON metadata for the struct [McpServerListItem]
+type mcpServerListItemJSON struct {
+	CreatedAt    apijson.Field
+	Domain       apijson.Field
+	Environments apijson.Field
+	Name         apijson.Field
+	Namespace    apijson.Field
+	Slug         apijson.Field
+	UID          apijson.Field
+	UpdatedAt    apijson.Field
+	raw          string
+	ExtraFields  map[string]apijson.Field
 }
 
-func (r *McpInstallation) UnmarshalJSON(data []byte) (err error) {
+func (r *McpServerListItem) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r mcpInstallationJSON) RawJSON() string {
+func (r mcpServerListItemJSON) RawJSON() string {
 	return r.raw
 }
 
@@ -262,30 +161,16 @@ func (r McpServerNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type McpServerUpdateParams struct {
-	AutoAddOperations param.Field[bool]     `json:"autoAddOperations"`
-	DocsPages         param.Field[[]string] `json:"docsPages"`
-	Name              param.Field[string]   `json:"name"`
-	Operations        param.Field[[]string] `json:"operations"`
-	Slug              param.Field[string]   `json:"slug"`
-}
-
-func (r McpServerUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
 type McpServerNewResponse struct {
-	Installation McpInstallation          `json:"installation" api:"required"`
-	Server       McpServer                `json:"server" api:"required"`
-	JSON         mcpServerNewResponseJSON `json:"-"`
+	Server McpServer                `json:"server" api:"required"`
+	JSON   mcpServerNewResponseJSON `json:"-"`
 }
 
 // mcpServerNewResponseJSON contains the JSON metadata for the struct [McpServerNewResponse]
 type mcpServerNewResponseJSON struct {
-	Installation apijson.Field
-	Server       apijson.Field
-	raw          string
-	ExtraFields  map[string]apijson.Field
+	Server      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
 }
 
 func (r *McpServerNewResponse) UnmarshalJSON(data []byte) (err error) {
@@ -293,5 +178,27 @@ func (r *McpServerNewResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r mcpServerNewResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type McpServerListItemEnvironment struct {
+	Served string                           `json:"served" api:"required,nullable"`
+	Slug   string                           `json:"slug" api:"required"`
+	JSON   mcpServerListItemEnvironmentJSON `json:"-"`
+}
+
+// mcpServerListItemEnvironmentJSON contains the JSON metadata for the struct [McpServerListItemEnvironment]
+type mcpServerListItemEnvironmentJSON struct {
+	Served      apijson.Field
+	Slug        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *McpServerListItemEnvironment) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r mcpServerListItemEnvironmentJSON) RawJSON() string {
 	return r.raw
 }

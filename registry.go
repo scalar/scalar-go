@@ -495,7 +495,7 @@ type APIDocument struct {
 	IsPrivate   bool                       `json:"isPrivate" api:"required"`
 	Namespace   string                     `json:"namespace" api:"required"`
 	Slug        string                     `json:"slug" api:"required"`
-	Tags        string                     `json:"tags" api:"required"`
+	Tags        interface{}                `json:"tags" api:"required"`
 	Title       string                     `json:"title" api:"required"`
 	UID         string                     `json:"uid" api:"required"`
 	Version     string                     `json:"version" api:"required"`
