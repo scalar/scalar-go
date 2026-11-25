@@ -1432,7 +1432,7 @@ fmt.Println(sdk)
 
 ### Create an SDK
 
-Create an SDK from an API document, targeting one or more languages.
+Create an SDK from an existing API document on the team. Its current version must have content. Send languages or a config declaring targets; omit languages to derive them from config. SDK and target counts must fit the team plan. Config is a JSON string.
 
 | Direction | Type |
 | --- | --- |
@@ -1441,8 +1441,7 @@ Create an SDK from an API document, targeting one or more languages.
 
 ```go
 sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
-	APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
-	Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
+	APIUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 })
 if err != nil {
 	panic(err)
@@ -1470,7 +1469,7 @@ fmt.Println(sdk)
 
 ### Update an SDK
 
-Update SDK metadata, its linked API, or its config.
+Update SDK metadata, its linked API, or its JSON-string config. Targets using native GitHub delivery need separate repositories; delivery writes each package at the repository root. Sharing a repository across language targets in this SDK and using reserved promote branches are rejected before config saves.
 
 | Direction | Type |
 | --- | --- |
@@ -1558,7 +1557,7 @@ SDKs
 
 #### Link a repository
 
-Link one language target to a GitHub repository, so builds sync there.
+Link an existing language target to a GitHub repository accessible through the Scalar GitHub App. Requires team edit permission and a paid SDK automation plan. Native delivery writes at the repository root; use a separate repository for each target. Directory fields are unsupported. Linking can immediately sync the current build under automatic promotion; pass promotion: manual to hold it back. If GitHub access is missing, connect GitHub and grant the App access in Scalar Dashboard before retrying.
 
 | Direction | Type |
 | --- | --- |

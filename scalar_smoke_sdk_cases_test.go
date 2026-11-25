@@ -42,8 +42,7 @@ func TestScalarSmokeSdkService(t *testing.T) {
 		client := scalarSmokeClient
 		{
 			sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
-				APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
-				Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
+				APIUID: sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
 			})
 			if err != nil {
 				panic(err)
@@ -57,9 +56,9 @@ func TestScalarSmokeSdkService(t *testing.T) {
 		{
 			sdk, err := client.Sdks.New(context.Background(), sdk.SdkNewParams{
 				APIUID:    sdk.F[string]("UakgbKJ5m9gl0JDMbcJqL"),
-				Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
 				ClassName: sdk.F[string]("Acme"),
 				Config:    sdk.F[string]("{\"targets\":{\"typescript\":{\"packageName\":\"@acme/sdk\"}}}"),
+				Languages: sdk.F[[]sdk.SdkNewParamsLanguage]([]sdk.SdkNewParamsLanguage{"typescript"}),
 				Slug:      sdk.F[string]("acme-sdk"),
 				Title:     sdk.F[string]("Acme SDK"),
 			})

@@ -32,7 +32,7 @@ func NewSdkRepositoryService(opts ...option.RequestOption) (r *SdkRepositoryServ
 	return
 }
 
-// Link one language target to a GitHub repository, so builds sync there.
+// Link an existing language target to a GitHub repository accessible through the Scalar GitHub App. Requires team edit permission and a paid SDK automation plan. Native delivery writes at the repository root; use a separate repository for each target. Directory fields are unsupported. Linking can immediately sync the current build under automatic promotion; pass promotion: manual to hold it back. If GitHub access is missing, connect GitHub and grant the App access in Scalar Dashboard before retrying.
 //
 // Parameters:
 //
@@ -144,10 +144,15 @@ func (r *SdkRepositoryService) UpdatePublishing(ctx context.Context, uid string,
 }
 
 type SdkRepositoryLinkParams struct {
+	// Release promote branch. Platform-managed branches such as scalar-next and
+	// scalar-generated are reserved.
 	BaseBranch     param.Field[string]                          `json:"baseBranch" api:"required"`
 	Language       param.Field[SdkRepositoryLinkParamsLanguage] `json:"language" api:"required"`
 	RepositoryID   param.Field[int64]                           `json:"repositoryId" api:"required"`
 	PrereleaseType param.Field[string]                          `json:"prereleaseType"`
+	// Controls when a build becomes current and syncs to GitHub. Omit to preserve the
+	// saved policy.
+	Promotion param.Field[SdkRepositoryLinkParamsPromotion] `json:"promotion"`
 }
 
 func (r SdkRepositoryLinkParams) MarshalJSON() (data []byte, err error) {
@@ -175,6 +180,21 @@ const (
 func (r SdkRepositoryLinkParamsLanguage) IsKnown() bool {
 	switch r {
 	case SdkRepositoryLinkParamsLanguageTypescript, SdkRepositoryLinkParamsLanguagePython, SdkRepositoryLinkParamsLanguageCli, SdkRepositoryLinkParamsLanguageCsharp, SdkRepositoryLinkParamsLanguageJava, SdkRepositoryLinkParamsLanguageRuby, SdkRepositoryLinkParamsLanguagePhp, SdkRepositoryLinkParamsLanguageGo, SdkRepositoryLinkParamsLanguageRust, SdkRepositoryLinkParamsLanguageKotlin, SdkRepositoryLinkParamsLanguageSwift, SdkRepositoryLinkParamsLanguageCpp, SdkRepositoryLinkParamsLanguageDart:
+		return true
+	}
+	return false
+}
+
+type SdkRepositoryLinkParamsPromotion string
+
+const (
+	SdkRepositoryLinkParamsPromotionAutomatic SdkRepositoryLinkParamsPromotion = "automatic"
+	SdkRepositoryLinkParamsPromotionManual    SdkRepositoryLinkParamsPromotion = "manual"
+)
+
+func (r SdkRepositoryLinkParamsPromotion) IsKnown() bool {
+	switch r {
+	case SdkRepositoryLinkParamsPromotionAutomatic, SdkRepositoryLinkParamsPromotionManual:
 		return true
 	}
 	return false

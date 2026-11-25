@@ -37,6 +37,7 @@ func TestScalarSmokeSdkRepositoryService(t *testing.T) {
 				Language:       sdk.F[sdk.SdkRepositoryLinkParamsLanguage](sdk.SdkRepositoryLinkParamsLanguage("typescript")),
 				RepositoryID:   sdk.F[int64](123456789),
 				PrereleaseType: sdk.F[string]("beta"),
+				Promotion:      sdk.F[sdk.SdkRepositoryLinkParamsPromotion](sdk.SdkRepositoryLinkParamsPromotion("automatic")),
 			})
 			if err != nil {
 				panic(err)
