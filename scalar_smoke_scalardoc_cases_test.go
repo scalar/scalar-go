@@ -199,7 +199,7 @@ func TestScalarSmokeScalarDocService(t *testing.T) {
 		client := scalarSmokeClient
 		{
 			scalarDoc, err := client.ScalarDocs.PublishProject(context.Background(), "acme-docs", sdk.ScalarDocPublishProjectParams{
-				CommitSha:  sdk.F[string]("0123456789abcdef0123456789abcdef01234567"),
+				CommitSha:  sdk.F[interface{}]("0123456789abcdef0123456789abcdef01234567"),
 				ConfigPath: sdk.F[string]("scalar.config.json"),
 				Preview:    sdk.F[bool](false),
 			})
