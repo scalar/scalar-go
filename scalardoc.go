@@ -680,9 +680,9 @@ func (r ScalarDocUpdateProjectParams) MarshalJSON() (data []byte, err error) {
 }
 
 type ScalarDocPublishProjectParams struct {
-	CommitSha  param.Field[string] `json:"commitSha"`
-	ConfigPath param.Field[string] `json:"configPath"`
-	Preview    param.Field[bool]   `json:"preview"`
+	CommitSha  param.Field[interface{}] `json:"commitSha"`
+	ConfigPath param.Field[string]      `json:"configPath"`
+	Preview    param.Field[bool]        `json:"preview"`
 }
 
 func (r ScalarDocPublishProjectParams) MarshalJSON() (data []byte, err error) {
