@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.8.0](https://github.com/scalar/scalar-go/compare/v0.7.0...v0.8.0) (2026-11-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** request-shape ScalarDocPublishProjectParams.commitSha — untyped in after, typed in the other (review: direction-dependent; read the hunk)
+
+### Features
+
+* **api:** update request-shape ScalarDocPublishProjectParams.commitSha ([405af7c](https://github.com/scalar/scalar-go/commit/405af7c9473d2184c42a78e7d43658e38d0a7556))
+
 ## [0.7.0](https://github.com/scalar/scalar-go/compare/v0.6.0...v0.7.0) (2026-11-25)
 
 
