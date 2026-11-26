@@ -164,6 +164,10 @@ func (e *encoder) newPrimitiveTypeEncoder(t reflect.Type) encoderFunc {
 		return func(v reflect.Value) ([]byte, error) {
 			return []byte(strconv.FormatUint(v.Uint(), 10)), nil
 		}
+	// JSON has no spelling for a non-finite number, and the float cases below don't check for one:
+	// +Inf, -Inf and NaN go out as the bare text `+Inf`, `-Inf` and `NaN`, which is invalid JSON,
+	// and no error is returned. A form or multipart body (apiquery, apiform) carries the same text
+	// as a valid field value.
 	case reflect.Float32:
 		return func(v reflect.Value) ([]byte, error) {
 			return []byte(strconv.FormatFloat(v.Float(), 'f', -1, 32)), nil
